@@ -38,7 +38,8 @@ KALI:
 WINDOWS:
  
  <img width="832" height="95" alt="image" src="https://github.com/user-attachments/assets/a67db2f3-a14a-43af-a663-29db86d49e7d" />
-change execution policy
+
+Change execution policy:
 
 <img width="996" height="126" alt="image" src="https://github.com/user-attachments/assets/23a02ae1-22cf-498e-8b47-c104387893e2" />
 
