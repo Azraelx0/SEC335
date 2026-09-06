@@ -25,7 +25,8 @@ python3 -m http.server 8000
 
 ON WINDOWS
 ```wget http://192.168.199.129:8000/winPEAS.ps1 -OutFile winPEAS.ps1```
-<img width="603" height="334" alt="image" src="https://github.com/user-attachments/assets/dfebb95e-397e-48ed-9f2a-9662e486cf6b" />
+<img width="638" height="328" alt="image" src="https://github.com/user-attachments/assets/c8c6867f-ae3e-4ee7-8709-dc376dff5d27" />
+
 
 Now verify the file hash
  KALI:
@@ -33,3 +34,21 @@ Now verify the file hash
 
  WINDOWS:
  <img width="832" height="95" alt="image" src="https://github.com/user-attachments/assets/a67db2f3-a14a-43af-a663-29db86d49e7d" />
+change execution policy
+<img width="996" height="126" alt="image" src="https://github.com/user-attachments/assets/23a02ae1-22cf-498e-8b47-c104387893e2" />
+
+#### Screenshot Deliverables
+Screenshot of WinPEAS banner and initial execution
+
+Screenshot of the color-coded output summary
+
+Output file saved as winpeas_output_[yourname].txt
+
+Document the command(s) used to run WinPEAS in your Tech Journal
+```.\winPEAS.ps1```
+#### Questions to Answer:
+What hash algorithm does WinPEAS use for verification? What is the file hash?
+
+What does the RED/YELLOW/GREEN color coding indicate?
+
+How long did the full scan take? What factors affect scan duration?
