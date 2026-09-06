@@ -29,12 +29,15 @@ ON WINDOWS
 
 
 Now verify the file hash
- KALI:
+KALI:
+ 
  <img width="665" height="83" alt="image" src="https://github.com/user-attachments/assets/794b8500-6284-45ff-9c83-3e521c556ff1" />
 
- WINDOWS:
+WINDOWS:
+ 
  <img width="832" height="95" alt="image" src="https://github.com/user-attachments/assets/a67db2f3-a14a-43af-a663-29db86d49e7d" />
 change execution policy
+
 <img width="996" height="126" alt="image" src="https://github.com/user-attachments/assets/23a02ae1-22cf-498e-8b47-c104387893e2" />
 
 #### Screenshot Deliverables
