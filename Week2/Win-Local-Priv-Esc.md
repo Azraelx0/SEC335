@@ -46,6 +46,8 @@ Change execution policy:
 #### Screenshot Deliverables
 Screenshot of WinPEAS banner and initial execution
 
+<img width="837" height="600" alt="image" src="https://github.com/user-attachments/assets/cfbd04f3-9821-487e-abde-94b3bf01353c" />
+
 Screenshot of the color-coded output summary
 
 Output file saved as winpeas_output_[yourname].txt
@@ -66,3 +68,19 @@ Task 2
 Downloaded the zip file to my kali machine, to get it to win10 machine used the same method as before
 
 <img width="878" height="376" alt="image" src="https://github.com/user-attachments/assets/d54f0962-466c-4e11-b6ff-28168500a542" />
+
+Successfully ran the lab setup script
+
+<img width="837" height="600" alt="image" src="https://github.com/user-attachments/assets/c20fbca9-945a-4382-b365-308477534176" />
+
+Tech Journal Submission
+Document the bypass method.
+I used ```Set-MpPreference -DisableRealtimeMonitoring $true``` to shut off microsoft defender
+
+Document the 10 vulnerabilities to explain how it elevates privileges. what specific weakness is being exploited.
+
+Provide links to resources that show how to exploit the vulnerabilities.
+Write a short summary on how to exploit each vulnerability.
+Write a short summary on how to fix each vulnerability.
+
+
