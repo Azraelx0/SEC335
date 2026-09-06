@@ -30,6 +30,7 @@ ON WINDOWS
 
 
 Now verify the file hash
+
 KALI:
  
  <img width="665" height="83" alt="image" src="https://github.com/user-attachments/assets/794b8500-6284-45ff-9c83-3e521c556ff1" />
