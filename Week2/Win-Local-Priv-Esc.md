@@ -51,10 +51,18 @@ Screenshot of the color-coded output summary
 Output file saved as winpeas_output_[yourname].txt
 
 Document the command(s) used to run WinPEAS in your Tech Journal
-```.\winPEAS.ps1```
+```.\winPEAS.ps1 | Tee-Object -FilePath winpeas_output_yourname.txt```
 #### Questions to Answer:
 What hash algorithm does WinPEAS use for verification? What is the file hash?
 
 What does the RED/YELLOW/GREEN color coding indicate?
+Red means that the finding is critical and has a clear privilege escalation path
+Yellow means that the finding is a high-priority finding. You should look into this
+Green means that the finding is most likely safe or typical
 
 How long did the full scan take? What factors affect scan duration?
+
+Task 2
+Downloaded the zip file to my kali machine, to get it to win10 machine used the same method as before
+
+<img width="878" height="376" alt="image" src="https://github.com/user-attachments/assets/d54f0962-466c-4e11-b6ff-28168500a542" />
