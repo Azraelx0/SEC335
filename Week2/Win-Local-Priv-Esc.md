@@ -69,18 +69,36 @@ Downloaded the zip file to my kali machine, to get it to win10 machine used the 
 
 <img width="878" height="376" alt="image" src="https://github.com/user-attachments/assets/d54f0962-466c-4e11-b6ff-28168500a542" />
 
-Successfully ran the lab setup script
-
-<img width="837" height="600" alt="image" src="https://github.com/user-attachments/assets/c20fbca9-945a-4382-b365-308477534176" />
-
 Tech Journal Submission
 Document the bypass method.
 I used ```Set-MpPreference -DisableRealtimeMonitoring $true``` to shut off microsoft defender
 
-Document the 10 vulnerabilities to explain how it elevates privileges. what specific weakness is being exploited.
+This Lab setup script injected 10 vulnerabilities into our windows vm. Below are the ten vulns documented and explained with the following guidelines:
 
-Provide links to resources that show how to exploit the vulnerabilities.
-Write a short summary on how to exploit each vulnerability.
-Write a short summary on how to fix each vulnerability.
+- Document the 10 vulnerabilities to explain how it elevates privileges, with the specific weakness being exploited.
 
+- Link(s) to resources that show how to exploit the vulnerabilities.
 
+- Short summary on how to exploit each vulnerability.
+
+- Short summary on how to fix each vulnerability.
+
+1. Unquoted Service Path - VulnSvc
+
+2. AlwaysInstallElevated - HKLM + HKCU
+
+3. Weak Service Permissions - WeakSvc
+
+4. Weak Registry Permissions - RegSvc
+
+5. DLL Hijacking - DLLHijackSvc
+
+6. Missing Service Binary - MissingBinSvc
+
+7. Writable PATH Directory
+
+8. Startup Folder Permissions
+
+9. Unattend.xml with Credentials
+
+10. Scheduled Task - VulnScheduledTask
