@@ -11,3 +11,4 @@ In this lab we will acheive the following objectives:
 
 5. Exploit local privilege escalation vulnerabilities
 
+### We will be using a Windows 10 VM (Target) and a Kali VM (Attacker)
