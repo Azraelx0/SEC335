@@ -219,3 +219,26 @@ Unattend.xml is a file used to automate Windows installs. Most deployments or si
 https://support.microsoft.com/en-us/servicing/os/windows/2025/12/windows-deployment-services-wds-hands-free-deployment-hardening-guidance-related-to-cve-2026-0386
 
 10. Scheduled Task - VulnScheduledTask
+
+This vuln opens up opportunities for the attacker to both achieve privilege escalation and persistence. If an attacker can create a scheduled task then they can run malicious payloads with higher privileges and set recurring tasks to run malware. Additionally, this vuln can allow an attacker to hide the scheduled process. One method to exploit this vuln is to combine it with a search order hijacking attack on the built-in MareBackup process. This can then be abused by a low-privileged user to gain SYSTEM level privileges whenever a vulnerable folder is prepended to the system’s PATH environment variable instead of being appended. 
+Commands to search for this vuln:
+```
+# Check the system PATH
+Get-ItemProperty -Path "Registry::HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" -Name "Path" | Select-Object -ExpandProperty Path
+# Check whether the scheduled task exists and is enabled
+Get-ScheduledTask -TaskName "MareBackup"
+# Enable the scheduled task if needed
+Enable-ScheduledTask -TaskPath "\Microsoft\Windows\Application Experience" -TaskName "MareBackup"
+# Start the scheduled task
+Start-ScheduledTask -TaskPath "\Microsoft\Windows\Application Experience" -TaskName "MareBackup"
+```
+To fix scheduled task vulns in general:
+
+Ensure that the following registry key can only be modified by trusted admins
+```HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree```
+Watch event logs and look for any potential unauthorized changes to registry keys associated with scheduled tasks
+
+Update Windows system
+
+https://attack.mitre.org/techniques/T1053/005/
+https://itm4n.github.io/hijacking-the-windows-marebackup-scheduled-task-for-privilege-escalation/
