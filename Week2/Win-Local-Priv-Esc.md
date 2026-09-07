@@ -236,6 +236,7 @@ To fix scheduled task vulns in general:
 
 Ensure that the following registry key can only be modified by trusted admins
 ```HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree```
+
 Watch event logs and look for any potential unauthorized changes to registry keys associated with scheduled tasks
 
 Update Windows system
