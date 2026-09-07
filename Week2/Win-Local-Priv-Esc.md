@@ -234,12 +234,12 @@ Start-ScheduledTask -TaskPath "\Microsoft\Windows\Application Experience" -TaskN
 ```
 To fix scheduled task vulns in general:
 
-Ensure that the following registry key can only be modified by trusted admins
+- Ensure that the following registry key can only be modified by trusted admins
 ```HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree```
 
-Watch event logs and look for any potential unauthorized changes to registry keys associated with scheduled tasks
+- Watch event logs and look for any potential unauthorized changes to registry keys associated with scheduled tasks
 
-Update Windows system
+- Update Windows system
 
 https://attack.mitre.org/techniques/T1053/005/
 https://itm4n.github.io/hijacking-the-windows-marebackup-scheduled-task-for-privilege-escalation/
