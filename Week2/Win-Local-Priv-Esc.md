@@ -68,6 +68,8 @@ Green means that the finding is most likely safe or typical
 
 How long did the full scan take? What factors affect scan duration?
 
+The scan took hours to finish, it always seemed to stop on the registry password check section where it stopped, though it didn't freeze or hang
+
 Task 2
 Downloaded the zip file to my kali machine, to get it to win10 machine used the same method as before
 
@@ -164,7 +166,7 @@ https://attack.mitre.org/techniques/T1574/011/
 
 This vuln is tricking a trusted app into loading a malicious DLL. Attacks using this vuln take many forms and it's a fairly broad category. One method is using DLL Search Order Hijacking, which is done by placing the malicious DLL in a search path ahead of the legitimate one, exploiting the application’s search pattern. Another method is Phantom DLL Hijacking which involves creating a malicious DLL for an application to load, thinking it’s a non-existent required DLL.
 
-Fixes and Prevention Includes:
+Fixes and Prevention Include:
 
  - EDR, Strict Directory Permissions
  - Safe DLL Search Order, Absolute Paths
@@ -173,10 +175,15 @@ https://hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/
 
 6. Missing Service Binary - MissingBinSvc
 
-
+This is another vuln that often falls under other categories like unqouted service path or weak permissions. This is due to the fact that exploiting it leverages the fact that there used to be a file that was being executed with elevated rights, but it was deleted or no longer exists. Attackers can exploit this by creating their own file and placing it in the same location to leverage the elevated permissions.
+In order to fix this vuln you need to be careful to remove any orphaned or missing services. Also using absolute file paths can help to prevent it as well. 
 
 7. Writable PATH Directory
 
+This vulnerability happens when a system path environment variable has been modified to include a directory writable by unprivileged users. This is commonly caused when an application is installed outside of the appropriate directory (e.g. “Program Files”) and then the system path environment variable is modified to point to the installed directory. One of the more simple ways to exploit this vulnerability is to identify an application service running as NT AUTHORITYSYSTEM that attempts to load a non-existent DLL or attempts to execute a non-existent executable file. Since this file doesn’t exist on server operating systems, it will eventually traverse the system path, looking for the file. 
+To fix this we can harden access controls used as well as audit current permissions.
+
+https://www.praetorian.com/blog/red-team-local-privilege-escalation-writable-system-path-privilege-escalation-part-1/
 
 8. Startup Folder Permissions
 
