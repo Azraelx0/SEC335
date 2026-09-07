@@ -53,7 +53,6 @@ Screenshot of the color-coded output summary
 
 Output file saved as winpeas_output_[yourname].txt
 
-<img width="1015" height="491" alt="image" src="https://github.com/user-attachments/assets/c87c45c1-2f83-4515-aa49-3c12995c6c1e" />
 
 Document the command(s) used to run WinPEAS in your Tech Journal
 ```.\winPEASx64.exe | Tee-Object -FilePath winpeas_output_yourname.txt```
