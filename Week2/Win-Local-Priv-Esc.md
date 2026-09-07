@@ -190,10 +190,12 @@ https://www.praetorian.com/blog/red-team-local-privilege-escalation-writable-sys
 
 8. Startup Folder Permissions
 
-This vuln allows an attacker to place a file or program into the startup folder which will then be executed the next time the given user logs in. The escalation level will depend what permissions the targeted user has. The following are registry key and folder paths that can be used to achieve persistence, execute programs, and setup RATs:
+This vuln allows an attacker to place a file or program into the startup folder which will then be executed the next time the given user logs in. The escalation level will depend what permissions the targeted user has. The following are registry key and folder paths that can be used to achieve persistence, execute programs, and set up RATs:
 
 The startup folder path for the current user is ```C:\Users\[Username]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup```
+
 The startup folder path for all users is ```C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp```
+
 The following Registry keys can be used to set startup folder items for persistence:
 ```
     HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders
@@ -211,5 +213,9 @@ The following Registry keys can control automatic startup of services during boo
 https://attack.mitre.org/techniques/T1547/001/
 
 9. Unattend.xml with Credentials
+
+Unattend.xml is a file used to automate Windows installs. Most deployments or situations where these files are used will have admin credentials, so an attacker who finds these files can easily steal them in order to escalate to an admin account. Some fixes are to harden Windows Deployment Services(WDS), delete all leftover files from post-Windows deployments, and scrub credentials.
+
+https://support.microsoft.com/en-us/servicing/os/windows/2025/12/windows-deployment-services-wds-hands-free-deployment-hardening-guidance-related-to-cve-2026-0386
 
 10. Scheduled Task - VulnScheduledTask
