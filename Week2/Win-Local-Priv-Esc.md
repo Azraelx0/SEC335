@@ -190,6 +190,26 @@ https://www.praetorian.com/blog/red-team-local-privilege-escalation-writable-sys
 
 8. Startup Folder Permissions
 
+This vuln allows an attacker to place a file or program into the startup folder which will then be executed the next time the given user logs in. The escalation level will depend what permissions the targeted user has. The following are registry key and folder paths that can be used to achieve persistence, execute programs, and setup RATs:
+
+The startup folder path for the current user is ```C:\Users\[Username]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup```
+The startup folder path for all users is ```C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp```
+The following Registry keys can be used to set startup folder items for persistence:
+```
+    HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders
+    HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders
+    HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders
+    HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders
+```
+The following Registry keys can control automatic startup of services during boot:
+```
+    HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce
+    HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce
+    HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServices
+    HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunServices
+```
+https://attack.mitre.org/techniques/T1547/001/
+
 9. Unattend.xml with Credentials
 
 10. Scheduled Task - VulnScheduledTask
