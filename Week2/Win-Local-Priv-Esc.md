@@ -146,6 +146,10 @@ https://docs.specterops.io/ghostpack-docs/SharpUp-mdx/checks/alwaysinstallelevat
 
 3. Weak Service Permissions - WeakSvc
 
+This vuln can take several forms though it basically means that a service can be modified in a way that a low-privileged user can take advantage of it. Exploits for this vuln can take numerous forms. An example is to overwrite a service's binary file or folder with a malicious one. A couple fixes for this is to use least privilege frameworks and ensure that ACLs are configured and correct.
+
+https://www.ired.team/offensive-security/privilege-escalation/weak-service-permissions
+
 4. Weak Registry Permissions - RegSvc
 
 5. DLL Hijacking - DLLHijackSvc
