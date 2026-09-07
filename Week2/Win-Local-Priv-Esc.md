@@ -58,6 +58,8 @@ Document the command(s) used to run WinPEAS in your Tech Journal
 What hash algorithm does WinPEAS use for verification? What is the file hash?
 I used sha256 to verify the file hash. Screenshot of file hash below:
 
+<img width="665" height="83" alt="image" src="https://github.com/user-attachments/assets/1df9dc96-49b9-4491-98b3-f025e1f1771a" />
+
 
 What does the RED/YELLOW/GREEN color coding indicate?
 Red means that the finding is critical and has a clear privilege escalation path
