@@ -83,9 +83,36 @@ This Lab setup script injected 10 vulnerabilities into our windows vm. Below are
 
 - Short summary on how to fix each vulnerability.
 
+
 1. Unquoted Service Path - VulnSvc
 
+This vulnerability results from service paths containing spaces and no quotes.
+For example, for the path C:\Program Files\Some Folder\Service.exe Windows will try to execute:
+```
+C:\Program.exe
+C:\Program Files\Some.exe
+C:\Program Files\Some Folder\Service.exe
+```
+example from hacktricks.
+
+To fix:
+
+Open the Windows Registry Editor as an administrator.
+
+Go to HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services.
+
+Find the vulnerable service and look at the ImagePath value.
+
+Add quotation marks around the path (change C:\Program Files\App\service.exe to "C:\Program Files\App\service.exe").
+
+Then restart pc
+
+https://isgovern.com/blog/how-to-fix-the-windows-unquoted-service-path-vulnerability/
+
+https://hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/index.html
+
 2. AlwaysInstallElevated - HKLM + HKCU
+
 
 3. Weak Service Permissions - WeakSvc
 
