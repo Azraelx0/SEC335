@@ -56,6 +56,8 @@ Document the command(s) used to run WinPEAS in your Tech Journal
 ```.\winPEAS.ps1 | Tee-Object -FilePath winpeas_output_yourname.txt```
 #### Questions to Answer:
 What hash algorithm does WinPEAS use for verification? What is the file hash?
+I used sha256 to verify the file hash. Screenshot of file hash below:
+
 
 What does the RED/YELLOW/GREEN color coding indicate?
 Red means that the finding is critical and has a clear privilege escalation path
@@ -168,6 +170,7 @@ Fixes and Prevention Includes:
 https://hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/dll-hijacking/index.html
 
 6. Missing Service Binary - MissingBinSvc
+
 
 
 7. Writable PATH Directory
