@@ -152,11 +152,26 @@ https://www.ired.team/offensive-security/privilege-escalation/weak-service-permi
 
 4. Weak Registry Permissions - RegSvc
 
+This vuln is relatively similar to the last one with similar fixes. Exploiting this vuln takes a similar form as the last as well.
+
+https://attack.mitre.org/techniques/T1574/011/
+
 5. DLL Hijacking - DLLHijackSvc
+
+This vuln is tricking a trusted app into loading a malicious DLL. Attacks using this vuln take many forms and it's a fairly broad category. One method is using DLL Search Order Hijacking, which is done by placing the malicious DLL in a search path ahead of the legitimate one, exploiting the application’s search pattern. Another method is Phantom DLL Hijacking which involves creating a malicious DLL for an application to load, thinking it’s a non-existent required DLL.
+
+Fixes and Prevention Includes:
+
+ - EDR, Strict Directory Permissions
+ - Safe DLL Search Order, Absolute Paths
+
+https://hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/dll-hijacking/index.html
 
 6. Missing Service Binary - MissingBinSvc
 
+
 7. Writable PATH Directory
+
 
 8. Startup Folder Permissions
 
