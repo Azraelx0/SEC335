@@ -293,13 +293,12 @@ winPEAS was unable to locate this vuln in the scan I did. However, I manually se
 
 Task 4
 
-<img width="840" height="135" alt="image" src="https://github.com/user-attachments/assets/5a150c99-ac75-430c-a5d5-00f2262578d7" />
+WeakSvc Exploit
 
-<img width="637" height="349" alt="image" src="https://github.com/user-attachments/assets/13e36040-a527-454f-8617-9a03fd96bf2f" />
 
-<img width="657" height="281" alt="image" src="https://github.com/user-attachments/assets/106e092b-f119-4104-b9f2-3689e3ea8ad6" />
 
-<img width="459" height="185" alt="image" src="https://github.com/user-attachments/assets/c3c07d42-1166-4995-8019-6e8409e1d38a" />
+
+
 
 
 
