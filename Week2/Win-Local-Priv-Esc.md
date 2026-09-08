@@ -355,7 +355,7 @@ https://youtu.be/tZ9cMBuDX4s
 
 DLL Hijacking - DLLHijackSvc
 
-Next I will exploit the DLL Hijack vuln
+Next I will exploit the DLL Hijack vuln. This is where I paused this lab. I need to do some research into what specific DLL Hijacking exploit to run on this specific vuln
 
 
 
