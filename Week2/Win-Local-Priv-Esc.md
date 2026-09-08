@@ -53,6 +53,8 @@ Screenshot of the color-coded output summary
 
 Output file saved as winpeas_output_[yourname].txt
 
+<img width="129" height="30" alt="image" src="https://github.com/user-attachments/assets/98bea954-6057-4ee4-886a-ae26fb35611c" />
+
 
 Document the command(s) used to run WinPEAS in your Tech Journal
 ```.\winPEASx64.exe | Tee-Object -FilePath winpeas_output_yourname.txt```
@@ -243,3 +245,44 @@ To fix scheduled task vulns in general:
 
 https://attack.mitre.org/techniques/T1053/005/
 https://itm4n.github.io/hijacking-the-windows-marebackup-scheduled-task-for-privilege-escalation/
+
+### Re-Run winPEAS
+We will run winPEAS again in order to find the 10 vulns setup by our script. Each of the 10 vulns found will be documented below with screenshots:
+
+1. Unquoted Service Path - VulnSvc
+
+<img width="999" height="69" alt="image" src="https://github.com/user-attachments/assets/c049cbaa-dec2-4c41-8817-4209820d5117" />
+
+
+2. AlwaysInstallElevated - HKLM + HKCU
+
+
+
+3. Weak Service Permissions - WeakSvc
+
+<img width="993" height="60" alt="image" src="https://github.com/user-attachments/assets/857e5184-b424-4131-a6b2-16b477a08dc5" />
+
+4. Weak Registry Permissions - RegSvc
+
+<img width="1004" height="74" alt="image" src="https://github.com/user-attachments/assets/3586b7df-115f-4162-8ff6-efc01295872e" />
+
+5. DLL Hijacking - DLLHijackSvc
+
+<img width="993" height="57" alt="image" src="https://github.com/user-attachments/assets/52f15338-4e60-494e-8766-09f02f1ca650" />
+
+6. Missing Service Binary - MissingBinSvc
+
+<img width="993" height="58" alt="image" src="https://github.com/user-attachments/assets/bfde6369-6c49-42b0-b3c5-0810ebb48a54" />
+
+7. Writable PATH Directory
+
+
+8. Startup Folder Permissions
+
+
+9. Unattend.xml with Credentials
+
+<img width="957" height="59" alt="image" src="https://github.com/user-attachments/assets/fdc6d700-a37e-4ca0-92ad-f3294310ff12" />
+
+10. Scheduled Task - VulnScheduledTask
+
