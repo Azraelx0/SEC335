@@ -353,7 +353,9 @@ Trigger with reboot
 
 https://youtu.be/tZ9cMBuDX4s
 
+DLL Hijacking - DLLHijackSvc
 
+Next I will exploit the DLL Hijack vuln
 
 
 
