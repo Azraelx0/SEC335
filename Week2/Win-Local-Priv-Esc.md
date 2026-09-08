@@ -275,9 +275,12 @@ We will run winPEAS again in order to find the 10 vulns setup by our script. Eac
 
 7. Writable PATH Directory
 
+<img width="1042" height="120" alt="image" src="https://github.com/user-attachments/assets/e685c734-5801-422d-ad03-ae209b7adcec" />
+
 
 8. Startup Folder Permissions
 
+<img width="984" height="87" alt="image" src="https://github.com/user-attachments/assets/202b4739-f9a9-430b-8ca2-9544fbcf20bd" />
 
 9. Unattend.xml with Credentials
 
