@@ -296,6 +296,8 @@ Task 4
 WeakSvc Exploit
 https://youtu.be/L6jsYKpi2os
 
+Weak Registry Permissions - RegSvc Exploit
+https://youtu.be/tZ9cMBuDX4s
 
 
 
