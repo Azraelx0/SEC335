@@ -294,7 +294,7 @@ winPEAS was unable to locate this vuln in the scan I did. However, I manually se
 Task 4
 
 WeakSvc Exploit
-
+https://youtu.be/L6jsYKpi2os
 
 
 
