@@ -253,10 +253,9 @@ We will run winPEAS again in order to find the 10 vulns setup by our script. Eac
 
 <img width="999" height="69" alt="image" src="https://github.com/user-attachments/assets/c049cbaa-dec2-4c41-8817-4209820d5117" />
 
-
 2. AlwaysInstallElevated - HKLM + HKCU
 
-
+<img width="1024" height="55" alt="image" src="https://github.com/user-attachments/assets/7178d460-69f9-4c67-842e-c4a3a8705b19" />
 
 3. Weak Service Permissions - WeakSvc
 
