@@ -287,4 +287,21 @@ We will run winPEAS again in order to find the 10 vulns setup by our script. Eac
 <img width="957" height="59" alt="image" src="https://github.com/user-attachments/assets/fdc6d700-a37e-4ca0-92ad-f3294310ff12" />
 
 10. Scheduled Task - VulnScheduledTask
+winPEAS was unable to locate this vuln in the scan I did. However, I manually searched for this vuln with the command ```schtasks /query /tn "VulnScheduledTask" /fo LIST /v``` this led to the task seen below:
+
+<img width="651" height="467" alt="image" src="https://github.com/user-attachments/assets/a96eef6f-0846-4da2-8862-c0fcec9679be" />
+
+Task 4
+
+<img width="840" height="135" alt="image" src="https://github.com/user-attachments/assets/5a150c99-ac75-430c-a5d5-00f2262578d7" />
+
+<img width="637" height="349" alt="image" src="https://github.com/user-attachments/assets/13e36040-a527-454f-8617-9a03fd96bf2f" />
+
+<img width="657" height="281" alt="image" src="https://github.com/user-attachments/assets/106e092b-f119-4104-b9f2-3689e3ea8ad6" />
+
+<img width="459" height="185" alt="image" src="https://github.com/user-attachments/assets/c3c07d42-1166-4995-8019-6e8409e1d38a" />
+
+
+
+
 
