@@ -15,7 +15,6 @@ In this lab we will acheive the following objectives:
 
 #### Task 1: WinPEAS Enumeration
 
-
 ON KALI
 Downloaded winpeas from kali vm ```git clone https://github.com/peass-ng/PEASS-ng.git```
 
