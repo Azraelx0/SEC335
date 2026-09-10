@@ -64,13 +64,11 @@ I used sha256 to verify the file hash. Screenshot of file hash below:
 
 
 What does the RED/YELLOW/GREEN color coding indicate?
-Red means that the finding is critical and has a clear privilege escalation path
-Yellow means that the finding is a high-priority finding. You should look into this
-Green means that the finding is most likely safe or typical
+Red means that the finding is critical and has a clear privilege escalation path. Yellow means that the finding is a high-priority finding and you should look into it. Green means that the finding is most likely safe or typical.
 
 How long did the full scan take? What factors affect scan duration?
 
-The scan took hours to finish, it always seemed to stop on the registry password check section where it stopped, though it didn't freeze or hang
+The scan took hours to finish. It always seemed to stop on the registry password check section where it stopped, though it didn't freeze or hang.
 
 Task 2
 Downloaded the zip file to my kali machine, to get it to win10 machine used the same method as before
