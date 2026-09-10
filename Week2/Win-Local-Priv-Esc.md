@@ -364,6 +364,10 @@ icacls "C:\Program Files\Vulnerable Service"
 ```
 Note: I don't use a trailing backslash after "Program Files" or "Vulnerable Service" as it causes an error syntax with icacls
 
+<img width="961" height="243" alt="image" src="https://github.com/user-attachments/assets/89442e70-6389-4873-bf3d-6fd214bcb3b1" />
+
+I find that the "Vulnerable Service folder is the one that my user has Full Control over
+
 
 DLL Hijacking - DLLHijackSvc
 
