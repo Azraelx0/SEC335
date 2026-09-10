@@ -353,6 +353,18 @@ Trigger with reboot
 
 https://youtu.be/tZ9cMBuDX4s
 
+Unquoted Service Path - VulnSvc
+The next vuln I will exploit is the unquoted service path.
+First I want to find VulnSvc and its path ```Get-WmiObject win32_service | Where-Object {$_.Name -like "*VulnSvc*"} | Select Name, PathName, StartMode```
+
+Now I want to see which folder within that path is the writable one by my user
+```
+icacls "C:\Program Files"
+icacls "C:\Program Files\Vulnerable Service"
+```
+Note: I don't use a trailing backslash after "Program Files" or "Vulnerable Service" as it causes an error syntax with icacls
+
+
 DLL Hijacking - DLLHijackSvc
 
 Next I will exploit the DLL Hijack vuln. This is where I paused this lab. I need to do some research into what specific DLL Hijacking exploit to run on this specific vuln
