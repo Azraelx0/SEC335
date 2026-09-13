@@ -58,6 +58,20 @@ For each binary the following will be recorded:
 
 Footnotes: ADS means Alternate Data Streams. Advisory references reference both sources as they both have the same binaries.
 
+#### Questions:
+Which LOLBin appears in both advisories?
+- All of these binaries appear in both advisories
+
+Why do state-sponsored actors prefer LOLBins over custom malware?
+- Easier to evade defenses like AV/EDRs
+- Minimal forensic evidence
+- Easier to blend in with typical activity
+- They don't have to spend time developing their own tools
+
+What is the "living off the land" naming convention based on?
+- It comes from the concept of using resources that you already have access to
+
+
 
 ### Task 2: Discovery and Reconnaissance LOLBin Execution
 ### Task 3: Execution, Download, and Defense Evasion LOLBin Execution
