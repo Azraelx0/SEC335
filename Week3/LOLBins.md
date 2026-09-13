@@ -104,23 +104,35 @@ The output for this command is telling the attacker exactly what the current use
 
 MITRE ATT&CK Technique: T1033 - System Owner/User Discovery 
 
-3.
-Command:
+3. net user
+Command: ```net user```
 
 Screenshot:
 
-What the Output Reveals to an Attacker:
+<img width="579" height="228" alt="image" src="https://github.com/user-attachments/assets/a2c1ee69-aacc-4d4a-a5c8-74a8e6d9c83b" />
 
-MITRE ATT&CK Technique:
+What the Output Reveals to an Attacker:
+This command reveals all of the local accounts on the host. In this instance we can see two human accounts that aren't default, azrael and Apollo. Something to note is that both Guest and Administrator are still at defaults, meaning an attacker could look to exploit misconfigurations present.
+
+MITRE ATT&CK Technique: T1087.001 - Account Discovery: Local Account 
 
 4.
-Command:
+Command: ```tasklist``` ```tasklist /v```
 
 Screenshot:
 
-What the Output Reveals to an Attacker:
+<img width="831" height="594" alt="image" src="https://github.com/user-attachments/assets/73ad17ad-ae5a-44c6-86d8-d021d7bb0906" />
+<img width="891" height="698" alt="image" src="https://github.com/user-attachments/assets/a9a11d52-a1ed-4a31-b173-45605523cbfd" />
+<img width="848" height="697" alt="image" src="https://github.com/user-attachments/assets/82de6591-4a80-4ed0-adb7-3c4acef44c51" />
 
-MITRE ATT&CK Technique:
+<img width="586" height="606" alt="image" src="https://github.com/user-attachments/assets/4b492a7c-bfbf-4470-926f-b22f0d5ab735" />
+<img width="566" height="707" alt="image" src="https://github.com/user-attachments/assets/81b32a1d-02aa-4e81-be75-b665433a25c4" />
+<img width="565" height="656" alt="image" src="https://github.com/user-attachments/assets/755fb689-c444-4170-9c88-8d798cce81c0" />
+
+What the Output Reveals to an Attacker:
+First we used two different commands, /v just means verbose, so there will be more info. The non-verbose was mainly used here for more readable screenshots. Also since this is a default Windows 10 install with no additional downloads then there is very little in the way of interesting tasks for now. With that said, with the output we received an attacker will still notice several notable tasks. First, the User Name column will reveal which user is runnning the process. From this output the attacker can see that Apollo is currently on and running tasks, again useful for timing activity with legitimate activity. MsMpEng.exe, along with MpDefenderCoreService.exe, SecurityHealthService.exe, and NisSrv.exe shows the attacker that Microsoft Defender is currently up and running. Next, a process that is extremely interesting is lsass.exe. An attacker can use this to dump credentials. Lastly, WmiPrvSE.exe tells and attacker that wmi is also up and running which is another LOLBin with excellent recon potential. 
+
+MITRE ATT&CK Technique: T1057 — Process Discovery
 
 5.
 Command:
