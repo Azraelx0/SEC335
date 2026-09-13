@@ -82,6 +82,7 @@ Screenshot:
 <img width="654" height="693" alt="image" src="https://github.com/user-attachments/assets/47d393d3-3648-46de-b7a8-eb2797dc6ef3" />
 
 What the Output Reveals to an Attacker:
+
 This output shows us numerous things about the host which is why I chose to run this first in our enumeration. As the attacker, from the output, we can tell that:
 - This OS is Windows 10 Home, important to know when searching for CVEs
 - The hotfix list allows us to search for vulns that may yet to be patched by these hotfixes
@@ -100,6 +101,7 @@ Screenshot:
 <img width="844" height="558" alt="image" src="https://github.com/user-attachments/assets/829412c2-1045-473f-a153-bba5cec4ad7c" />
 
 What the Output Reveals to an Attacker:
+
 The output for this command is telling the attacker exactly what the current user (user command was run from) can do on the system. The username and SID (Security Identifier) are helpful to know, and the SID also reinforces what systeminfo said in that this pc is not domain-joined. The group info lets the attacker know which groups the current user is in, here we see that our user is only in the defualt groups. Note that we do not have the BUILTIN/Administrators group membership so we would have to escalate privileges on this user to gain admin access. In the privileges info we can also see that we have all of the interesting privileges disabled. 
 
 MITRE ATT&CK Technique: T1033 - System Owner/User Discovery 
@@ -112,6 +114,7 @@ Screenshot:
 <img width="579" height="228" alt="image" src="https://github.com/user-attachments/assets/a2c1ee69-aacc-4d4a-a5c8-74a8e6d9c83b" />
 
 What the Output Reveals to an Attacker:
+
 This command reveals all of the local accounts on the host. In this instance we can see two human accounts that aren't default, azrael and Apollo. Something to note is that both Guest and Administrator are still at defaults, meaning an attacker could look to exploit misconfigurations present.
 
 MITRE ATT&CK Technique: T1087.001 - Account Discovery: Local Account 
@@ -130,17 +133,23 @@ Screenshot:
 <img width="565" height="656" alt="image" src="https://github.com/user-attachments/assets/755fb689-c444-4170-9c88-8d798cce81c0" />
 
 What the Output Reveals to an Attacker:
+
 First we used two different commands, /v just means verbose, so there will be more info. The non-verbose was mainly used here for more readable screenshots. Also since this is a default Windows 10 install with no additional downloads then there is very little in the way of interesting tasks for now. With that said, with the output we received an attacker will still notice several notable tasks. First, the User Name column will reveal which user is runnning the process. From this output the attacker can see that Apollo is currently on and running tasks, again useful for timing activity with legitimate activity. MsMpEng.exe, along with MpDefenderCoreService.exe, SecurityHealthService.exe, and NisSrv.exe shows the attacker that Microsoft Defender is currently up and running. Next, a process that is extremely interesting is lsass.exe. An attacker can use this to dump credentials. Lastly, WmiPrvSE.exe tells and attacker that wmi is also up and running which is another LOLBin with excellent recon potential. 
 
 MITRE ATT&CK Technique: T1057 — Process Discovery
 
-5.
-Command:
+5. wmic
+Command: ```wmic qfe list``` ```wmic volume list brief``` ```wmic path win32_logicaldisk get caption,filesystem,freespace,size,volumename```
 
 Screenshot:
 
+<img width="1010" height="306" alt="image" src="https://github.com/user-attachments/assets/9ff552d5-1e54-4bd3-89af-b344688a8d29" />
+
+<img width="696" height="92" alt="image" src="https://github.com/user-attachments/assets/99394518-1050-4615-b7b8-d0111642b868" />
+
 What the Output Reveals to an Attacker:
 
+This output ties back into what we saw with the systeminfo command. Here we can see all hotfixes applied which the attacker can then use to determine which CVEs can be used against this system. 
 MITRE ATT&CK Technique:
 
 6.
