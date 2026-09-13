@@ -41,10 +41,13 @@ For each binary the following will be recorded:
 - How threat actors abuse it
 - The applicable MITRE ATT&CK technique and sub-technique ID
 
-| test | test  |   |   |   |
-|---- |---|---|---|---|
-|   |   |   |   |   |
-|   |   | test  |   |   |
-|   |   |   |   |   |
 
 
+
+
+
+
+
+### Task 2: Discovery and Reconnaissance LOLBin Execution
+### Task 3: Execution, Download, and Defense Evasion LOLBin Execution
+### Task 4: LOLBin Detection and Threat Report
