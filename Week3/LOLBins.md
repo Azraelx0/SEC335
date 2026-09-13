@@ -8,7 +8,6 @@ Learning Objectives:
 - Detect LOLBin abuse through Windows event logs and command-line monitoring
 - Document LOLBin capabilities in a structured threat intelligence format
 
-
 ### Advisory Sources
 https://www.cyber.gov.au/about-us/view-all-content/alerts-and-advisories/prc-state-sponsored-actors-compromise-and-maintain-persistent-access-us-critical-infrastructure
 
@@ -22,9 +21,8 @@ T1059 - Command and Scripting Interpreter https://attack.mitre.org/techniques/T1
 
 T1105 - Ingress Tool Transfer https://attack.mitre.org/techniques/T1105/
 
-
 ### Documenting an LOLBin
-The format used in this write-up will be as follows-
+The format used in this write-up will be as follows:
 
 Command:
 
@@ -33,3 +31,5 @@ Screenshot:
 What the Output Reveals to an Attacker:
 
 MITRE ATT&CK Technique:
+
+
