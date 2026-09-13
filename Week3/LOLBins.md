@@ -71,8 +71,17 @@ Why do state-sponsored actors prefer LOLBins over custom malware?
 What is the "living off the land" naming convention based on?
 - It comes from the concept of using resources that you already have access to
 
-
-
 ### Task 2: Discovery and Reconnaissance LOLBin Execution
+From the threat reports, select 8 LOLBins that are used for discovery and reconnaissance. For each LOLBin document it as designated in the section "Documenting an LOLBin" section.
+
+1. 
+Command:
+
+Screenshot:
+
+What the Output Reveals to an Attacker:
+
+MITRE ATT&CK Technique:
+
 ### Task 3: Execution, Download, and Defense Evasion LOLBin Execution
 ### Task 4: LOLBin Detection and Threat Report
