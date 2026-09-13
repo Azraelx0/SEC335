@@ -21,3 +21,13 @@ T1218 - System Binary Proxy Execution https://attack.mitre.org/techniques/T1218/
 T1059 - Command and Scripting Interpreter https://attack.mitre.org/techniques/T1059/
 
 T1105 - Ingress Tool Transfer https://attack.mitre.org/techniques/T1105/
+
+
+### Documenting an LOLBin
+The format to be used in this write-up will be as follows:
+
+Command ```whoami /all```
+
+Screenshot 
+
+What the output reveals to an attacker
