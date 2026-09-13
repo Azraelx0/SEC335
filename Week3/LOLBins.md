@@ -74,14 +74,33 @@ What is the "living off the land" naming convention based on?
 ### Task 2: Discovery and Reconnaissance LOLBin Execution
 From the threat reports, select 8 LOLBins that are used for discovery and reconnaissance. For each LOLBin document it as designated in the section "Documenting an LOLBin" section.
 
-1. 
-Command:
+1. systeminfo
+Command: ```systeminfo```
 
 Screenshot:
 
-What the Output Reveals to an Attacker:
+<img width="654" height="693" alt="image" src="https://github.com/user-attachments/assets/47d393d3-3648-46de-b7a8-eb2797dc6ef3" />
 
-MITRE ATT&CK Technique:
+What the Output Reveals to an Attacker:
+This output shows us numerous things about the host which is why I chose to run this first in our enumeration. As the attacker, from the output, we can tell that:
+- This OS is Windows 10 Home, important to know when searching for CVEs
+- The hotfix list allows us to search for vulns that may yet to be patched by these hotfixes
+- The domain field tells us that this pc is not domain-joined
+- The system manufacturer and model both tell us that this pc is a vm. So in this case we most likely would pivot to a different device, as it might be a honeypot.
+- The timezone can help the attacker learn when to run commands to blend in with normal activity
+- We can see the registered owner of the device which may lead to credential attacks
+
+MITRE ATT&CK Technique: T1082 — System Information Discovery
+
+#### Questions: 
+Which binary revealed the most useful information for lateral movement?
+-
+
+Which binary's output would be most suspicious to a defender? 
+-
+
+Why might a threat actor use wmic.exe instead of PowerShell for system queries?
+-
 
 ### Task 3: Execution, Download, and Defense Evasion LOLBin Execution
 ### Task 4: LOLBin Detection and Threat Report
