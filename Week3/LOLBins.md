@@ -92,16 +92,77 @@ This output shows us numerous things about the host which is why I chose to run 
 
 MITRE ATT&CK Technique: T1082 — System Information Discovery
 
+2. whoami
+Command: ```whoami /all```
+
+Screenshot:
+
+<img width="844" height="558" alt="image" src="https://github.com/user-attachments/assets/829412c2-1045-473f-a153-bba5cec4ad7c" />
+
+What the Output Reveals to an Attacker:
+The output for this command is telling the attacker exactly what the current user (user command was run from) can do on the system. The username and SID (Security Identifier) are helpful to know, and the SID also reinforces what systeminfo said in that this pc is not domain-joined. The group info lets the attacker know which groups the current user is in, here we see that our user is only in the defualt groups. Note that we do not have the BUILTIN/Administrators group membership so we would have to escalate privileges on this user to gain admin access. In the privileges info we can also see that we have all of the interesting privileges disabled. 
+
+MITRE ATT&CK Technique: T1033 - System Owner/User Discovery 
+
+3.
+Command:
+
+Screenshot:
+
+What the Output Reveals to an Attacker:
+
+MITRE ATT&CK Technique:
+
+4.
+Command:
+
+Screenshot:
+
+What the Output Reveals to an Attacker:
+
+MITRE ATT&CK Technique:
+
+5.
+Command:
+
+Screenshot:
+
+What the Output Reveals to an Attacker:
+
+MITRE ATT&CK Technique:
+
+6.
+Command:
+
+Screenshot:
+
+What the Output Reveals to an Attacker:
+
+MITRE ATT&CK Technique:
+
+7.
+Command:
+
+Screenshot:
+
+What the Output Reveals to an Attacker:
+
+MITRE ATT&CK Technique:
+
+8.
+Command:
+
+Screenshot:
+
+What the Output Reveals to an Attacker:
+
+MITRE ATT&CK Technique:
+
 #### Questions: 
 
 Which binary revealed the most useful information for lateral movement?
--
-
 Which binary's output would be most suspicious to a defender? 
--
-
 Why might a threat actor use wmic.exe instead of PowerShell for system queries?
--
 
 ### Task 3: Execution, Download, and Defense Evasion LOLBin Execution
 ### Task 4: LOLBin Detection and Threat Report
