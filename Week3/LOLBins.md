@@ -93,6 +93,7 @@ This output shows us numerous things about the host which is why I chose to run 
 MITRE ATT&CK Technique: T1082 — System Information Discovery
 
 #### Questions: 
+
 Which binary revealed the most useful information for lateral movement?
 -
 
