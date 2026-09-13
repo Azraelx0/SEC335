@@ -44,8 +44,7 @@ For each binary the following will be recorded:
 
 
 
-
-
+Footnotes for Table: ADS means Alternate Data Streams, for advisory references each binary is referenced in both sources.
 
 
 ### Task 2: Discovery and Reconnaissance LOLBin Execution
