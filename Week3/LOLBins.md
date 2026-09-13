@@ -16,8 +16,8 @@ https://media.defense.gov/2023/May/24/2003229517/-1/-1/0/CSA_Living_off_the_Land
 
 MITRE ATT&CK Reference:
 
-T1218 - System Binary Proxy Execution **https://attack.mitre.org/techniques/T1218/**
+T1218 - System Binary Proxy Execution https://attack.mitre.org/techniques/T1218/
 
-T1059 - Command and Scripting Interpreter **https://attack.mitre.org/techniques/T1059/**
+T1059 - Command and Scripting Interpreter https://attack.mitre.org/techniques/T1059/
 
-T1105 - Ingress Tool Transfer **https://attack.mitre.org/techniques/T1105/**
+T1105 - Ingress Tool Transfer https://attack.mitre.org/techniques/T1105/
