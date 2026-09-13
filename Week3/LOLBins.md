@@ -24,7 +24,7 @@ T1105 - Ingress Tool Transfer https://attack.mitre.org/techniques/T1105/
 
 
 ### Documenting an LOLBin
-The format used in this write-up will be as follows:
+The format used in this write-up will be as follows-
 
 Command:
 
