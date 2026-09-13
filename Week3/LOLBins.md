@@ -32,4 +32,13 @@ What the Output Reveals to an Attacker:
 
 MITRE ATT&CK Technique:
 
+### Task 1: LOLBin Identification and Documentation
+In this task we will open both advisories (ACSC and NSA/CISA), then scan for every Windows binary mentioned as abused by threat actors.
+
+For each binary the following will be recorded:
+- Binary name and full path (e.g., C:\Windows\System32\certutil.exe)
+- Its legitimate, intended function
+- How threat actors abuse it
+- The applicable MITRE ATT&CK technique and sub-technique ID (Search for the binary on the Mitre ATT&CK site)
+
 
