@@ -202,7 +202,7 @@ Using this command the attacker can put together a pretty good picture of what t
 
 MITRE ATT&CK Technique: T1016 — System Network Configuration Discovery
 
-### Quick Note for this section: There are more interesting LOLBins I would have run rather than ones that gave a lot of repeat info (i.e systeminfo and wmic qfe list in regard to patches) that relate to domain enumeration, however, as they would just return errors due to not being in a domain I didn't run any. 
+#### Quick Note for this section: There are more interesting LOLBins I would have run rather than ones that gave a lot of repeat info. (i.e systeminfo and wmic qfe list in regard to patches.) However, since this pc isn't domain-joined, anything that relates to domain enumeration will throw errors.
 
 #### Questions: 
 
