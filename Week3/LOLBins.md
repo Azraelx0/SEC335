@@ -226,6 +226,42 @@ Document Format:
 - Why this technique evades detection
 - MITRE ATT&CK ID.
 
+1.
+Command:
+Screenshot:
+How/Why it Evades Detection:
+MITRE ATT&CK Technique:
+
+2.
+Command:
+Screenshot:
+How/Why it Evades Detection:
+MITRE ATT&CK Technique:
+
+3.
+Command:
+Screenshot:
+How/Why it Evades Detection:
+MITRE ATT&CK Technique:
+
+4.
+Command:
+Screenshot:
+How/Why it Evades Detection:
+MITRE ATT&CK Technique:
+
+5.
+Command:
+Screenshot:
+How/Why it Evades Detection:
+MITRE ATT&CK Technique:
+
+6.
+Command:
+Screenshot:
+How/Why it Evades Detection:
+MITRE ATT&CK Technique:
+
 
 #### Questions: 
 
