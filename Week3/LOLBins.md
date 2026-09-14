@@ -75,6 +75,7 @@ What is the "living off the land" naming convention based on?
 From the threat reports, select 8 LOLBins that are used for discovery and reconnaissance. For each LOLBin document it as designated in the section "Documenting an LOLBin" section.
 
 1. systeminfo
+
 Command: ```systeminfo```
 
 Screenshot:
@@ -94,6 +95,7 @@ This output shows us numerous things about the host which is why I chose to run 
 MITRE ATT&CK Technique: T1082 — System Information Discovery
 
 2. whoami
+
 Command: ```whoami /all```
 
 Screenshot:
@@ -107,6 +109,7 @@ The output for this command is telling the attacker exactly what the current use
 MITRE ATT&CK Technique: T1033 - System Owner/User Discovery 
 
 3. net user
+
 Command: ```net user```
 
 Screenshot:
@@ -120,6 +123,7 @@ This command reveals all of the local accounts on the host. In this instance we 
 MITRE ATT&CK Technique: T1087.001 - Account Discovery: Local Account 
 
 4. tasklist
+
 Command: ```tasklist``` ```tasklist /v```
 
 Screenshot:
@@ -139,6 +143,7 @@ First we used two different commands, /v just means verbose, so there will be mo
 MITRE ATT&CK Technique: T1057 — Process Discovery
 
 5. wmic
+
 Command: ```wmic qfe list``` ```wmic volume list brief``` ```wmic path win32_logicaldisk get caption,filesystem,freespace,size,volumename```
 
 Screenshot:
@@ -156,6 +161,7 @@ This output ties back into what we saw with the systeminfo command. Here we can 
 MITRE ATT&CK Technique: T1047 — Windows Management Instrumentation, T1082 — System Information Discovery
 
 6. net
+
 Command: ```net localgroup``` ```net localgroup administrators```
 
 Screenshot:
@@ -169,6 +175,7 @@ The net localgroup adminstrators tells the attacker all of the administrator acc
 MITRE ATT&CK Technique: T1069.001 — Permission Groups Discovery: Local Groups
 
 7. reg
+
 Command: ```reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Run"``` ```reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"```
 
 Screenshot:
@@ -182,6 +189,7 @@ These commands will reveal what programs launch at startup automatically. They c
 MITRE ATT&CK Technique: T1012 — Query Registry, T1547.001 — Boot or Logon Autostart Execution: Registry Run Keys
 
 8. ipconfig
+
 Command: ```ipconfig /all```
 
 Screenshot:
@@ -199,8 +207,14 @@ MITRE ATT&CK Technique: T1016 — System Network Configuration Discovery
 #### Questions: 
 
 Which binary revealed the most useful information for lateral movement?
+- The net localgroup administrators gave the most useful info. We know that azrael is the only human admin account on this system that can be targeted for privilege escalation. Some other binaries also pointed to this info but this one confirms that the user is in the administrators group.
+
 Which binary's output would be most suspicious to a defender? 
+- The reg query commands would most likely be the most suspicious at first glance to a defender. In conjunction with the other discovery binaries run it would become pretty obvious that this is an attacker looking for persistence.
+
 Why might a threat actor use wmic.exe instead of PowerShell for system queries?
+- It's less recognizable by SIEMs and EDRs
+- It's way less likely to leave a log of what commands are being run
 
 ### Task 3: Execution, Download, and Defense Evasion LOLBin Execution
 ### Task 4: LOLBin Detection and Threat Report
