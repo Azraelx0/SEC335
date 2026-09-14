@@ -119,7 +119,7 @@ This command reveals all of the local accounts on the host. In this instance we 
 
 MITRE ATT&CK Technique: T1087.001 - Account Discovery: Local Account 
 
-4.
+4. tasklist
 Command: ```tasklist``` ```tasklist /v```
 
 Screenshot:
@@ -145,39 +145,56 @@ Screenshot:
 
 <img width="1010" height="306" alt="image" src="https://github.com/user-attachments/assets/9ff552d5-1e54-4bd3-89af-b344688a8d29" />
 
+<img width="790" height="113" alt="image" src="https://github.com/user-attachments/assets/1d40baef-21e7-4d0c-8ab7-01d259a6f9ef" />
+
 <img width="696" height="92" alt="image" src="https://github.com/user-attachments/assets/99394518-1050-4615-b7b8-d0111642b868" />
 
 What the Output Reveals to an Attacker:
 
-This output ties back into what we saw with the systeminfo command. Here we can see all hotfixes applied which the attacker can then use to determine which CVEs can be used against this system. 
-MITRE ATT&CK Technique:
+This output ties back into what we saw with the systeminfo command. Here we can see all hotfixes applied which the attacker can then use to determine which CVEs can be used against this system. The two commands relating to volumes and storage can give the attacker valuable info about potentially hidden partitions on the disks. Other wmic commands can also return what programs are install on the host, but this box won't have any since it's default install. Side Note: wmic is extremely versatile and was actually discontinued by Microsoft in Windows 11 due to how helpful it is to attackers.
 
-6.
-Command:
+MITRE ATT&CK Technique: T1047 — Windows Management Instrumentation, T1082 — System Information Discovery
 
-Screenshot:
-
-What the Output Reveals to an Attacker:
-
-MITRE ATT&CK Technique:
-
-7.
-Command:
+6. net
+Command: ```net localgroup``` ```net localgroup administrators```
 
 Screenshot:
 
+<img width="738" height="472" alt="image" src="https://github.com/user-attachments/assets/7054ae1c-2fd8-4c6c-a3b9-5c22271f98c2" />
+
 What the Output Reveals to an Attacker:
 
-MITRE ATT&CK Technique:
+The net localgroup adminstrators tells the attacker all of the administrator accounts on the system. When looking to escalate privileges this info is critical to know. The follow up command tells me all of the groups on the system. This gives the attacker other potential pivot/escalation routes. For example, the Remote Management Users may be interesting to investigate as we could gain WinRM access. Based on previous LOLBins and their outputs we can see that the azrael account is the account that we want to target for privilege escalation.
 
-8.
-Command:
+MITRE ATT&CK Technique: T1069.001 — Permission Groups Discovery: Local Groups
+
+7. reg
+Command: ```reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Run"``` ```reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"```
 
 Screenshot:
 
+<img width="627" height="157" alt="image" src="https://github.com/user-attachments/assets/33faee87-8313-44fc-85af-c9d49cbf5847" />
+
 What the Output Reveals to an Attacker:
 
-MITRE ATT&CK Technique:
+These commands will reveal what programs launch at startup automatically. They can offer valuable information, though in this instance there's not much. One thing that this output would tell an attacker is that hiding a program in these locations would immediately stick out to any defenders. OneDrive may be worth looking into as well.
+
+MITRE ATT&CK Technique: T1012 — Query Registry, T1547.001 — Boot or Logon Autostart Execution: Registry Run Keys
+
+8. ipconfig
+Command: ```ipconfig /all```
+
+Screenshot:
+
+<img width="617" height="445" alt="image" src="https://github.com/user-attachments/assets/a6c5d230-8263-469d-9614-7ead3a335a7e" />
+
+What the Output Reveals to an Attacker:
+
+Using this command the attacker can put together a pretty good picture of what the network surrounding the host looks like. Just by viewing the ip range they can deduce that this is a SOHO, much like the kind that Volt Typhoon uses to obfuscate their actions. Using the IPs the attackers can now have a good idea of what ranges to target with additional network scanning. The physical address field can also yield valuable info on the system to find potential exploits, though in this case it just reinforces that this is a VMware Network Adapter.
+
+MITRE ATT&CK Technique: T1016 — System Network Configuration Discovery
+
+### Quick Note for this section: There are more interesting LOLBins I would have run rather than ones that gave a lot of repeat info (i.e systeminfo and wmic qfe list in regard to patches) that relate to domain enumeration, however, as they would just return errors due to not being in a domain I didn't run any. 
 
 #### Questions: 
 
