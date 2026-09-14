@@ -226,6 +226,8 @@ Document Format:
 - Why this technique evades detection
 - MITRE ATT&CK ID.
 
+Make a temp directory to work with for this section: mkdir C\:temp
+
 1.
 
 Command:
