@@ -217,4 +217,30 @@ Why might a threat actor use wmic.exe instead of PowerShell for system queries?
 - It's way less likely to leave a log of what commands are being run
 
 ### Task 3: Execution, Download, and Defense Evasion LOLBin Execution
+
+From the threat reports, select 6 LOLBins that are used for execution, download, or defense evasion.The advisories reference binaries used to download remote files, execute scripts without writing to disk, run code through legitimate system utilities, and bypass application allowlisting.
+
+Document Format:
+- Exact command ran
+- Screenshot of output
+- Why this technique evades detection
+- MITRE ATT&CK ID.
+
+
+#### Questions: 
+
+Which LOLBin can download files without triggering typical firewall alerts?
+
+How can regsvr32.exe execute code without writing files to disk?
+
+Why is msbuild.exe dangerous in environments with .NET installed?
+
 ### Task 4: LOLBin Detection and Threat Report
+
+#### Questions:
+
+Which LOLBin would be hardest to detect with standard logging?
+
+What is the trade-off between blocking LOLBin execution and breaking legitimate system functionality?
+
+How would you prioritize which LOLBins to monitor first?
