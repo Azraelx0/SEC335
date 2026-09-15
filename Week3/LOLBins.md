@@ -384,6 +384,28 @@ I ran the following LOLBins:
 
 Execution in the order of the commands run above:
 
+- certutil.exe
+
+<img width="967" height="442" alt="image" src="https://github.com/user-attachments/assets/6d234cb6-759e-40a3-8ab7-ffbd163de8b9" />
+
+- wmic.exe
+
+<img width="964" height="423" alt="image" src="https://github.com/user-attachments/assets/8ea4c24f-9708-4cc8-b1bf-4e2c96a73659" />
+<img width="965" height="426" alt="image" src="https://github.com/user-attachments/assets/cde55402-e825-40e9-bb9c-48559f09fd98" />
+
+- makecab.exe
+
+<img width="981" height="420" alt="image" src="https://github.com/user-attachments/assets/692d2be2-a7a4-4cb9-a2fd-0f7a5f584ada" />
+
+- net.exe
+
+<img width="966" height="425" alt="image" src="https://github.com/user-attachments/assets/0aeae98d-e613-4d46-a86a-532c7a9cce45" />
+<img width="965" height="423" alt="image" src="https://github.com/user-attachments/assets/70cdf2b3-286e-4dba-8486-7ce7354da048" />
+
+- reg.exe
+
+<img width="970" height="419" alt="image" src="https://github.com/user-attachments/assets/dc416587-f6c8-4212-b01a-b7113e485002" />
+<img width="967" height="432" alt="image" src="https://github.com/user-attachments/assets/48085721-38b7-4da4-9ae5-9a757f2e2b32" />
 
 
 #### Questions:
