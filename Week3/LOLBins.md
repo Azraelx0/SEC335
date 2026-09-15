@@ -349,10 +349,32 @@ Certutil.exe can download files while bypassing typical firewall alerts. With ho
 How can regsvr32.exe execute code without writing files to disk?
 
 
-
 Why is msbuild.exe dangerous in environments with .NET installed?
 
 ### Task 4: LOLBin Detection and Threat Report
+Build detection capabilities for LOLBin abuse and write a threat intelligence report based on your findings.
+
+Part A: Detection
+
+Download and install Sysmon. Use the Sysmon XML configuration file from SwiftOnSecurity as a default configuration for what to log.
+```
+mkdir C:\temp\sysmon
+cd C:\temp\sysmon
+
+# Download Sysmon
+Invoke-WebRequest -Uri "https://download.sysinternals.com/files/Sysmon.zip" -OutFile "Sysmon.zip"
+Expand-Archive -Path "Sysmon.zip" -DestinationPath "."
+
+# Download SwiftOnSecurity's config
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/SwiftOnSecurity/sysmon-config/master/sysmonconfig-export.xml" -OutFile "sysmonconfig.xml"
+
+# Install Sysmon with the config
+.\Sysmon64.exe -accepteula -i sysmonconfig.xml
+```
+
+Execute at least 5 of your LOLBins and show their execution in the Sysmon logs.
+
+
 
 #### Questions:
 
