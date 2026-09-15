@@ -332,10 +332,13 @@ Command:
 
 Screenshot:
 
+<img width="843" height="182" alt="image" src="https://github.com/user-attachments/assets/dd775a77-2f64-4f64-96e6-cbfc637be2d7" />
+
 How/Why it Evades Detection:
 
-MITRE ATT&CK Technique:
+While this LOLBin requires admin access, it's incredibly powerful. In this example I create a proxy on the host which redirects all traffic heading for 127.0.0.1:8888 to 127.0.0.1:80 instead. Comparing this to other proxies, it leaves a much smaller footprint in comparison to a third-party tool. The advisories explicity mentioned keeping an eye out for registry keys with this path as they aren't likely to be seen in a typical sys admin environment.
 
+MITRE ATT&CK Technique: T1090 — Proxy, T1090.001 — Proxy: Internal Proxy
 
 #### Questions: 
 
