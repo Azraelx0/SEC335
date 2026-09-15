@@ -328,7 +328,11 @@ MITRE ATT&CK Technique: T1564.003 — Hide Artifacts: Hidden Window
 
 6. netsh.exe
 
-Command:
+Command: 
+```
+netsh interface portproxy add v4tov4 listenaddress=127.0.0.1 listenport=8888 connectaddress=127.0.0.1 connectport=80
+netsh interface portproxy show all
+```
 
 Screenshot:
 
