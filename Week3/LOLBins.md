@@ -252,17 +252,24 @@ Screenshot:
 
 How/Why it Evades Detection:
 
+
+
 MITRE ATT&CK Technique: T1105 — Ingress Tool Transfer
 
-2.
+2. makecab.exe
 
 Command:
-
+```
+echo Test file makecab demo > C:\temp\demo.txt
+makecab C:\temp\demo.txt C:\temp\demo.cab
+```
 Screenshot:
+
+<img width="496" height="521" alt="image" src="https://github.com/user-attachments/assets/49593e32-8f21-47ee-a62c-03ddc9260f59" />
 
 How/Why it Evades Detection:
 
-MITRE ATT&CK Technique:
+MITRE ATT&CK Technique: T1560.001 — Archive Collected Data: Archive via Utility
 
 3.
 
