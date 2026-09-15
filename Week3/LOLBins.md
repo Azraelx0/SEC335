@@ -344,7 +344,11 @@ MITRE ATT&CK Technique: T1090 — Proxy, T1090.001 — Proxy: Internal Proxy
 
 Which LOLBin can download files without triggering typical firewall alerts?
 
+Certutil.exe can download files while bypassing typical firewall alerts. With how known it has become, EDRs are flagging certutil -urlcache. However, if this isnt blocked by the organization than it can still be allowed.
+
 How can regsvr32.exe execute code without writing files to disk?
+
+
 
 Why is msbuild.exe dangerous in environments with .NET installed?
 
