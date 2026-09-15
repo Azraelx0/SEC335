@@ -445,11 +445,11 @@ See [Task 2: Discovery and Reconnaissance LOLBin Execution](#task-2-discovery-an
 | WMI-Activity/Trace | — | Disabled by default; both advisories recommend enabling this to capture the specific commands executed via WMIC/WMI, which otherwise leave minimal forensic trace |
 | PowerShell Operational Log | 4104 | Script Block Logging — captures executed script content, including hidden-window Start-Process invocations |
 
-**Detection rule concepts derived from this lab's findings:**
-- Alert on any process among {certutil.exe, wmic.exe, makecab.exe, net.exe, reg.exe, ntdsutil.exe} whose **ParentImage is powershell.exe or cmd.exe**, when multiple such events occur from the same LogonId within a short time window (behavioral/sequence detection, as demonstrated by this lab's own Sysmon evidence, where all 5 executed LOLBins shared PowerShell as their direct parent).
+**Detection rules based on this lab's findings:**
+- Alert on any process among {certutil.exe, wmic.exe, makecab.exe, net.exe, reg.exe, ntdsutil.exe} whose **ParentImage is powershell.exe or cmd.exe**, when many events happen from the same LogonId within a short time window.
 - Alert on `wmic.exe process call create` where the resulting child process's ParentImage is `WmiPrvSE.exe` — a legitimate but easily-monitored indirection pattern.
-- Alert on any populated registry value under `HKLM\SYSTEM\CurrentControlSet\Services\PortProxy\v4tov4\tcp\`, since both advisories state legitimate use of port proxies is rare.
-- Alert on `certutil.exe` command lines containing `-urlcache` — a combination almost never used in benign certificate management workflows.
+- Alert on any populated registry value under `HKLM\SYSTEM\CurrentControlSet\Services\PortProxy\v4tov4\tcp\`, as both advisories say that legitimate use of port proxies is rare and is a staple of Volt Typhoon.
+- Alert on `certutil.exe` command lines containing `-urlcache` as this would almost never used in harmless certificate management tasks.
 
 ### 5. Mitigation Recommendations
 
@@ -464,12 +464,10 @@ See [Task 2: Discovery and Reconnaissance LOLBin Execution](#task-2-discovery-an
 - Forward all logs to a centralized, hardened SIEM/logging server on a segmented network — both advisories emphasize this, since Volt Typhoon selectively clears local logs (Event ID 1102) to cover their tracks; centralized forwarding preserves a copy regardless.
 
 **Group Policy / Account Hardening**
-- Enforce least privilege: this lab's own Task 2 findings showed only one non-default account (azrael) held local administrator rights — regularly audit and minimize Administrators group membership.
-- Disable or rename default Administrator and Guest accounts where feasible.
-- Require phishing-resistant MFA for all privileged accounts, per both advisories' mitigation guidance.
-- Limit and closely monitor RDP usage, since Volt Typhoon's primary lateral movement method was RDP with compromised administrator credentials.
-- Ensure Windows Defender Tamper Protection remains enabled at all times in production environments — this lab's own certutil testing (Task 3) demonstrated that real-time content scanning is a meaningful detection layer that Tamper Protection helps preserve against being disabled by an attacker with local admin access.
-
+- Enforce least privilege: this lab demonstrates that several of these LOLBins require privilege escalation to make the exploit possible. Perform regular audits and minimize Administrators group membership.
+- Disable or rename default Administrator and Guest accounts if/when possible.
+- Require phishing-resistant MFA for all privileged accounts as recommended by both advisories' mitigation guidance.
+- Limit and closely monitor RDP usage as Volt Typhoon's primary lateral movement method was RDP with compromised administrator credentials.
 
 #### Questions:
 
