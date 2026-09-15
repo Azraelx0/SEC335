@@ -435,15 +435,15 @@ See [Task 2: Discovery and Reconnaissance LOLBin Execution](#task-2-discovery-an
 
 | Log Source | Event ID | What It Captures |
 |---|---|---|
-| Windows Security Log | 4688 | Process creation — requires Group Policy setting "Include command line in process creation events" to be enabled, as this is off by default |
-| Windows Security Log | 4624 / 4625 | Successful/failed logons — useful for detecting password spraying or brute force preceding LOLBin abuse |
-| Windows Security Log | 1102 | Audit log cleared — a known Volt Typhoon anti-forensics tactic; any occurrence should be investigated |
-| Sysmon | 1 | Process Create — captures full CommandLine, ParentImage, ParentCommandLine, and file hashes (MD5/SHA256/IMPHASH), providing far more detail than native 4688 alone |
-| Sysmon | 3 | Network Connection — useful for catching certutil/BITS-style download traffic originating from unexpected processes |
+| Windows Security Log | 4688 | Process creation — requires Group Policy setting "Include command line in process creation events" to be enabled as this is off by default |
+| Windows Security Log | 4624 / 4625 | Successful/failed logons — useful for detecting password spraying or brute force attacks which typically come before LOLBin abuse |
+| Windows Security Log | 1102 | Audit log cleared — a known Volt Typhoon anti-forensics tactic which should be investigated if it has been found |
+| Sysmon | 1 | Process Create — captures full CommandLine, ParentImage, ParentCommandLine, and file hashes. It provides far more detail than native 4688 alone |
+| Sysmon | 3 | Network Connection — useful for catching certutil/BITS-style download traffic coming from unexpected processes |
 | Sysmon | 13 | Registry Value Set — critical for detecting the PortProxy registry key (`HKLM\SYSTEM\CurrentControlSet\Services\PortProxy\v4tov4\tcp\`) explicitly called out in both advisories |
-| Windows Application Log (ESENT) | 216, 325, 326, 327 | NTDS.dit database location changes, creation, mounting, and detachment — the definitive indicator of ntdsutil/NTDS credential extraction |
-| WMI-Activity/Trace | — | Disabled by default; both advisories recommend enabling this to capture the specific commands executed via WMIC/WMI, which otherwise leave minimal forensic trace |
-| PowerShell Operational Log | 4104 | Script Block Logging — captures executed script content, including hidden-window Start-Process invocations |
+| Windows Application Log (ESENT) | 216, 325, 326, 327 | NTDS.dit database location changes, creation, mounting, and detachment, all key indicators of ntdsutil/NTDS credential extraction |
+| WMI-Activity/Trace | — | A setting disabled by default and should be enabled to capture the specific commands executed via WMIC/WMI, which otherwise leave minimal forensic trace |
+| PowerShell Operational Log | 4104 | Script Block Logging — captures executed script content |
 
 **Detection rules based on this lab's findings:**
 - Alert on any process among {certutil.exe, wmic.exe, makecab.exe, net.exe, reg.exe, ntdsutil.exe} whose **ParentImage is powershell.exe or cmd.exe**, when many events happen from the same LogonId within a short time window.
@@ -454,14 +454,14 @@ See [Task 2: Discovery and Reconnaissance LOLBin Execution](#task-2-discovery-an
 ### 5. Mitigation Recommendations
 
 **Application Allowlisting (AppLocker / WDAC)**
-- Rather than blocking LOLBins outright (which risks breaking legitimate administrative workflows), implement conditional restrictions on high-risk argument patterns: block `regsvr32.exe` when invoked with `/i:http`, block `certutil.exe -urlcache`, and restrict `wmic.exe /node:` (remote execution) to authorized administrative workstations only.
-- Apply Microsoft's recommended WDAC baseline policies, which include rules specifically targeting known LOLBin abuse patterns.
+- Rather than blocking LOLBins outright as many are needed for typical administrative tasks, implement restrictions on high-risk argument patterns: block `regsvr32.exe` when invoked with `/i:http`, block `certutil.exe -urlcache`, and restrict `wmic.exe /node:` (remote execution) to authorized administrative workstations only.
+- Apply Microsoft's recommended WDAC baseline policies. This includes rules specifically targeting known LOLBin abuse patterns.
 
 **Logging Configuration**
-- Enable "Audit Process Creation" and "Include command line in process creation events" via Group Policy (`Computer Configuration > Administrative Templates > System > Audit Process Creation`) — both advisories stress this is off by default and is required to see the full command-line arguments in Event ID 4688.
-- Deploy Sysmon with the SwiftOnSecurity (or a similarly maintained) configuration across all endpoints, as demonstrated in Part A, to capture parent-process chains and file hashes that native logging omits.
-- Enable WMI-Activity/Trace logging and PowerShell Script Block Logging (Event ID 4104) organization-wide.
-- Forward all logs to a centralized, hardened SIEM/logging server on a segmented network — both advisories emphasize this, since Volt Typhoon selectively clears local logs (Event ID 1102) to cover their tracks; centralized forwarding preserves a copy regardless.
+- Enable "Audit Process Creation" and "Include command line in process creation events" in Group Policy (`Computer Configuration > Administrative Templates > System > Audit Process Creation`) — both advisories stress this is off by default and is required to see the full command-line arguments in Event ID 4688.
+- Deploy Sysmon with the SwiftOnSecurity or another maintained configuration across all endpoints.
+- Enable WMI-Activity/Trace logging and PowerShell Script Block Logging (Event ID 4104) across the organization.
+- Forward all logs to a centralized, hardened SIEM/logging server on a segmented network as recommended in both advisories. Volt Typhoon selectively clears local logs (Event ID 1102) to cover their tracks. By using centralized forwarding, a copy will be retained regardless.
 
 **Group Policy / Account Hardening**
 - Enforce least privilege: this lab demonstrates that several of these LOLBins require privilege escalation to make the exploit possible. Perform regular audits and minimize Administrators group membership.
