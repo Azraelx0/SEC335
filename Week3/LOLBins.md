@@ -360,7 +360,7 @@ Because it essentially lets attackers compile and execute code on the system wit
 ## Task 4: LOLBin Detection and Threat Report
 Build detection capabilities for LOLBin abuse and write a threat intelligence report based on your findings.
 
-Part A: Detection
+### Part A: Detection
 
 Download and install Sysmon. Use the Sysmon XML configuration file from SwiftOnSecurity as a default configuration for what to log.
 ```
@@ -414,7 +414,7 @@ Execution in the order of the commands run above:
 <img width="967" height="432" alt="image" src="https://github.com/user-attachments/assets/48085721-38b7-4da4-9ae5-9a757f2e2b32" />
 
 
-Part B: Threat Report
+### Part B: Threat Report
 
 
 
