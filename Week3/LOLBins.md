@@ -374,6 +374,16 @@ Invoke-WebRequest -Uri "https://raw.githubusercontent.com/SwiftOnSecurity/sysmon
 
 Execute at least 5 of your LOLBins and show their execution in the Sysmon logs.
 
+I ran the following LOLBins:
+
+- certutil.exe
+- wmic.exe ```wmic process call create```
+- makecab.exe
+- net.exe/net1.exe ```net localgroup administrators```
+- reg.exe ```reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Run"``` ```reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run"```
+
+Execution in the order of the commands run above:
+
 
 
 #### Questions:
