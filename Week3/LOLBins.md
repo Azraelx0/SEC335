@@ -32,7 +32,7 @@ What the Output Reveals to an Attacker:
 
 MITRE ATT&CK Technique:
 
-### Task 1: LOLBin Identification and Documentation
+## Task 1: LOLBin Identification and Documentation
 In this task we will open both advisories (ACSC and NSA/CISA), then scan for every Windows binary mentioned as abused by threat actors.
 
 For each binary the following will be recorded:
@@ -71,7 +71,7 @@ Why do state-sponsored actors prefer LOLBins over custom malware?
 What is the "living off the land" naming convention based on?
 - It comes from the concept of using resources that you already have access to
 
-### Task 2: Discovery and Reconnaissance LOLBin Execution
+## Task 2: Discovery and Reconnaissance LOLBin Execution
 From the threat reports, select 8 LOLBins that are used for discovery and reconnaissance. For each LOLBin document it as designated in the section "Documenting an LOLBin" section.
 
 1. systeminfo
@@ -216,7 +216,7 @@ Why might a threat actor use wmic.exe instead of PowerShell for system queries?
 - It's less recognizable by SIEMs and EDRs
 - It's way less likely to leave a log of what commands are being run
 
-### Task 3: Execution, Download, and Defense Evasion LOLBin Execution
+## Task 3: Execution, Download, and Defense Evasion LOLBin Execution
 
 From the threat reports, select 6 LOLBins that are used for execution, download, or defense evasion.The advisories reference binaries used to download remote files, execute scripts without writing to disk, run code through legitimate system utilities, and bypass application allowlisting.
 
@@ -355,7 +355,9 @@ How can regsvr32.exe execute code without writing files to disk?
 
 Why is msbuild.exe dangerous in environments with .NET installed?
 
-### Task 4: LOLBin Detection and Threat Report
+Because it essentially lets attackers compile and execute code on the system without triggering defenses due to it working entirely in memory.
+
+## Task 4: LOLBin Detection and Threat Report
 Build detection capabilities for LOLBin abuse and write a threat intelligence report based on your findings.
 
 Part A: Detection
