@@ -473,6 +473,12 @@ See [Task 2: Discovery and Reconnaissance LOLBin Execution](#task-2-discovery-an
 
 Which LOLBin would be hardest to detect with standard logging?
 
+Due to the fact that it creates a process under its legitimate parent process, wmic.exe is my choice for the hardest to detect. Pair this with the lack of default logging and it's no wonder Windows decided to take it out of Windows 11.
+
 What is the trade-off between blocking LOLBin execution and breaking legitimate system functionality?
 
+The probelem is if you disable an LOLBin that the admins use for its legitimate purpose then it creates a headache for the admins. In most of these tools cases there are specific commands with flags that much more typical to see in a malicious case rather than legitimate case. Blocking those can help to minimize the trade-off of no functionality vs. easy pickings for an attacker.
+
 How would you prioritize which LOLBins to monitor first?
+
+I would do a mini risk assessment on each LOLBin that my organization is actively using/needs to maintain functionality. If it's high-risk and is likely to be used/has a high frequency of use then that LOLBin needs to be monitored closely. On the other hand, LOLBins like systeminfo, whoami, and ipconfig, are all extremely high frequency with minimal impact in the grand scheme of things, so while I would absolutely monitor these, they can warrant some more leeway.
