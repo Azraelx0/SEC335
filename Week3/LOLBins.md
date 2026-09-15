@@ -242,7 +242,7 @@ Delete the file ```del C:\temp\test.txt```
 
 Screenshot:
 
-<img width="550" height="93" alt="image" src="https://github.com/user-attachments/assets/f54a651d-d16b-4d3a-a9fc-bfa6688cf833" />
+<img width="651" height="318" alt="image" src="https://github.com/user-attachments/assets/1c087afc-7b1e-4534-bc59-df8f1f60f20d" />
 
 <img width="425" height="193" alt="image" src="https://github.com/user-attachments/assets/dd0f1e46-9d37-4bbc-9f64-87a184a4291f" />
 
