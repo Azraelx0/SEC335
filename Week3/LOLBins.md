@@ -242,19 +242,12 @@ Delete the file ```del C:\temp\test.txt```
 
 Screenshot:
 
-<img width="651" height="318" alt="image" src="https://github.com/user-attachments/assets/1c087afc-7b1e-4534-bc59-df8f1f60f20d" />
+<img width="627" height="78" alt="image" src="https://github.com/user-attachments/assets/89050d88-0d24-441d-b90e-19a8868c9d5a" />
 
 <img width="425" height="193" alt="image" src="https://github.com/user-attachments/assets/dd0f1e46-9d37-4bbc-9f64-87a184a4291f" />
 
 <img width="1013" height="709" alt="image" src="https://github.com/user-attachments/assets/7a71aefe-bf16-463f-9c3d-446cd4434ad2" />
 
-Note that Microsoft Defender triggers when using the -f flag.
-
-<img width="1048" height="737" alt="image" src="https://github.com/user-attachments/assets/689dc500-66e2-470d-979d-29b9a985c7f0" />
-
-Without the -f flag it does not.
-
-<img width="651" height="318" alt="image" src="https://github.com/user-attachments/assets/1c087afc-7b1e-4534-bc59-df8f1f60f20d" />
 
 
 How/Why it Evades Detection:
