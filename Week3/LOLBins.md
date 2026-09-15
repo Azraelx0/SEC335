@@ -248,11 +248,9 @@ Screenshot:
 
 <img width="1013" height="709" alt="image" src="https://github.com/user-attachments/assets/7a71aefe-bf16-463f-9c3d-446cd4434ad2" />
 
-
-
 How/Why it Evades Detection:
 
-
+Certutil is supposed to be used for certificate management and depending on an organization's rules/policies, it may even have file paths that allows it to download files unrestricted. Note that this command does trigger Microsoft Defender's real-time protection rules, at least with the website that I tried to download. To bypass I had to disable tamper protection and turn off real-time protection. As mentioned prior, if a folder happens to be excluded from this on an organization's system, the attacker could leverage this without having to bypass it themselves.
 
 MITRE ATT&CK Technique: T1105 — Ingress Tool Transfer
 
@@ -269,38 +267,66 @@ Screenshot:
 
 How/Why it Evades Detection:
 
+This technique offers numerous advantages for an attacker. It enables evasions by hiding data, allows file compression into a cab file (a file type often overlooked by all detection softwares/defenders), and its execution in general is very rarely monitored for unlike many of the other LOLBins.
+
 MITRE ATT&CK Technique: T1560.001 — Archive Collected Data: Archive via Utility
 
-3.
+3. wmic.exe
 
 Command:
-Screenshot:
-
-How/Why it Evades Detection:
-
-MITRE ATT&CK Technique:
-
-4.
-
-Command:
+```wmic process call create "notepad.exe"```
 
 Screenshot:
 
+<img width="995" height="676" alt="image" src="https://github.com/user-attachments/assets/8d19b6d3-8dad-4bb8-acb8-8313726c01c6" />
+
 How/Why it Evades Detection:
 
-MITRE ATT&CK Technique:
+The advantage to using wmic.exe to launch a program is that the parent process becomes wmic's legitimate process, WmiPrvSE.exe. In addition, logging for this command isn't enabled by default, which is another advantage.
 
-5.
+MITRE ATT&CK Technique: T1047 — Windows Management Instrumentation
+
+4. ntdsutil.exe
 
 Command:
+```ntdsutil``` command I ran, this would open up a ntdsutil instance if I had AD installed.
+```wmic process call create "ntdsutil \"ac i ntds\" ifm \"create full C:\Windows\Temp\tmp\""``` (ac i ntds is short for activate instance ntds)
 
 Screenshot:
 
+<img width="995" height="159" alt="image" src="https://github.com/user-attachments/assets/448db4b6-cdc5-496d-9f79-731a3fa4ed9d" />
+
 How/Why it Evades Detection:
 
-MITRE ATT&CK Technique:
+The one-liner above creates an ntdsutil process and then dumps the host's entire ntds.dit into a folder, which can then be reconstructed by the attacker later. In our case we see an error because I don't have a Windows server os with AD installed.
 
-6.
+MITRE ATT&CK Technique: T1003.003 — OS Credential Dumping: NTDS
+
+5. powershell.exe
+
+Command:
+```
+mkdir C:\temp
+Set-Content -Path C:\temp\demo.bat -Value "@echo off" -Encoding ASCII
+Add-Content -Path C:\temp\demo.bat -Value "echo hidden window test > C:\temp\hidden.txt" -Encoding ASCII
+Start-Process -FilePath "C:\temp\demo.bat" -WindowStyle Hidden -Wait #Note: I used wait to let the process start to avoid potential errors.
+type C:\temp\hidden.txt
+```
+Screenshot:
+
+<img width="794" height="75" alt="image" src="https://github.com/user-attachments/assets/6dffe08a-683e-471a-bf64-869ab02ffa74" />
+
+<img width="578" height="173" alt="image" src="https://github.com/user-attachments/assets/8db4ec31-2055-4c67-b196-389ba80236ca" />
+
+<img width="262" height="56" alt="image" src="https://github.com/user-attachments/assets/fe73b4db-d868-4db1-b95c-bd5b32b54c15" />
+
+How/Why it Evades Detection:
+
+This LOLBin offers an excellent way for an attacker to actively run commands or scripts on an active system without being noticed by users. This specific example is hiding anything that might warn a user, such as terminal windows, pop-ups, etc. In addition, an organization needs to have a specific windows event log (Event ID 4688) enabled in order to see logs left by this exploit.
+
+MITRE ATT&CK Technique: T1564.003 — Hide Artifacts: Hidden Window
+
+6. netsh.exe
 
 Command:
 
