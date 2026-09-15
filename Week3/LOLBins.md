@@ -352,6 +352,7 @@ Certutil.exe can download files while bypassing typical firewall alerts. With ho
 
 How can regsvr32.exe execute code without writing files to disk?
 
+Attackers can use URLs to load the scripts into the command line. Since it uses the URL as an argument, you can simply pass the script in like this.
 
 Why is msbuild.exe dangerous in environments with .NET installed?
 
