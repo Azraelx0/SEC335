@@ -408,6 +408,10 @@ Execution in the order of the commands run above:
 <img width="967" height="432" alt="image" src="https://github.com/user-attachments/assets/48085721-38b7-4da4-9ae5-9a757f2e2b32" />
 
 
+Part B: Threat Report
+
+
+
 #### Questions:
 
 Which LOLBin would be hardest to detect with standard logging?
