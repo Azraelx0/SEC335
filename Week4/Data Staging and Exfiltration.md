@@ -28,6 +28,23 @@ echo Done.
 ```
 The output file can be viewed here: [Enumeration Output Files](./EnumOutput/)
 
+Five additional LOLBins for enumeration are seen below. Each one will include:
+- The command and its flags
+- What information it gathers
+- Why an attacker would want that information
+
+1.
+
+
+
+2.
+
+3.
+
+4.
+
+5.
+
 ### Compression
 
 Using 7zip:
