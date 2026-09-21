@@ -1,0 +1,18 @@
+
+Aliases for \\DESKTOP-1KTUSQ5
+
+-------------------------------------------------------------------------------
+*Administrators
+*Device Owners
+*Distributed COM Users
+*Event Log Readers
+*Guests
+*Hyper-V Administrators
+*IIS_IUSRS
+*Performance Log Users
+*Performance Monitor Users
+*Remote Management Users
+*System Managed Accounts Group
+*Users
+The command completed successfully.
+

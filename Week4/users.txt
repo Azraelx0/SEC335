@@ -1,0 +1,8 @@
+
+User accounts for \\DESKTOP-1KTUSQ5
+
+-------------------------------------------------------------------------------
+Administrator            Apollo                   azrael                   
+DefaultAccount           Guest                    WDAGUtilityAccount       
+The command completed successfully.
+

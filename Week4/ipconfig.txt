@@ -1,0 +1,29 @@
+
+Windows IP Configuration
+
+   Host Name . . . . . . . . . . . . : DESKTOP-1KTUSQ5
+   Primary Dns Suffix  . . . . . . . : 
+   Node Type . . . . . . . . . . . . : Hybrid
+   IP Routing Enabled. . . . . . . . : No
+   WINS Proxy Enabled. . . . . . . . : No
+   DNS Suffix Search List. . . . . . : localdomain
+
+Ethernet adapter Ethernet0:
+
+   Connection-specific DNS Suffix  . : localdomain
+   Description . . . . . . . . . . . : Intel(R) 82574L Gigabit Network Connection
+   Physical Address. . . . . . . . . : 00-0C-29-29-3A-24
+   DHCP Enabled. . . . . . . . . . . : Yes
+   Autoconfiguration Enabled . . . . : Yes
+   Link-local IPv6 Address . . . . . : fe80::bef5:f8d3:9142:879a%10(Preferred) 
+   IPv4 Address. . . . . . . . . . . : 192.168.92.137(Preferred) 
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Lease Obtained. . . . . . . . . . : Monday, September 21, 2026 1:16:46 PM
+   Lease Expires . . . . . . . . . . : Monday, September 21, 2026 3:01:46 PM
+   Default Gateway . . . . . . . . . : 192.168.92.2
+   DHCP Server . . . . . . . . . . . : 192.168.92.254
+   DHCPv6 IAID . . . . . . . . . . . : 100666409
+   DHCPv6 Client DUID. . . . . . . . : 00-01-00-01-32-38-9B-B8-00-0C-29-29-3A-24
+   DNS Servers . . . . . . . . . . . : 192.168.92.2
+   Primary WINS Server . . . . . . . : 192.168.92.2
+   NetBIOS over Tcpip. . . . . . . . : Enabled

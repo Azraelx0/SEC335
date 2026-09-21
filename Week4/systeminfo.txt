@@ -1,0 +1,51 @@
+
+Host Name:                 DESKTOP-1KTUSQ5
+OS Name:                   Microsoft Windows 10 Home
+OS Version:                10.0.19045 N/A Build 19045
+OS Manufacturer:           Microsoft Corporation
+OS Configuration:          Standalone Workstation
+OS Build Type:             Multiprocessor Free
+Registered Owner:          azrael
+Registered Organization:   
+Product ID:                00326-10000-00000-AA866
+Original Install Date:     9/13/2026, 10:55:57 AM
+System Boot Time:          9/21/2026, 1:16:34 PM
+System Manufacturer:       VMware, Inc.
+System Model:              VMware20,1
+System Type:               x64-based PC
+Processor(s):              1 Processor(s) Installed.
+                           [01]: AMD64 Family 23 Model 113 Stepping 0 AuthenticAMD ~3593 Mhz
+BIOS Version:              VMware, Inc. VMW201.00V.24006586.B64.2406042154, 6/4/2024
+Windows Directory:         C:\Windows
+System Directory:          C:\Windows\system32
+Boot Device:               \Device\HarddiskVolume1
+System Locale:             en-us;English (United States)
+Input Locale:              en-us;English (United States)
+Time Zone:                 (UTC-08:00) Pacific Time (US & Canada)
+Total Physical Memory:     4,095 MB
+Available Physical Memory: 1,663 MB
+Virtual Memory: Max Size:  5,503 MB
+Virtual Memory: Available: 3,008 MB
+Virtual Memory: In Use:    2,495 MB
+Page File Location(s):     C:\pagefile.sys
+Domain:                    WORKGROUP
+Logon Server:              \\DESKTOP-1KTUSQ5
+Hotfix(s):                 9 Hotfix(s) Installed.
+                           [01]: KB5066130
+                           [02]: KB5031988
+                           [03]: KB5011048
+                           [04]: KB5015684
+                           [05]: KB5126256
+                           [06]: KB5066791
+                           [07]: KB5014032
+                           [08]: KB5032907
+                           [09]: KB5066790
+Network Card(s):           1 NIC(s) Installed.
+                           [01]: Intel(R) 82574L Gigabit Network Connection
+                                 Connection Name: Ethernet0
+                                 DHCP Enabled:    Yes
+                                 DHCP Server:     192.168.92.254
+                                 IP address(es)
+                                 [01]: 192.168.92.137
+                                 [02]: fe80::bef5:f8d3:9142:879a
+Hyper-V Requirements:      A hypervisor has been detected. Features required for Hyper-V will not be displayed.
