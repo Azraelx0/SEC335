@@ -4,6 +4,7 @@ Enumeration is the phase where an attacker maps out a compromised host. Before e
 
 ## Task 1: Enumeration and Compression
 
+### Enumeration
 In this section we're going to use LOLBins (See Week3 for more info) to enumerate the host. We're going to run the enumeration commands in a way that saves the output of each command to a separate file. We'll redirect output to files in "C:\temp\". Save all the commands to a script (.bat or Powershell, your choice).
 
 To make things simple we're just going to do this in one script:
@@ -26,3 +27,23 @@ systeminfo > C:\temp\systeminfo.txt
 echo Done.
 ```
 The output file can be viewed here: [Enumeration Output Files](./EnumOutput/)
+
+### Compression
+
+Using 7zip:
+
+Note I had to add 7z to path using:
+
+<img width="391" height="26" alt="image" src="https://github.com/user-attachments/assets/c5c436c0-e193-4d20-9437-45cdecc3eebd" />
+
+<img width="486" height="565" alt="image" src="https://github.com/user-attachments/assets/59c0b35c-3126-4012-960e-6bab66df3094" />
+
+Using tar:
+
+<img width="475" height="549" alt="image" src="https://github.com/user-attachments/assets/d1a58427-ca9e-4671-9f49-48eedae4f7ef" />
+
+Using Compress-Archive:
+
+<img width="622" height="397" alt="image" src="https://github.com/user-attachments/assets/cecb9bff-0c1f-4213-9f04-c1491e161394" />
+
+Using makecab:
