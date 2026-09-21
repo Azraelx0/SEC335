@@ -63,3 +63,26 @@ Using Compress-Archive:
 <img width="622" height="397" alt="image" src="https://github.com/user-attachments/assets/cecb9bff-0c1f-4213-9f04-c1491e161394" />
 
 Using makecab:
+
+With makecab we first need to make a directive file:
+- Make a file in the temp dir called files.ddf, then fill it with the below data:
+```
+.OPTION EXPLICIT
+.Set CabinetNameTemplate=enum_cab.cab
+.Set DiskDirectory1=C:\temp
+C:\temp\admins.txt
+C:\temp\arp.txt
+C:\temp\firewall.txt
+C:\temp\groups.txt
+C:\temp\ipconfig.txt
+C:\temp\netstat.txt
+C:\temp\processes.txt
+C:\temp\services.txt
+C:\temp\smbsessions.txt
+C:\temp\systeminfo.txt
+C:\temp\users.txt
+C:\temp\whoami.txt
+```
+
+
+<img width="473" height="554" alt="image" src="https://github.com/user-attachments/assets/61856dc1-3a47-4283-88bd-07389df37dd0" />
