@@ -33,7 +33,6 @@ The output file can be viewed here: [Enumeration Output Files](./EnumOutput/)
 Using 7zip:
 
 Note I had to add 7z to path using:
-
 <img width="391" height="26" alt="image" src="https://github.com/user-attachments/assets/c5c436c0-e193-4d20-9437-45cdecc3eebd" />
 
 <img width="486" height="565" alt="image" src="https://github.com/user-attachments/assets/59c0b35c-3126-4012-960e-6bab66df3094" />
