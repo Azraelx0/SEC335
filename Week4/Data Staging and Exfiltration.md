@@ -25,3 +25,4 @@ net use > C:\temp\smbsessions.txt
 systeminfo > C:\temp\systeminfo.txt
 echo Done.
 ```
+The output file can be viewed here: [Enumeration Output Files](./EnumOutput/)
