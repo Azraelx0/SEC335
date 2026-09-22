@@ -46,7 +46,7 @@ Displays all scheduled tasks with their run-as accounts and the binaries they ca
 
 Shows the routing table and interfaces. This allows attackers to form a map of the network which shows what other networks and/or subnets the host can reach. This can lead to pivoting and lateral movement opportunities.
 
-6. cmdkey /list
+5. cmdkey /list
 
 Lists stored credentials in the Windows Credential Manager. Attackers can then reuse these with runas /savecred to run these as another user without having to decrypt or even see the password.
 
@@ -144,7 +144,12 @@ Which compression tool was easiest to use?
 In terms of the whole process Compress-Archive was the easiest, at least in command line. 7zip I had to add the path, which was easy but still work. Makecab I had to create the directive file which definately took the longest. Tar was pretty simple though, if you extract it once, then delete the files, and want/have to extract it again, you have to redownload the archive from the windows vm.
 
 ## Task 4: Non-Standard Protocol Exfiltration 
-For this task we'll be using  and DNS
+For this task we'll be using SMTP and DNS.
+
+#### SMTP
+Script that captures the email here: [smtp_server.py]
+
+https://youtu.be/KrCAYVy3Oxo
 
 #### DNS
 
