@@ -33,17 +33,20 @@ Five additional LOLBins for enumeration are seen below. Each one will include:
 - What information it gathers
 - Why an attacker would want that information
 
-1.
+1. net share
+This command is used to find shared folders and their paths. An attacker can use this to find data repositories, writable shares for staging payloads, and admin shares.
 
+2. driverquery /v
+An attacker can use this to enumerate installed drivers with paths and states. Vulnerable drivers are a common escalation path to kernel-level privileges.
 
+3. schtasks /query /fo LIST /v 
+Displays all scheduled tasks with their run-as accounts and the binaries they call. Attackers use this to find writable paths and places to hide persistence.
 
-2.
+4. route print
+Shows the routing table and interfaces. This allows attackers to form a map of the network which shows what other networks and/or subnets the host can reach. This can lead to pivoting and lateral movement opportunities.
 
-3.
-
-4.
-
-5.
+6. cmdkey /list
+Lists stored credentials in the Windows Credential Manager. Attackers can then reuse these with runas /savecred to run these as another user without having to decrypt or even see the password.
 
 ### Compression
 
@@ -136,5 +139,10 @@ We can see in the above screenshots that cab produces the smallest compressed fi
 
 Which compression tool was easiest to use?
 
-In terms of the whole process Compress-Archive was the easiest, at least in command line. 7zip I had to add the path, which was easy but still work. Makecab I had to create the directive file which definately took the longest. Tar was pretty simple though if you extract it once, then for some reason delete the files and have to extract it again, you have to redownload the archive from the windows vm.
+In terms of the whole process Compress-Archive was the easiest, at least in command line. 7zip I had to add the path, which was easy but still work. Makecab I had to create the directive file which definately took the longest. Tar was pretty simple though, if you extract it once, then delete the files, and want/have to extract it again, you have to redownload the archive from the windows vm.
+
+## Task 4: Non-Standard Protocol Exfiltration 
+For this task we'll be using  and DNS
+
+#### DNS
 
