@@ -144,11 +144,14 @@ Which compression tool was easiest to use?
 In terms of the whole process Compress-Archive was the easiest, at least in command line. 7zip I had to add the path, which was easy but still work. Makecab I had to create the directive file which definately took the longest. Tar was pretty simple though, if you extract it once, then delete the files, and want/have to extract it again, you have to redownload the archive from the windows vm.
 
 ## Task 4: Non-Standard Protocol Exfiltration 
-For this task we'll be using SMTP and DNS.
+For this task we'll be using HTTP and DNS.
 
 #### SMTP
 Rogue SMTP server script that captures the email here: [smtp_server.py](./smtp_server.py)
+
 https://youtu.be/KrCAYVy3Oxo
 
-#### DNS
+#### HTTP
+
+https://youtu.be/ppLdrSU0NgA
 
