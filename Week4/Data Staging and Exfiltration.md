@@ -114,7 +114,9 @@ Below are the extracted file sizes for each method:
 
 <img width="565" height="807" alt="image" src="https://github.com/user-attachments/assets/3f8629e7-5346-4f0e-973f-b904bd0fd4bd" />
 
-- tar
+- tar (Before and after file size can be seen)
+
+<img width="472" height="30" alt="image" src="https://github.com/user-attachments/assets/f554016e-44be-4c40-988b-460d32653fb1" />
 
 <img width="493" height="718" alt="image" src="https://github.com/user-attachments/assets/cda0a3fb-a72c-434f-8bcc-9bb93a90d36d" />
 
