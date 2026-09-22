@@ -111,12 +111,19 @@ https://youtu.be/mkPmFG2jNCg
 
 Below are the extracted file sizes for each method:
 - 7z
+
 <img width="565" height="807" alt="image" src="https://github.com/user-attachments/assets/3f8629e7-5346-4f0e-973f-b904bd0fd4bd" />
+
 - tar
+
 <img width="493" height="718" alt="image" src="https://github.com/user-attachments/assets/cda0a3fb-a72c-434f-8bcc-9bb93a90d36d" />
+
 - cab
+
 <img width="506" height="719" alt="image" src="https://github.com/user-attachments/assets/e61ddd4e-2c05-4c95-ab41-687131598da7" />
+
 - unzip
+
 <img width="514" height="691" alt="image" src="https://github.com/user-attachments/assets/1c795ebd-e8a9-4b1a-b81a-ec91f8a3d317" />
 
 
