@@ -136,4 +136,5 @@ We can see in the above screenshots that cab produces the smallest compressed fi
 
 Which compression tool was easiest to use?
 
-In terms of the whole process Compress-Archive was the easiest, at least in command line. 7zip I had to add the path, which was easy but still work. Makecab I had to create the directive file which definately took the longest.
+In terms of the whole process Compress-Archive was the easiest, at least in command line. 7zip I had to add the path, which was easy but still work. Makecab I had to create the directive file which definately took the longest. Tar was pretty simple though if you extract it once, then for some reason delete the files and have to extract it again, you have to redownload the archive from the windows vm.
+
