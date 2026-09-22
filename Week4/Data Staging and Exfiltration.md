@@ -147,7 +147,7 @@ In terms of the whole process Compress-Archive was the easiest, at least in comm
 For this task we'll be using SMTP and DNS.
 
 #### SMTP
-Script that captures the email here: [smtp_server.py]
+Script that captures the email here: [smtp_server.py](./smtp_server.py)
 
 https://youtu.be/KrCAYVy3Oxo
 
