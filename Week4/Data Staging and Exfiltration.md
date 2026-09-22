@@ -105,3 +105,6 @@ Tip for troubleshooting: I had spawned a shell in my meterpreter instance to pro
 
 <img width="476" height="224" alt="image" src="https://github.com/user-attachments/assets/ce7437d4-d190-48f0-b728-0ea97a54a7fc" />
 
+### Task 3: Decompression and Verification
+In this section we'll decompress each archive with its associated command.
+https://youtu.be/mkPmFG2jNCg
