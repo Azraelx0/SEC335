@@ -128,11 +128,12 @@ Below are the extracted file sizes for each method:
 
 <img width="514" height="691" alt="image" src="https://github.com/user-attachments/assets/1c795ebd-e8a9-4b1a-b81a-ec91f8a3d317" />
 
-
-
 Questions:
 
 Which archive format produced the smallest file?
 
+We can see in the above screenshots that cab produces the smallest compressed file with 8,416 bytes.
 
 Which compression tool was easiest to use?
+
+In terms of the whole process Compress-Archive was the easiest, at least in command line. 7zip I had to add the path, which was easy but still work. Makecab I had to create the directive file which definately took the longest.
