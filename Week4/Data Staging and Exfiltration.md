@@ -28,24 +28,26 @@ echo Done.
 ```
 The output file can be viewed here: [Enumeration Output Files](./EnumOutput/)
 
-Five additional LOLBins for enumeration are seen below. Each one will include:
-- The command and its flags
-- What information it gathers
-- Why an attacker would want that information
+#### Five additional LOLBins for enumeration are seen below:
 
 1. net share
+
 This command is used to find shared folders and their paths. An attacker can use this to find data repositories, writable shares for staging payloads, and admin shares.
 
 2. driverquery /v
+
 An attacker can use this to enumerate installed drivers with paths and states. Vulnerable drivers are a common escalation path to kernel-level privileges.
 
 3. schtasks /query /fo LIST /v 
+
 Displays all scheduled tasks with their run-as accounts and the binaries they call. Attackers use this to find writable paths and places to hide persistence.
 
 4. route print
+
 Shows the routing table and interfaces. This allows attackers to form a map of the network which shows what other networks and/or subnets the host can reach. This can lead to pivoting and lateral movement opportunities.
 
 6. cmdkey /list
+
 Lists stored credentials in the Windows Credential Manager. Attackers can then reuse these with runas /savecred to run these as another user without having to decrypt or even see the password.
 
 ### Compression
