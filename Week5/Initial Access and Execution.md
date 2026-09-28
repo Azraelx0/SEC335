@@ -4,8 +4,6 @@
 
 **Objective:** Create a Word macro that downloads and executes a payload when the document is opened, demonstrating macro-based phishing.
 
-### Process
-
 The setup uses two separate services on the Kali box: a Python HTTP server (port 8080) to host the payload, and a Metasploit handler (port 4444) to catch the session.
 
 Steps:
@@ -99,3 +97,58 @@ Word looks for this macro name when a document is opened and automatically runs 
 What defensive measures can organizations implement to block macro-based attacks?
 
 Blocking macros is one of the biggest ways to defend against this. Windows automatically does this these days. The pesky yellow banner saying to beware of the document at the top of word documents you see after opening a file downloaded from an email or the internet is evidence of this. In group policy you can also only allow digitally signed macros from trusted sources to be run so that you can still allow your users functionality on helpful macros without the risk. Additionally, proper employee security training and blocking child processes from Office applications are great measures.
+
+## Task 2: Backdoor an Executable
+
+Commands:
+
+1. ipconfig
+
+
+
+MITRE ID: 
+
+2. sysinfo
+
+MITRE ID:
+
+3. ps
+
+MITRE ID:
+
+4. netstat -an
+
+MITRE ID:
+
+5. getprivs
+
+MITRE ID:
+
+6. hashdump
+
+MITRE ID:
+
+7. route
+
+MITRE ID:
+
+8. arp
+
+MITRE ID:
+
+9. idletime
+
+MITRE ID:
+
+https://youtu.be/mLShDVtzsEE
+
+
+(1) the exact command you ran, 
+(2) a video clip of YOUR enumeration executions, 
+(3) an explanation paragraph describing what the output reveals to an attacker
+(4) the MITRE ATT&CK technique ID. Also submit: a video of the PSExec module execution establishing the session, and a video of the screenshare module showing the Windows 10 desktop. 
+
+
+## Task 3:
+
+## Task 4:
