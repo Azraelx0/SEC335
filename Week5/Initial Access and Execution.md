@@ -127,37 +127,37 @@ This shows all of the running processes on the system. This has a host of valuab
 
 This shows all of the host's active TCP/UDP connections and ports. Valuable due to the fact that an attacker can see if the host is talking to a domain controller, if RDP is running, or other potential vulnerabilities. 
 
-MITRE ID: T1049 (System Network Connections Discovery)
+**MITRE ATT&CK:** T1049 (System Network Connections Discovery)
 
 5. getprivs
 
 This allows the attacker to see exactly what they can do with the user they have on the system they have. It can also be used for token impersonation.
 
-MITRE ID: T1134 (Access Token Manipulation)
+**MITRE ATT&CK:** T1134 (Access Token Manipulation)
 
 6. hashdump
 
 Attackers use this to view the NTLM password hashes for the local accounts. This is valuable for pass-the-hash attackers or offline password cracking. If a local admin reuses passwords, then this opens up access to every machine in the environment. hashdump can be an extremely powerful command for lateral movement.
 
-MITRE ID: T1003.002 (OS Credential Dumping: Security Account Manager)
+**MITRE ATT&CK:** T1003.002 (OS Credential Dumping: Security Account Manager)
 
 7. route
 
 Another network enumeration command. This one reveals the routing table of the host. Any network segments that the host can reach will be shown here. When this is combined with other network enum commands the attacker might as well have a packet tracer network topology of the network.
 
-MITRE ID: T1016 (System Network Configuration Discovery)
+**MITRE ATT&CK:** T1016 (System Network Configuration Discovery)
 
 8. arp
 
 Shows the attacker what other live hosts this host is communicating with. This is a preferable method to nmap as its much stealthier. Since the ARP cache is one of the most up-to-date pictures of what hosts are actually online, pairing it with some of the above methods of lateral movement is perfect for an attacker.
 
-MITRE ID: T1018 (Remote System Discovery)
+**MITRE ATT&CK:** T1018 (Remote System Discovery)
 
 9. idletime
 
 Lastly, idletime reveals how long it's been since a user was on the machine. Very valuable if the attacker needs to have a picture of what kind of actions they can take at the mooment without being discovered. For example, if the idle time is high, then the attacker can likely pull off riskier actions without being noticed. If its low and the user may start using the system again, the attacker may be able to pull off additional recon such as using the screenshare module. (I tested this on my vms and there's no apparent indicator from the victims's perspective that the screen is being recorded. Different OS may differ.)
 
-MITRE ID: T1033 (System Owner/User Discovery)
+**MITRE ATT&CK:** T1033 (System Owner/User Discovery)
 
 https://youtu.be/mLShDVtzsEE
 
@@ -165,7 +165,7 @@ Note: I forgot to run getuid in this video, though being able to run a command l
 
 <img width="373" height="55" alt="image" src="https://github.com/user-attachments/assets/a63440fe-cf23-46a4-b27c-313bb4860526" />
 
-MITRE ID for getuid: T1078 (Valid Accounts)
+**MITRE ATT&CK** for getuid: T1078 (Valid Accounts)
 
 ### Questions:
 Why would you use reverse_https instead of reverse_tcp? 
@@ -189,7 +189,7 @@ It returned NT AUTHORITY\SYSTEM. This means that I have the highest level of pri
 ### Questions:
 How is RDP used by threat actors for initial access and lateral movement?
 
-MITRE ID: T1021.001 (Remote Services: Remote Desktop Protocol), T1078 (Valid Accounts)
+**MITRE ATT&CK:** T1021.001 (Remote Services: Remote Desktop Protocol), T1078 (Valid Accounts)
 Questions to Answer:
 How does an RDP session differ from a Meterpreter session in terms of attacker capabilities?
 Why is RDP a preferred method for attackers who want to interact with a graphical environment? 
