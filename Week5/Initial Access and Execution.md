@@ -142,6 +142,10 @@ MITRE ID:
 
 https://youtu.be/mLShDVtzsEE
 
+Note: I forgot to run getuid in this video, below is a screenshot showing the command:
+
+<img width="373" height="55" alt="image" src="https://github.com/user-attachments/assets/a63440fe-cf23-46a4-b27c-313bb4860526" />
+
 
 (1) the exact command you ran, 
 (2) a video clip of YOUR enumeration executions, 
