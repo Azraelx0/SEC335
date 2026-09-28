@@ -109,19 +109,19 @@ Commands:
 
 This command reveals almost everything an attacker needs to know about what network configuration items are on the current host. For example, it shows default gateway, ip, subnet masks, etc. All of this is extremely helpful for an attacker as they can get an idea as to the size of the network and/or subnet and what other segments may be on the network.
 
-MITRE ID: T1016 (System Network Configuration Discovery)
+**MITRE ATT&CK:** T1016 (System Network Configuration Discovery)
 
 2. sysinfo
 
 This command builds nicely upon the last from an attackers perspective. It reveals the architecture, hostname, OS version, and more about the host system. All of these can be further used for enumeration and exploits, especially if something like a domain is revealed. 
 
-MITRE ID: T1082 (System Information Discovery)
+**MITRE ATT&CK:** T1082 (System Information Discovery)
 
 3. ps
 
 This shows all of the running processes on the system. This has a host of valuable info as attackers can migrate to more stable instances (I actually show this in my video), it shows what EDR/AV might be running, and it reveals what user the process is running under (valuable for privilege escalation).
 
-MITRE ID: T1057 (Process Discovery)
+**MITRE ATT&CK:** T1057 (Process Discovery)
 
 4. netstat -an
 
@@ -185,3 +185,13 @@ How does the getuid output confirm the stolen credential attack was successful?
 It returned NT AUTHORITY\SYSTEM. This means that I have the highest level of privileges possible on the host.
 
 ## Task 4:
+
+### Questions:
+How is RDP used by threat actors for initial access and lateral movement?
+
+MITRE ID: T1021.001 (Remote Services: Remote Desktop Protocol), T1078 (Valid Accounts)
+Questions to Answer:
+How does an RDP session differ from a Meterpreter session in terms of attacker capabilities?
+Why is RDP a preferred method for attackers who want to interact with a graphical environment? 
+What network monitoring indicators would suggest unauthorized RDP access?
+How can organizations restrict RDP access to reduce the attack surface?
