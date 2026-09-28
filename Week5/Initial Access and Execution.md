@@ -186,12 +186,29 @@ It returned NT AUTHORITY\SYSTEM. This means that I have the highest level of pri
 
 ## Task 4:
 
-### Questions:
-How is RDP used by threat actors for initial access and lateral movement?
+https://youtu.be/y3O3ZJsLdUc
 
 **MITRE ATT&CK:** T1021.001 (Remote Services: Remote Desktop Protocol), T1078 (Valid Accounts)
-Questions to Answer:
+
+### Questions:
+
+How is RDP used by threat actors for initial access and lateral movement?
+
+RDP is used to essentially blend in completely with standard admin tasks. You don't have to import any custom mlaware in order to accomplish access or lateral movement. Of course, the attacker does need to make sure these RDP sessions happen at typical times otherwise it can stick out. However, the credentials being used are legit so it looks benign. 
+
 How does an RDP session differ from a Meterpreter session in terms of attacker capabilities?
-Why is RDP a preferred method for attackers who want to interact with a graphical environment? 
+
+With RDP it's like the attacker is sitting at the host interacting with it themselves. They don't have to worry about running commands from a certain prompt (i.e., Meterpreter vs. shell). Also, just being able to look at a GUI can aid in quick recon to spot files or credentials that may be of interest. The trade-off is that RDP is noisy, whereas Meterpreter is not.
+
+Why is RDP a preferred method for attackers who want to interact with a graphical environment?
+
+
+
 What network monitoring indicators would suggest unauthorized RDP access?
+
+
+
 How can organizations restrict RDP access to reduce the attack surface?
+
+
+
