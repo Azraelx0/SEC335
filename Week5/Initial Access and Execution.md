@@ -104,53 +104,68 @@ Commands:
 
 1. ipconfig
 
+This command reveals almost everything an attacker needs to know about what network configuration items are on the current host. For example, it shows default gateway, ip, subnet masks, etc. All of this is extremely helpful for an attacker as they can get an idea as to the size of the network and/or subnet and what other segments may be on the network.
 
-
-MITRE ID: 
+MITRE ID: T1016 (System Network Configuration Discovery)
 
 2. sysinfo
 
-MITRE ID:
+This command builds nicely upon the last from an attackers perspective. It reveals the architecture, hostname, OS version, and more about the host system. All of these can be further used for enumeration and exploits, especially if something like a domain is revealed. 
+
+MITRE ID: T1082 (System Information Discovery)
 
 3. ps
 
-MITRE ID:
+This shows all of the running processes on the system. This has a host of valuable info as attackers can migrate to more stable instances (I actually show this in my video), it shows what EDR/AV might be running, and it reveals what user the process is running under (valuable for privilege escalation).
+
+MITRE ID: T1057 (Process Discovery)
 
 4. netstat -an
 
-MITRE ID:
+This shows all of the host's active TCP/UDP connections and ports. Valuable due to the fact that an attacker can see if the host is talking to a domain controller, if RDP is running, or other potential vulnerabilities. 
+
+MITRE ID: T1049 (System Network Connections Discovery)
 
 5. getprivs
 
-MITRE ID:
+This allows the attacker to see exactly what they can do with the user they have on the system they have. It can also be used for token impersonation.
+
+MITRE ID: T1134 (Access Token Manipulation)
 
 6. hashdump
 
-MITRE ID:
+Attackers use this to view the NTLM password hashes for the local accounts. This is valuable for pass-the-hash attackers or offline password cracking. If a local admin reuses passwords, then this opens up access to every machine in the environment. hashdump can be an extremely powerful command for lateral movement.
+
+MITRE ID: T1003.002 (OS Credential Dumping: Security Account Manager)
 
 7. route
 
-MITRE ID:
+Another network enumeration command. This one reveals the routing table of the host. Any network segments that the host can reach will be shown here. When this is combined with other network enum commands the attacker might as well have a packet tracer network topology of the network.
+
+MITRE ID: T1016 (System Network Configuration Discovery)
 
 8. arp
 
-MITRE ID:
+Shows the attacker what other live hosts this host is communicating with. This is a preferable method to nmap as its much stealthier. Since the ARP cache is one of the most up-to-date pictures of what hosts are actually online, pairing it with some of the above methods of lateral movement is perfect for an attacker.
+
+MITRE ID: T1018 (Remote System Discovery)
 
 9. idletime
 
-MITRE ID:
+Lastly, idletime reveals how long it's been since a user was on the machine. Very valuable if the attacker needs to have a picture of what kind of actions they can take at the mooment without being discovered. For example, if the idle time is high, then the attacker can likely pull off riskier actions without being noticed. If its low and the user may start using the system again, the attacker may be able to pull off additional recon such as using the screenshare module. (I tested this on my vms and there's no apparent indicator from the victims's perspective that the screen is being recorded. Different OS may differ.)
+
+MITRE ID: T1033 (System Owner/User Discovery)
 
 https://youtu.be/mLShDVtzsEE
 
-Note: I forgot to run getuid in this video, below is a screenshot showing the command:
+Note: I forgot to run getuid in this video, though being able to run a command like hashdump proves SYSTEM privileges. However, below is a screenshot showing the command:
 
 <img width="373" height="55" alt="image" src="https://github.com/user-attachments/assets/a63440fe-cf23-46a4-b27c-313bb4860526" />
 
+MITRE ID for getuid: T1078 (Valid Accounts)
 
-(1) the exact command you ran, 
-(2) a video clip of YOUR enumeration executions, 
 (3) an explanation paragraph describing what the output reveals to an attacker
-(4) the MITRE ATT&CK technique ID. Also submit: a video of the PSExec module execution establishing the session, and a video of the screenshare module showing the Windows 10 desktop. 
+(4) the MITRE ATT&CK technique ID.
 
 
 ## Task 3:
