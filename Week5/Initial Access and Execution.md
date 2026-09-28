@@ -1,8 +1,10 @@
-# Task 1 — Malicious Macro Delivery
+# Initial Access and Execution
+
+## Task 1: Malicious Macro Delivery
 
 **Objective:** Create a Word macro that downloads and executes a payload when the document is opened, demonstrating macro-based phishing.
 
-## Process
+### Process
 
 The setup uses two separate services on the Kali box: a Python HTTP server (port 8080) to host the payload, and a Metasploit handler (port 4444) to catch the session.
 
