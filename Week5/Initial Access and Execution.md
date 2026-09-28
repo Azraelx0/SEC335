@@ -164,10 +164,6 @@ Note: I forgot to run getuid in this video, though being able to run a command l
 
 MITRE ID for getuid: T1078 (Valid Accounts)
 
-(3) an explanation paragraph describing what the output reveals to an attacker
-(4) the MITRE ATT&CK technique ID.
-
-
 ## Task 3:
 
 ## Task 4:
