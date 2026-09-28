@@ -88,7 +88,7 @@ When the document opens, the `AutoOpen` procedure runs automatically. The macro 
 
 **MITRE ATT&CK:** T1566 (Phishing), T1204.002 (User Execution), T1059.005 (VBA), T1105 (Ingress Tool Transfer)
 
-## Questions
+### Questions
 
 Why is the "AutoOpen" macro name significant?
 
@@ -166,5 +166,22 @@ Note: I forgot to run getuid in this video, though being able to run a command l
 <img width="373" height="55" alt="image" src="https://github.com/user-attachments/assets/a63440fe-cf23-46a4-b27c-313bb4860526" />
 
 MITRE ID for getuid: T1078 (Valid Accounts)
+
+### Questions:
+Why would you use reverse_https instead of reverse_tcp? 
+
+Using https over tcp enables the traffic to be hidden inside the encrypted https traffic. As such, this allow the traffic to be hidden inside typical web browsing activity. Most people are going to instantly be able to point out http traffic as suspicious in this day and age, so this blends in better. Also, port 443 is far less likely to be blocked than port 80.
+
+Why is using a non-default port important for operational security? 
+
+Because almost all IDS scanners will flag default ports. In a real-world scenario, I would probably use a random port rather than something like 5555 or 6666, as just from running labs and seeing writeups, many pick easy ports like this. So if I were a defender I would probably try to block these if the organization allowed, it's a long shot but it might catch something. 
+
+Which of the 9 enumeration commands revealed the most valuable information for lateral movement and why? 
+
+Hashdump was probably the mose useful for me. Assuming I had another windows system on the network segment I would take the hashes found for both accounts (Apollo and azrael) then just use the hash in my SMBPass field. Assuming credential reuse I would be able to get admin access again. In addition, arp is an incredibly useful command to pair with this as I would have to find the IP of this other system.
+
+How does the getuid output confirm the stolen credential attack was successful?
+
+It returned NT AUTHORITY\SYSTEM. This means that I have the highest level of privileges possible on the host.
 
 ## Task 4:
