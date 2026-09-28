@@ -88,10 +88,14 @@ https://youtu.be/BZ21Wh6ChbM
 
 When the document opens, the `AutoOpen` procedure runs automatically. The macro uses MSXML2.XMLHTTP to download the exe from the attacker's HTTP server, writes it to disk with ADODB.Stream, and runs it with WScript.Shell. The running exe then calls back to the Metasploit handler.
 
-**MITRE ATT&CK:** T1204.002 (User Execution), T1059.005 (VBA), T1105 (Ingress Tool Transfer)
+**MITRE ATT&CK:** T1566 (Phishing), T1204.002 (User Execution), T1059.005 (VBA), T1105 (Ingress Tool Transfer)
 
 ## Questions
 
 Why is the "AutoOpen" macro name significant?
 
+Word looks for this macro name when a document is opened and automatically runs it. This means that the attacker doesn't have to worry about the victim manually running the macro.
+
 What defensive measures can organizations implement to block macro-based attacks?
+
+Blocking macros is one of the biggest ways to defend against this. Windows automatically does this these days. The pesky yellow banner saying to beware of the document at the top of word documents you see after opening a file downloaded from an email or the internet is evidence of this. In group policy you can also only allow digitally signed macros from trusted sources to be run so that you can still allow your users functionality on helpful macros without the risk. Additionally, proper employee security training and blocking child processes from Office applications are great measures.
