@@ -100,6 +100,9 @@ Blocking macros is one of the biggest ways to defend against this. Windows autom
 
 ## Task 2: Backdoor an Executable
 
+
+## Task 3:
+
 Commands:
 
 1. ipconfig
@@ -163,7 +166,5 @@ Note: I forgot to run getuid in this video, though being able to run a command l
 <img width="373" height="55" alt="image" src="https://github.com/user-attachments/assets/a63440fe-cf23-46a4-b27c-313bb4860526" />
 
 MITRE ID for getuid: T1078 (Valid Accounts)
-
-## Task 3:
 
 ## Task 4:
