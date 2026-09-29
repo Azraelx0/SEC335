@@ -111,6 +111,10 @@ https://youtu.be/yLnmTHCcXqQ
 **MITRE ATT&CK:** T1195.002 (Supply Chain Compromise: Compromise Software Supply Chain), T1036 (Masquerading), T1055 (Process Injection)
 
 ### Questions:
+How does this technique achieve persistence and evasion?
+
+This is kind of answered below but all of these backdoor instances essentially hide themselves in legitimate, trusted files. If the end user isn't doing their due diligence then they may download the backdoored exe. From there, it can be hard to tell that the exe isn't what it says it is based on process IDs and AVs.
+
 Why is it difficult for antivirus software to detect backdoored executables? 
 
 Because the file with the backdoor in it is a legitimate and trusted application. AV software won't see the malicious payload's byte pattern since it's inside the trusted app. Also as long as the program functions as intended then the user has no reason to suspect anything is wrong.
