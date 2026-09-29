@@ -189,6 +189,8 @@ Lastly, idletime reveals how long it's been since a user was on the machine. Ver
 
 **MITRE ATT&CK:** T1033 (System Owner/User Discovery)
 
+All enum cmds run here:
+
 https://youtu.be/mLShDVtzsEE
 
 Note: I forgot to run getuid in this video, though being able to run a command like hashdump proves SYSTEM privileges. However, below is a screenshot showing the command:
