@@ -101,7 +101,7 @@ Blocking macros is one of the biggest ways to defend against this. Windows autom
 ## Task 2: Backdoor an Executable
 
 
-## Task 3:
+## Task 3: Credential-Based Lateral Movement with PSExec
 
 Commands:
 
@@ -184,7 +184,7 @@ How does the getuid output confirm the stolen credential attack was successful?
 
 It returned NT AUTHORITY\SYSTEM. This means that I have the highest level of privileges possible on the host.
 
-## Task 4:
+## Task 4: RDP as Initial Access
 
 https://youtu.be/y3O3ZJsLdUc
 
