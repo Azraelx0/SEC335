@@ -100,6 +100,28 @@ Blocking macros is one of the biggest ways to defend against this. Windows autom
 
 ## Task 2: Backdoor an Executable
 
+putty.exe
+
+https://youtu.be/esm1RdWku70
+
+7z.exe
+
+https://youtu.be/yLnmTHCcXqQ
+
+**MITRE ATT&CK:** T1195.002 (Supply Chain Compromise: Compromise Software Supply Chain), T1036 (Masquerading), T1055 (Process Injection)
+
+### Questions:
+Why is it difficult for antivirus software to detect backdoored executables? 
+
+Because the file with the backdoor in it is a legitimate and trusted application. AV software won't see the malicious payload's byte pattern since it's inside the trusted app. Also as long as the program functions as intended then the user has no reason to suspect anything is wrong.
+
+How could an attacker distribute a backdoored executable at scale?
+
+The best way I can think of is having a fake mirror site that has the exe available to download. Typosquatting is a great way to accomplish this. Also, if you can offer installs of hard-to-find things (i.e Windows 10 Pro ISO) then you may be able to get users to take the risk.
+
+What is the risk of using unsigned or unverified software from third-party sources?
+
+Windows verifies that the exe being downloaded was produced by a reputable publisher and that the exe has not been modified since it was signed. Installing something from a third party does not come with a guarantee that the exe has not been tampered with.
 
 ## Task 3: Credential-Based Lateral Movement with PSExec
 
