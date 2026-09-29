@@ -108,6 +108,10 @@ https://youtu.be/esm1RdWku70
 
 https://youtu.be/yLnmTHCcXqQ
 
+ProduKey.exe
+
+https://youtu.be/MauIm3n4DOo
+
 **MITRE ATT&CK:** T1195.002 (Supply Chain Compromise: Compromise Software Supply Chain), T1036 (Masquerading), T1055 (Process Injection)
 
 ### Questions:
