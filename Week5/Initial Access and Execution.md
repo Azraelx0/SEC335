@@ -202,13 +202,13 @@ With RDP it's like the attacker is sitting at the host interacting with it thems
 
 Why is RDP a preferred method for attackers who want to interact with a graphical environment?
 
-
+Like mentioned previously, the main reason is thats its native to most Windows installations so it doesn't trigger typical defenses like custom malware would. It also allows an attacker to do anything someone sitting at the machine could do, save for hardware attacks. 
 
 What network monitoring indicators would suggest unauthorized RDP access?
 
-
+Any external IPs, failed login attempts, logins at weird times (i.e. 3am), and RDP running on a non-standard port would all be indicators of compromise (IoC).
 
 How can organizations restrict RDP access to reduce the attack surface?
 
-
+First, just completely disabling it is a good start. A good thing to note is that the home editions of Windows 10 and 11 don't support RDP connections to the local host (so they can't accept an inbound connection, they can go outbound.). If an organization will keep RDP for admin purposes they should only allow it from specific IPs. Also they should have RDP monitored with event alerts. 
 
