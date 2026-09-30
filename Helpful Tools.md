@@ -1,5 +1,5 @@
 # Tools That I Find Helpful
-This file is a running doc of helpful tools, initially it will be rough doc until i get the time to format it and add to it
+This file is a running doc of helpful tools, initially this will contain tools outside the direct scope of the writeups for each week until I have time to format sections for specific cli commands/tools.
 
 
 ## Network Pentesting
