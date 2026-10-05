@@ -1,7 +1,7 @@
 # Penetration Test Report: Acme Corp Internal Network
 
-**Date:** October 12, 2026
-**Tester:** Your Name
+**Date:** October 5, 2026
+**Tester:** Caden Mercer
 **Target Host:** WS-ACME-042 (Windows 10 Pro)
 **Objective:** Validate internal lateral movement and privilege escalation controls.
 
