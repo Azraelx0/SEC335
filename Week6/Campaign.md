@@ -137,8 +137,9 @@ note these modules are more comprehensive than some other enumeration commands s
 
 
 **Staging:**
-Data compressed using `7z a -p[password] data.7z staging_data.txt`.
 
+
+<img width="756" height="465" alt="image" src="https://github.com/user-attachments/assets/5787a25c-0b86-424a-8f32-1aed1d641099" />
 
 
 
