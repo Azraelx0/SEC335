@@ -113,7 +113,7 @@ Upon execution, the following session was established:
 ### Phase 2: Enumeration
 Following the successful initial access as user Apollo, a comprehensive reconnaissance was performed on the target host DESKTOP-H53BPAA using a combination of native Meterpreter post-exploitation modules and a custom batch enumeration script. All output was consolidated, compressed, and staged for exfiltration.
 
-** Meterpreter Modules Executed:**
+**Meterpreter Modules Executed:**
 
 | Module | Command | Key Findings |
 |:---|:---|:---|
@@ -139,7 +139,6 @@ note these modules are more comprehensive than some other enumeration commands s
 **Custom Script:**
 This is a custom batch enumeration script (`enum.bat`) that was deployed to perform additional host reconnaissance beyond what native Meterpreter modules provide. The script collects granular system data including firewall rules, ARP cache, SMB sessions, and detailed user/group membership which is critical information useful for identifying lateral movement paths and privilege escalation vectors.
  
-### Deployment
 The script was uploaded to the target via Meterpreter's `upload` command and executed via a shell:
  
 ```bash
