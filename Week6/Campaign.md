@@ -357,8 +357,10 @@ File Integrity Verification
 
 
 ### Phase 4: Privilege Escalation
-**Vulnerability:**
-**Root Cause:** 
+**Name:** Weak Service Binary Permissions (Insecure Service Configuration)
+**Reference:** CWE-732 — Incorrect Permission Assignment for Critical Resource. This is a configuration vulnerability rather than a software flaw (Or what would be a CVE). No CVE applies as the weakness is the result of administrator misconfiguration rather than a vendor bug.
+**Root Cause:** The service `VulnSvc` was configured to run under the `LocalSystem` account — the highest privilege context on a Windows host. The followign two misconfigurations made it exploitable by a standard user. First, the service binary directory `C:\VulnService\` had its ACL set to grant `Everyone` full control `(OI)(CI)F`. This allows any authenticated user to overwrite the service binary. Second, the service DACL was modified to grant `Everyone` start and stop permissions. This allows a standard user to restart the service and trigger execution of the replaced binary. Together these misconfigurations allowed a standard user to replace the binary that `LocalSystem` executes, then trigger that execution which is a writable service binary privilege escalation path.
+
 **Exploit Mechanism:**
 
 
@@ -366,6 +368,7 @@ File Integrity Verification
 <img width="1040" height="30" alt="image" src="https://github.com/user-attachments/assets/0ea0cd4b-542f-4e74-a113-651e860b17cd" />
 <img width="952" height="475" alt="image" src="https://github.com/user-attachments/assets/af858828-ca02-480c-a2a2-563f8e42bbdb" />
 <img width="1450" height="650" alt="image" src="https://github.com/user-attachments/assets/d60bab93-1ff6-43d3-bfc1-c7484b3abc00" />
+<img width="931" height="594" alt="image" src="https://github.com/user-attachments/assets/862b0a8b-5f7e-45ff-887e-ad8f97ec053e" />
 
 ### Phase 5: Log Analysis
 **Sysmon Event ID 1 Findings:**
