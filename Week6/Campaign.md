@@ -165,7 +165,7 @@ dir C:\temp\loot.zip
 <img width="756" height="465" alt="image" src="https://github.com/user-attachments/assets/5787a25c-0b86-424a-8f32-1aed1d641099" />
 
  
-The resulting `loot.zip` archive contains all Meterpreter module outputs and custom script results staged at `C:\temp\loot.zip` and ready for exfiltration in Phase 3.
+The resulting `loot.zip` archive contains the custom script results staged at `C:\temp\loot.zip` and ready for exfiltration in Phase 3.
 
 
 
