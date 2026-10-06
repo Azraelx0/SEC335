@@ -131,11 +131,12 @@ The `getprivs` module enumerated the privileges available to the current user to
 - `SeShutdownPrivilege`
 - `SeTimeZonePrivilege`
 - `SeUndockPrivilege`
-The absence of `SeDebugPrivilege` and `SeImpersonatePrivilege` confirms Apollo is a standard unprivileged user, validating the need for Local Privilege Escalation in Phase 4.
+
+The absence of `SeDebugPrivilege` and `SeImpersonatePrivilege` confirms Apollo is a standard unprivileged user. This means that further escalation is needed.
 
 <img width="621" height="135" alt="image" src="https://github.com/user-attachments/assets/224715a3-c575-4d50-9024-1a279adbc8df" />
 
-The exploit suggester scanned 69 potential vectors against the target. The following were flagged as potentially viable:
+The exploit suggester scanned 69 potential vectors against the target. The following were some of the more viable options:
  
 | # | Module | Check Result |
 |:---|:---|:---|
