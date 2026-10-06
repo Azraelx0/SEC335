@@ -28,6 +28,7 @@ The assessment identified a critical misconfiguration in the local security poli
 **RAT & Listener Creation:**
 
 <img width="865" height="152" alt="image" src="https://github.com/user-attachments/assets/d1111b21-a0cd-4578-ba1d-11f76c2b2ebb" />
+
 (Screenshot showing the creation of the RATa.exe)
 
 ```bash
