@@ -348,7 +348,7 @@ File Integrity Verification
 
 <img width="519" height="165" alt="image" src="https://github.com/user-attachments/assets/b5c537a0-b8a4-4b5c-835d-fb6e40f57227" />
  
-**Key fields confirmed readable:**
+**Key fields confirm readable:**
 - Host Name: `DESKTOP-H53BPAA`
 - OS Name: `Microsoft Windows 10 Pro`
 - OS Version: `10.0.19045 N/A Build 19045`
@@ -357,14 +357,13 @@ File Integrity Verification
 
 
 ### Phase 4: Privilege Escalation
-**Vulnerability:** CVE-2023-XXXXX (Hypothetical Print Spooler Flaw)
-**Root Cause:** The service allows standard users to write to a shared memory object that is later read by the SYSTEM process without sanitization.
-**Exploit Mechanism:** Crafted a malicious DLL that, when loaded into the spooler context, executes a reverse shell as SYSTEM.
+**Vulnerability:**
+**Root Cause:** 
+**Exploit Mechanism:**
 
 **Verification:**
 ```bash
-meterpreter > getuid
-Server username: NT AUTHORITY\SYSTEM
+
 ```
 
 **C2 Verification (vssadmin):**
