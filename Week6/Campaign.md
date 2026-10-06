@@ -148,9 +148,10 @@ C:\Users\Apollo\Documents\enum.bat
 exit
 ```
  
-*[Screenshot: upload command and confirmation]*
-*[Screenshot: enum.bat executing in shell]*
- 
+<img width="751" height="129" alt="image" src="https://github.com/user-attachments/assets/884f20bd-78fe-4175-b096-fc3ce23e1a2a" />
+
+<img width="602" height="306" alt="image" src="https://github.com/user-attachments/assets/24651436-eb8e-4262-8858-1b7691403920" />
+
 
 | File | Command | Contents |
 |:---|:---|:---|
@@ -170,9 +171,6 @@ exit
 
 
 
-<img width="751" height="129" alt="image" src="https://github.com/user-attachments/assets/884f20bd-78fe-4175-b096-fc3ce23e1a2a" />
-
-<img width="602" height="306" alt="image" src="https://github.com/user-attachments/assets/24651436-eb8e-4262-8858-1b7691403920" />
 
 
 
