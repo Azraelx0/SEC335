@@ -472,9 +472,9 @@ With all three hives on the C2 server, offline credential extraction was perform
 impacket-secretsdump -sam /home/kali/loot/SAM -system /home/kali/loot/SYSTEM -security /home/kali/loot/SECURITY LOCAL
 ```
  
-*[SCREENSHOT: secretsdump output showing extracted NTLM hashes for local accounts]*
- 
-Impact
+<img width="1108" height="416" alt="image" src="https://github.com/user-attachments/assets/bce15708-26a4-4255-b5a5-56de198fbc56" />
+
+**Impact:**
  
 The SAM database is encrypted with a boot key derived from the SYSTEM hive. Having these files allows complete offline decryption and extraction of all local account NTLM hashes without touching the live system or triggering any endpoint detection. These hashes can be used directly in pass-the-hash attacks or cracked offline to recover plaintext passwords. This demonstrates that SYSTEM-level access combined with shadow copy access results in full credential compromise of the host.
 
