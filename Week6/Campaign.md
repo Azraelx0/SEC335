@@ -75,7 +75,7 @@ Upon execution, the following session was established:
 
 *   **ID:** Unique identifier for the session.
 *   **Type:** `meterpreter` indicates full-featured agent connection.
-*   **User:** `acme\jdoe` confirms initial foothold as standard user.
+*   **User:** `DESKTOP-H53BPAA\Apollo` confirms initial foothold as standard user.
 
 ### Phase 2: Enumeration
 **Modules Executed:**
