@@ -218,6 +218,12 @@ The `loot.zip` archive contains the custom script results staged at `C:\temp\loo
 ### Phase 3: Exfiltration
 
 
+<img width="449" height="73" alt="image" src="https://github.com/user-attachments/assets/d5df3463-262a-496c-a45f-b3f60f34d7ee" />
+
+<img width="300" height="242" alt="image" src="https://github.com/user-attachments/assets/b82b295c-828f-44ed-a70b-0bc13623d96c" />
+
+<img width="519" height="165" alt="image" src="https://github.com/user-attachments/assets/b5c537a0-b8a4-4b5c-835d-fb6e40f57227" />
+
 ### Phase 4: Privilege Escalation
 **Vulnerability:** CVE-2023-XXXXX (Hypothetical Print Spooler Flaw)
 **Root Cause:** The service allows standard users to write to a shared memory object that is later read by the SYSTEM process without sanitization.
