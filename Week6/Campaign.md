@@ -10,11 +10,6 @@ below are initial notes that may or may not be relevant to final report
 
 NOTES:
 
-
-
-
-
-
 ## 1. Executive Summary
 
 The assessment identified a critical misconfiguration in the local security policy that allowed for local privilege escalation from standard user to SYSTEM. Additionally, unencrypted data staging practices were observed. These findings indicate a need for stricter application control policies and encryption requirements for temporary files.
@@ -129,7 +124,7 @@ Following the successful initial access as user `Apollo`, a comprehensive reconn
 
 <img width="621" height="135" alt="image" src="https://github.com/user-attachments/assets/224715a3-c575-4d50-9024-1a279adbc8df" />
 
-note these modules are more comprehensive than some other enumeration commands so they can cause the shell to crash which is why this process is used rather than running them directly from the orginal meterpreter prompt.
+(Note: The local_exploit_suggester module is more comprehensive/resource intensive than some other enumeration commands, so it can caused the shell to crash. This led to this process being used rather than running them directly from the orginal meterpreter prompt.)
 
 <img width="873" height="472" alt="image" src="https://github.com/user-attachments/assets/9ef16a97-18f0-4a11-b953-68aca0f0f7f6" />
 
