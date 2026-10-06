@@ -120,7 +120,18 @@ Following the successful initial access as user `Apollo`, a comprehensive reconn
 
 <img width="442" height="154" alt="image" src="https://github.com/user-attachments/assets/8442fa49-23a5-4267-8484-d816a3b8ec88" />
 
+The `sysinfo` module confirmed the target is running Windows 10 22H2 (Build 19045) on an x64 architecture. The host is not domain-joined, operating in a WORKGROUP environment. This information directly informed the LPE vulnerability selection in Phase 4, as certain exploits are version and build specific.
+
 <img width="265" height="234" alt="image" src="https://github.com/user-attachments/assets/3d1f9fce-340b-4f61-addd-45090d91a5ce" />
+
+The `getprivs` module enumerated the privileges available to the current user token. The following privileges were present:
+ 
+- `SeChangeNotifyPrivilege`
+- `SeIncreaseWorkingSetPrivilege`
+- `SeShutdownPrivilege`
+- `SeTimeZonePrivilege`
+- `SeUndockPrivilege`
+The absence of `SeDebugPrivilege` and `SeImpersonatePrivilege` confirms Apollo is a standard unprivileged user, validating the need for Local Privilege Escalation in Phase 4.
 
 <img width="621" height="135" alt="image" src="https://github.com/user-attachments/assets/224715a3-c575-4d50-9024-1a279adbc8df" />
 
@@ -128,7 +139,24 @@ Following the successful initial access as user `Apollo`, a comprehensive reconn
 
 <img width="873" height="472" alt="image" src="https://github.com/user-attachments/assets/9ef16a97-18f0-4a11-b953-68aca0f0f7f6" />
 
+| Application | Version |
+|:---|:---|
+| Microsoft Office LTSC Professional Plus 2021 | 16.0.14334.20918 |
+| Mozilla Thunderbird (x64) | 157.0.1 |
+| VMware Tools | 12.5.3.24819442 |
+| Microsoft SQL Server Compact 4.0 SP1 x64 | 4.0.8876.1 |
+| Microsoft Edge | 154.0.4258.53 |
+ 
+The presence of Microsoft Office confirms the macro delivery vector used in Phase 1 was appropriate for the target environment.
+
 <img width="832" height="418" alt="image" src="https://github.com/user-attachments/assets/5d89eb0d-7a93-4813-ab53-30a900102f75" />
+
+| SID | User | Profile Path |
+|:---|:---|:---|
+| S-1-5-21-...-1001 | DESKTOP-H53BPAA\azrael | C:\Users\azrael |
+| S-1-5-21-...-1002 | DESKTOP-H53BPAA\Apollo | C:\Users\Apollo |
+ 
+Two user accounts were identified on the system. The compromised session is operating as `Apollo`. The presence of `azrael` indicates an additional account that could be a target for lateral movement.
 
 **Custom Script:**
 
