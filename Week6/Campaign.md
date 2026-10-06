@@ -135,6 +135,16 @@ The absence of `SeDebugPrivilege` and `SeImpersonatePrivilege` confirms Apollo i
 
 <img width="621" height="135" alt="image" src="https://github.com/user-attachments/assets/224715a3-c575-4d50-9024-1a279adbc8df" />
 
+The exploit suggester scanned 69 potential vectors against the target. The following were flagged as potentially viable:
+ 
+| # | Module | Check Result |
+|:---|:---|:---|
+| 1 | `exploit/windows/local/bypassuac_dotnet_profiler` | Target appears vulnerable |
+| 2 | `exploit/windows/local/bypassuac_fodhelper` | Windows 10 22H2 appears vulnerable |
+| 3 | `exploit/windows/local/bypassuac_sdclt` | Windows 10 22H2 appears vulnerable |
+| 4 | `exploit/windows/local/cve_2024_35250_ks_driver` | ks.sys present, Windows 10 22H2 confirmed |
+| 5 | `exploit/windows/local/win_error_cve_2023_36874` | Windows 10 22H2 appears vulnerable |
+ 
 (Note: The local_exploit_suggester module is more comprehensive/resource intensive than some other enumeration commands, so it can caused the shell to crash. This led to this process being used rather than running them directly from the orginal meterpreter prompt.)
 
 <img width="873" height="472" alt="image" src="https://github.com/user-attachments/assets/9ef16a97-18f0-4a11-b953-68aca0f0f7f6" />
@@ -147,8 +157,6 @@ The absence of `SeDebugPrivilege` and `SeImpersonatePrivilege` confirms Apollo i
 | Microsoft SQL Server Compact 4.0 SP1 x64 | 4.0.8876.1 |
 | Microsoft Edge | 154.0.4258.53 |
  
-The presence of Microsoft Office confirms the macro delivery vector used in Phase 1 was appropriate for the target environment.
-
 <img width="832" height="418" alt="image" src="https://github.com/user-attachments/assets/5d89eb0d-7a93-4813-ab53-30a900102f75" />
 
 | SID | User | Profile Path |
