@@ -304,8 +304,10 @@ NTP Packet Structure Used
 **Execution:**
  
 Stop System NTP to Free Port 123 (could use other port)
-
 ```sudo systemctl stop systemd-timesyncd``` 
+
+Restart this once exfiltration is done
+```sudo systemctl start systemd-timesyncd``` 
 
 Start Receiver on Kali
 ```sudo python3 /home/kali/loot/udp_receiver.py```
