@@ -5,6 +5,17 @@
 **Target Host:** WS-ACME-042 (Windows 10 Pro)
 **Objective:** Validate internal lateral movement and privilege escalation controls.
 
+
+below are initial notes that may or may not be relevant to final report
+NOTES:
+-have not disabled real-time monitoring/tamper protection yet
+-trying to test disabling script
+
+
+
+
+
+
 ## 1. Executive Summary
 
 The assessment identified a critical misconfiguration in the local security policy that allowed for local privilege escalation from standard user to SYSTEM. Additionally, unencrypted data staging practices were observed. These findings indicate a need for stricter application control policies and encryption requirements for temporary files.
