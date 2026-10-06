@@ -9,7 +9,9 @@
 below are initial notes that may or may not be relevant to final report
 
 NOTES:
+
 -have not disabled real-time monitoring/tamper protection yet
+
 -trying to test disabling script
 
 
