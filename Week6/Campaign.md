@@ -137,6 +137,7 @@ note these modules are more comprehensive than some other enumeration commands s
 <img width="832" height="418" alt="image" src="https://github.com/user-attachments/assets/5d89eb0d-7a93-4813-ab53-30a900102f75" />
 
 **Custom Script:**
+
 This is a custom batch enumeration script (`enum.bat`) that was deployed to perform additional host reconnaissance beyond what native Meterpreter modules provide. The script collects granular system data including firewall rules, ARP cache, SMB sessions, and detailed user/group membership which is critical information useful for identifying lateral movement paths and privilege escalation vectors.
  
 The script was uploaded to the target via Meterpreter's `upload` command and executed via a shell:
