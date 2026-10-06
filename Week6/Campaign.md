@@ -73,6 +73,8 @@ Upon execution, the following session was established:
 
 <img width="1264" height="395" alt="image" src="https://github.com/user-attachments/assets/f2e08fbc-c4a8-41d7-b8e2-f03bb09fc1bd" />
 
+<img width="458" height="167" alt="image" src="https://github.com/user-attachments/assets/feb1c98b-1efd-4fd1-88ae-d4fdfcd46465" />
+
 *   **ID:** Unique identifier for the session.
 *   **Type:** `meterpreter` indicates full-featured agent connection.
 *   **User:** `DESKTOP-H53BPAA\Apollo` confirms initial foothold as standard user.
