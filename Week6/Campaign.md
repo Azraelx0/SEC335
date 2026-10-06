@@ -183,7 +183,6 @@ ls C:\\temp\\
 
 <img width="602" height="306" alt="image" src="https://github.com/user-attachments/assets/24651436-eb8e-4262-8858-1b7691403920" />
 
-
 | File | Command | Contents |
 |:---|:---|:---|
 | `whoami.txt` | `whoami /all` | User SID, group memberships, privilege tokens |
@@ -199,12 +198,6 @@ ls C:\\temp\\
 | `smbsessions.txt` | `net use` | Active SMB connections |
 | `systeminfo.txt` | `systeminfo` | OS version, hotfixes, patch level |
 
-
-
-
-
-
-
 **Staging:**
 
 The enumeration output files from the custom script run locally on the target were compressed into a single archive for exfiltration. PowerShell's built-in `Compress-Archive` cmdlet was used which required no additional tools and left a minimal footprint.
@@ -213,14 +206,14 @@ The enumeration output files from the custom script run locally on the target we
 ```cmd
 powershell -command "Compress-Archive -Path C:\temp\* -DestinationPath C:\temp\loot.zip"
 ```
- 
+
 ### Verification
 ```cmd
-dir C:\temp\loot.zip
+dir C:\temp\
 ```
- th="756" height="465" alt="image" src="https://github.com/user-attachments/assets/5787a25c-0b86-424a-8f32-1aed1d641099" />
- 
-The resulting `loot.zip` archive contains the custom script results staged at `C:\temp\loot.zip` and ready for exfiltration in Phase 3.
+<img width="443" height="431" alt="image" src="https://github.com/user-attachments/assets/c3e7dfb4-1606-4db8-95f2-bd931b40a9f5" />
+
+The `loot.zip` archive contains the custom script results staged at `C:\temp\loot.zip` and ready for exfiltration in Phase 3.
 
 ### Phase 3: Exfiltration
 **Method:** ICMP Tunneling via `iodine`
