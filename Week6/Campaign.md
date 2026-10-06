@@ -137,7 +137,36 @@ note these modules are more comprehensive than some other enumeration commands s
 <img width="832" height="418" alt="image" src="https://github.com/user-attachments/assets/5d89eb0d-7a93-4813-ab53-30a900102f75" />
 
 **Custom Script:**
+This is a custom batch enumeration script (`enum.bat`) that was deployed to perform additional host reconnaissance beyond what native Meterpreter modules provide. The script collects granular system data including firewall rules, ARP cache, SMB sessions, and detailed user/group membership which is critical information useful for identifying lateral movement paths and privilege escalation vectors.
+ 
+### Deployment
+The script was uploaded to the target via Meterpreter's `upload` command and executed via a shell:
+ 
+```bash
+upload /home/kali/enum.bat C:\\Users\\Apollo\\Documents\\enum.bat
+shell
+C:\Users\Apollo\Documents\enum.bat
+exit
+```
+ 
+*[Screenshot: upload command and confirmation]*
+*[Screenshot: enum.bat executing in shell]*
+ 
 
+| File | Command | Contents |
+|:---|:---|:---|
+| `whoami.txt` | `whoami /all` | User SID, group memberships, privilege tokens |
+| `processes.txt` | `tasklist /v` | All running processes with user context |
+| `netstat.txt` | `netstat -ano` | Active connections and listening ports |
+| `services.txt` | `sc query` | All running Windows services |
+| `users.txt` | `net user` | All local user accounts |
+| `groups.txt` | `net localgroup` | All local groups |
+| `admins.txt` | `net localgroup administrators` | Local administrator group members |
+| `ipconfig.txt` | `ipconfig /all` | Full network configuration |
+| `firewall.txt` | `netsh advfirewall show allprofiles` | Firewall rules for all profiles |
+| `arp.txt` | `arp -a` | ARP cache showing recently contacted hosts |
+| `smbsessions.txt` | `net use` | Active SMB connections |
+| `systeminfo.txt` | `systeminfo` | OS version, hotfixes, patch level |
 
 
 
@@ -150,7 +179,7 @@ note these modules are more comprehensive than some other enumeration commands s
 
 **Staging:**
 
-All enumeration output files were compressed into a single archive for exfiltration. PowerShell's built-in `Compress-Archive` cmdlet was used, requiring no additional tools and leaving a minimal footprint.
+The enumeration output files from the custom script run locally on the target were compressed into a single archive for exfiltration. PowerShell's built-in `Compress-Archive` cmdlet was used which required no additional tools and left a minimal footprint.
  
 ### Compression Command
 ```cmd
@@ -161,14 +190,9 @@ powershell -command "Compress-Archive -Path C:\temp\* -DestinationPath C:\temp\l
 ```cmd
 dir C:\temp\loot.zip
 ```
- 
-<img width="756" height="465" alt="image" src="https://github.com/user-attachments/assets/5787a25c-0b86-424a-8f32-1aed1d641099" />
-
+ th="756" height="465" alt="image" src="https://github.com/user-attachments/assets/5787a25c-0b86-424a-8f32-1aed1d641099" />
  
 The resulting `loot.zip` archive contains the custom script results staged at `C:\temp\loot.zip` and ready for exfiltration in Phase 3.
-
-
-
 
 ### Phase 3: Exfiltration
 **Method:** ICMP Tunneling via `iodine`
