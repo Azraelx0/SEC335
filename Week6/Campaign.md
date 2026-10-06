@@ -112,19 +112,36 @@ Upon execution, the following session was established:
 
 ### Phase 2: Enumeration
 **Modules Executed:**
+<img width="442" height="154" alt="image" src="https://github.com/user-attachments/assets/8442fa49-23a5-4267-8484-d816a3b8ec88" />
+<img width="265" height="234" alt="image" src="https://github.com/user-attachments/assets/3d1f9fce-340b-4f61-addd-45090d91a5ce" />
 
-| Module | Command | Key Findings |
-| :--- | :--- | :--- |
-| sysinfo | `sysinfo` | Windows 10 Pro, Build 19045, x64 |
-| getprivs | `getprivs` | User is not in Administrators group |
-| hashdump | `hashdump` | Failed (requires SYSTEM) |
-| service scan | `service list` | Identified "PrintSpooler" running as SYSTEM |
+
+<img width="621" height="135" alt="image" src="https://github.com/user-attachments/assets/224715a3-c575-4d50-9024-1a279adbc8df" />
+
+note these modules are more comprehensive than some other enumeration commands so they can cause the shell to crash which is why this process is used rather than running them directly from the orginal meterpreter prompt.
+
+<img width="873" height="472" alt="image" src="https://github.com/user-attachments/assets/9ef16a97-18f0-4a11-b953-68aca0f0f7f6" />
+
+<img width="832" height="418" alt="image" src="https://github.com/user-attachments/assets/5d89eb0d-7a93-4813-ab53-30a900102f75" />
 
 **Custom Script:**
-Deployed `enum.ps1` to gather registry keys related to autoruns. Output appended to `staging_data.txt`.
+
+
+
+
+
+<img width="751" height="129" alt="image" src="https://github.com/user-attachments/assets/884f20bd-78fe-4175-b096-fc3ce23e1a2a" />
+
+<img width="602" height="306" alt="image" src="https://github.com/user-attachments/assets/24651436-eb8e-4262-8858-1b7691403920" />
+
+
 
 **Staging:**
 Data compressed using `7z a -p[password] data.7z staging_data.txt`.
+
+
+
+
 
 ### Phase 3: Exfiltration
 **Method:** ICMP Tunneling via `iodine`
