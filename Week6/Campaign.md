@@ -358,7 +358,9 @@ File Integrity Verification
 
 ### Phase 4: Privilege Escalation
 **Name:** Weak Service Binary Permissions (Insecure Service Configuration)
+
 **Reference:** CWE-732 — Incorrect Permission Assignment for Critical Resource. This is a configuration vulnerability rather than a software flaw (Or what would be a CVE). No CVE applies as the weakness is the result of administrator misconfiguration rather than a vendor bug.
+
 **Root Cause:** The service `VulnSvc` was configured to run under the `LocalSystem` account — the highest privilege context on a Windows host. The followign two misconfigurations made it exploitable by a standard user. First, the service binary directory `C:\VulnService\` had its ACL set to grant `Everyone` full control `(OI)(CI)F`. This allows any authenticated user to overwrite the service binary. Second, the service DACL was modified to grant `Everyone` start and stop permissions. This allows a standard user to restart the service and trigger execution of the replaced binary. Together these misconfigurations allowed a standard user to replace the binary that `LocalSystem` executes, then trigger that execution which is a writable service binary privilege escalation path.
 
 **Exploit Mechanism:**
