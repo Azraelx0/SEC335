@@ -361,18 +361,10 @@ File Integrity Verification
 **Root Cause:** 
 **Exploit Mechanism:**
 
-**Verification:**
-```bash
 
-```
-
-**C2 Verification (vssadmin):**
-```bash
-meterpreter > shell
-Microsoft Windows [Version 10.0.19045.3803]
-C:\Windows\system32>vssadmin list shadows
-shadowset {a1b2c3d4-...} created at: 2023-10-12T14:30:00.1234567Z
-```
+<img width="1540" height="395" alt="image" src="https://github.com/user-attachments/assets/cafd0c4b-f56b-4102-ac48-8a1a4b06dca6" />
+<img width="1040" height="30" alt="image" src="https://github.com/user-attachments/assets/0ea0cd4b-542f-4e74-a113-651e860b17cd" />
+<img width="952" height="475" alt="image" src="https://github.com/user-attachments/assets/af858828-ca02-480c-a2a2-563f8e42bbdb" />
 
 ### Phase 5: Log Analysis
 **Sysmon Event ID 1 Findings:**
