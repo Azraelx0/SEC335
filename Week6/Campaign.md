@@ -216,7 +216,17 @@ dir C:\temp\
 The `loot.zip` archive contains the custom script results staged at `C:\temp\loot.zip` and ready for exfiltration in Phase 3.
 
 ### Phase 3: Exfiltration
+The consolidated `loot.zip` archive was exfiltrated from the target host DESKTOP-H53BPAA to the Kali C2 server using a custom NTP covert channel. Data was encoded directly into the timestamp fields of valid NTP packets transmitted over UDP port 123. At the network layer, these packets are indistinguishable from legitimate NTP time synchronization traffic so they can get past both signature-based detection and basic deep packet inspection.
 
+**Exfiltration Method:**
+Protocol: NTP Covert Channel (UDP/123)
+**Justification:**
+Standard network monitoring and DLP (Data Loss Prevention) solutions primarily inspect traffic on ports 80 and 443. NTP on UDP port 123 is universally permitted outbound on enterprise firewalls and every networked device requires time synchronization. Blocking port 123 would break critical infrastructure. Key evasion properties of this method:
+ 
+- **Valid NTP packet structure:** Each packet is exactly 48 bytes with correct LI, VN, Mode, Stratum, Poll and Precision header fields set. This makes it structurally identical to legitimate NTP traffic
+- **Data hidden in timestamp fields:** The 32 bytes of payload data are embedded in the NTP reference, origin, receive, and transmit timestamp fields.
+- **Port 123 universally trusted:** Firewalls rarely inspect NTP payload content or block outbound UDP 123.
+- **No external tools:** Both sender and receiver use only native libraries (Python `socket`, PowerShell `System.Net.Sockets.UdpClient`). So we don't leave forensic artifacts from third-party tools.
 
 <img width="449" height="73" alt="image" src="https://github.com/user-attachments/assets/d5df3463-262a-496c-a45f-b3f60f34d7ee" />
 
