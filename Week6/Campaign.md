@@ -174,7 +174,7 @@ This is a custom batch enumeration script (`enum.bat`) that was deployed to perf
 The script was uploaded to the target via Meterpreter's `upload` command and executed via a shell:
  
 ```bash
-upload /home/kali/enum.bat C:\\Users\\Apollo\\Documents\\enum.bat
+upload /home/kali/enum.bat C:\\Users\\Apollo\\enum.bat
 execute -f cmd.exe -a "/c C:\\Users\\Apollo\\enum.bat" -i -H
 ls C:\\temp\\
 ```
