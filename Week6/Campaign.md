@@ -496,9 +496,12 @@ The initial macro execution spawned `cmd.exe` from `WINWORD.EXE`, which is a str
 1.  Implement Application Control (WDAC) to prevent Office applications from spawning command interpreters.
 2.  Enable PowerShell Script Block Logging to capture encoded commands.
 3.  Patch the Print Spooler service or disable it if not required.
-```
+
+Download logs to kali 
+<img width="815" height="184" alt="image" src="https://github.com/user-attachments/assets/a1a36d2a-e99c-4967-8d03-5c086b26f6c5" />
 
 
+# EXTRA 
 # Phase 4: LPE Vulnerability Scanning and Exploitation Attempts
 
 ## Vulnerability Scanning
@@ -521,10 +524,6 @@ The module scanned 69 potential vectors against the target running Windows 10 Pr
 | 5 | `exploit/windows/local/win_error_cve_2023_36874` | Windows 10 22H2 appears vulnerable |
 | 6 | `exploit/windows/local/ikeext_service` | Target appears vulnerable |
 | 7 | `exploit/windows/local/ms16_032_secondary_logon_handle_privesc` | Service running, multiple CPU cores detected |
-
-*[Screenshot: local_exploit_suggester output]*
-
-
 
 ## Exploitation Attempts
 
