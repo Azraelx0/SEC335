@@ -405,7 +405,9 @@ Upon service restart, a new Meterpreter session (Session 2) opened on port 15000
 ```
 Server username: NT AUTHORITY\SYSTEM
 ```
- 
+
+<img width="1460" height="296" alt="image" src="https://github.com/user-attachments/assets/c6747a55-a782-43d2-a6de-36f4e155928e" />
+
  
 ---
  
@@ -418,14 +420,9 @@ powershell -command "(Get-WmiObject -List Win32_ShadowCopy).Create('C:\','Client
 vssadmin list shadows
 ```
  
-*[SCREENSHOT: WMI output showing `ReturnValue: 0` and `ShadowID`, followed by `vssadmin list shadows` confirming the shadow copy exists on DESKTOP-H53BPAA]*
+<img width="931" height="594" alt="image" src="https://github.com/user-attachments/assets/862b0a8b-5f7e-45ff-887e-ad8f97ec053e" />
  
 The `ReturnValue: 0` confirms successful creation. The `vssadmin list shadows` output shows the shadow copy set ID, creation timestamp, originating machine (`DESKTOP-H53BPAA`), and type (`ClientAccessible`), confirming unrestricted SYSTEM-level access on the target host.
-
-
-<img width="952" height="475" alt="image" src="https://github.com/user-attachments/assets/af858828-ca02-480c-a2a2-563f8e42bbdb" />
-<img width="1450" height="650" alt="image" src="https://github.com/user-attachments/assets/d60bab93-1ff6-43d3-bfc1-c7484b3abc00" />
-<img width="931" height="594" alt="image" src="https://github.com/user-attachments/assets/862b0a8b-5f7e-45ff-887e-ad8f97ec053e" />
 
 ### Phase 5: Log Analysis
 **Sysmon Event ID 1 Findings:**
