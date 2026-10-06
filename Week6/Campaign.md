@@ -216,25 +216,6 @@ dir C:\temp\
 The `loot.zip` archive contains the custom script results staged at `C:\temp\loot.zip` and ready for exfiltration in Phase 3.
 
 ### Phase 3: Exfiltration
-The consolidated loot.zip archive was exfiltrated from the target host DESKTOP-H53BPAA to the Kali C2 server using a custom UDP covert channel operating on port 123. This is port is the standard NTP (Network Time Protocol) port. This method avoids HTTP/HTTPS entirely, instead using raw UDP datagrams to transfer binary data embedded within NTP-port traffic.
-**Method:** 
-**Justification:** 
-
-**Detection Risk:**
-
-
-**Verification on C2:**
-```
-
-```
-<img width="764" height="60" alt="image" src="https://github.com/user-attachments/assets/482d657a-03d5-4a37-be2a-7883bc558756" />
-
-<img width="946" height="413" alt="image" src="https://github.com/user-attachments/assets/9206199a-c13b-47e9-9a8f-1f8bdb16fcbb" />
-
-<img width="1064" height="408" alt="image" src="https://github.com/user-attachments/assets/cf08a3d5-3d67-4df1-9e50-84a66d71272f" />
-
-<img width="472" height="169" alt="image" src="https://github.com/user-attachments/assets/95c3706a-36cb-4c69-8fde-9ad6279e9d6b" />
-
 
 
 ### Phase 4: Privilege Escalation
