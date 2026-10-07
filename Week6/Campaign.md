@@ -547,8 +547,6 @@ download C:\\temp\\sysmon.evtx /home/kali/loot/
 | 2026-10-06 23:43:11 | `VSSVC.exe` | `services.exe` | `C:\Windows\system32\vssvc.exe` |
 | 2026-10-06 23:43:15 | `vssadmin.exe` | `cmd.exe` (SYSTEM) | `vssadmin list shadows` |
  
----
- 
 ## Detection Analysis
  
 | Process | Likely Detected | Reason |
@@ -564,23 +562,21 @@ download C:\\temp\\sysmon.evtx /home/kali/loot/
 | `service.exe` spawned by `services.exe` as SYSTEM | **Possibly** | Unsigned binary with no version or company info spawned by `services.exe` would be flagged by application control policies |
 | WMI shadow copy creation as SYSTEM | **Possibly** | `Win32_ShadowCopy.Create` called from PowerShell is a known ransomware precursor behavior flagged by some EDR rules |
  
----
- 
 ## Evasion Analysis
  
 **What likely went undetected:**
  
-- **NTP covert channel payload content** — The NTP packets were structurally valid at the packet level and indistinguishable from legitimate time synchronization traffic by signature-based IDS. Only behavioral analysis correlating the originating process (`powershell.exe`) to UDP port 123 would catch it.
-- **Meterpreter over reverse HTTPS** — C2 traffic was encapsulated in TLS on ports 14000/15000. Without SSL inspection these connections appear as generic HTTPS traffic. The high port numbers avoid standard port-based detection rules.
-- **enum.bat recon commands** — Individual commands such as `net user`, `arp -a`, and `ipconfig /all` are commonly run by legitimate users and administrators. Without correlation to the parent process chain (`launcher.exe → cmd.exe → net.exe`) they would not generate alerts in isolation.
----
- 
+- **NTP covert channel payload content:** The NTP packets were structurally valid at the packet level and indistinguishable from legitimate time synchronization traffic by signature-based IDS. Only behavioral analysis correlating the originating process (`powershell.exe`) to UDP port 123 would catch it.
+- **Meterpreter over reverse HTTPS:** C2 traffic was encapsulated in TLS on ports 14000/15000. Without SSL inspection these connections appear as generic HTTPS traffic. The high port numbers avoid standard port-based detection rules.
+- **enum.bat recon commands:** Individual commands such as `net user`, `arp -a`, and `ipconfig /all` are run by users and administrators. Without correlation to the parent process chain (`launcher.exe -> cmd.exe -> net.exe`) they would not generate alerts in isolation.
+
 ## Detection Improvement
  
 **Suggested improvement:** Deploy PowerShell Script Block Logging (`HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging`) combined with Constrained Language Mode. This would have captured the encoded Meterpreter staging commands and the NTP sender script in plaintext regardless of obfuscation, and would have prevented several PowerShell-based techniques from executing under a default AppLocker policy.
  
-**TTP change that would reduce detection:** Replacing the VBA macro with a template injection attack (`DOTM` remote template) would remove the `AutoOpen()` macro from the document entirely, significantly reducing static analysis detection by email gateways and AV engines that scan macro-enabled documents. The kill chain would still appear in Sysmon but the initial delivery vector would be much harder to detect pre-execution.
- 
+**TTP change that would reduce detection:** Replacing the VBA macro with a template injection attack (`DOTM` remote template) would remove the `AutoOpen()` macro from the document. This would significantly reduce static analysis detection by email gateways and AV engines that scan macro-enabled documents. The kill chain would still appear in Sysmon but the initial delivery would be much harder to detect pre-execution.
+
+---
 # EXTRA 
 # Phase 4: LPE Vulnerability Scanning and Exploitation Attempts
 
