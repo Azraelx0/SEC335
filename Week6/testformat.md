@@ -738,6 +738,6 @@ download C:\\temp\\sysmon.evtx /home/kali/loot/
 
 1. Implement Application Control (WDAC) to prevent Office applications from spawning command interpreters.
 2. Enable PowerShell Script Block Logging to capture encoded and obfuscated commands.
-3. Audit all SYSTEM service binary paths and permissions — no standard user should have write access to a service binary or its directory.
+3. Audit all SYSTEM service binary paths and permissions. No standard user should have write access to a service binary or its directory.
 4. Deploy EDR with process-to-port correlation to detect non-standard processes making connections on well-known protocol ports such as NTP (UDP/123).
-5. Enforce a patch management policy to ensure builds remain current — several LPE CVEs identified during scanning were patched in mid-2024 updates.
+5. Enforce a patch management policy to ensure builds remain current. Several LPE CVEs identified during scanning were patched in mid-2024 updates.
