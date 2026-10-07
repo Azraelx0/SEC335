@@ -90,8 +90,16 @@ End Sub
 | 4 | `WScript.Shell` | Silently executes the binary via `cmd /c` with hidden window flag (`0`). |
 
 **Session Output Analysis:**
-Upon execution, the following session was established:
+Upon execution, the following session was established and the following commands were run from the established Meterpreter session to confirm access as Apollo:
 
+```bash
+getuid
+```
+`Server username: DESKTOP-2835PON\Apollo`
+
+```bash
+sessions -l
+```
 <img width="1264" height="395" alt="image" src="https://github.com/user-attachments/assets/f2e08fbc-c4a8-41d7-b8e2-f03bb09fc1bd" />
 
 <img width="328" height="38" alt="image" src="https://github.com/user-attachments/assets/8bfc558a-49bb-40e8-ae2c-b282924b4300" />
