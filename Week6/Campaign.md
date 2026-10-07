@@ -95,8 +95,6 @@ Upon execution, the following session was established and the following commands
 ```bash
 getuid
 ```
-`Server username: DESKTOP-2835PON\Apollo`
-
 ```bash
 sessions -l
 ```
