@@ -38,3 +38,37 @@ Found under "Files (scripts) in /etc/profile.d/"
 Writable path:
 
 <img width="446" height="35" alt="image" src="https://github.com/user-attachments/assets/28928567-d2ab-4a4f-9cb1-275419d37746" />
+
+
+## Manual Enum & Confirmation 
+The following commands are what would be run if doing enumeration manually or just to confirm the automatic scan done by linpeas.
+
+id; sudo -l                                                # Shows user, group, what can be done as root
+
+<img width="1021" height="132" alt="image" src="https://github.com/user-attachments/assets/69c0a6aa-a5d3-47d5-9935-ba2a5c84d456" />
+
+
+find / -perm -4000 -type f 2>/dev/null                     # SUID binaries, note the `/opt/lab/bin/python3` binary
+
+<img width="493" height="452" alt="image" src="https://github.com/user-attachments/assets/46bece36-cdad-453a-88ab-a6bbbd20d165" />
+
+ls -la /etc/cron.d/ /etc/crontab                           # root-scheduled jobs
+
+<img width="445" height="234" alt="image" src="https://github.com/user-attachments/assets/608abf94-86ff-4de0-a898-f141184b669e" />
+
+grep -R "" /etc/cron.d/ 2>/dev/null                        # which scripts root runs, note `/opt/lab/bin/backup.sh`
+
+<img width="1222" height="506" alt="image" src="https://github.com/user-attachments/assets/e9f09c72-9956-4d69-acf3-a317e951f6df" />
+
+find /opt /usr/local /etc -writable -type d 2>/dev/null    # writable dirs
+
+<img width="605" height="62" alt="image" src="https://github.com/user-attachments/assets/5b393112-04c5-43c2-a158-7511643bac35" />
+
+find /opt /etc -writable -type f 2>/dev/null               # writable root-owned files
+
+<img width="505" height="57" alt="image" src="https://github.com/user-attachments/assets/ce7a0a1e-c695-4d04-a94d-35ad3d639d4b" />
+
+cat /etc/profile.d/*.sh                                    # PATH manipulation, the critical output for this lab's purpose is seen below
+
+<img width="295" height="25" alt="image" src="https://github.com/user-attachments/assets/e6e0018e-5de2-41e0-b7e9-db4f0d314d7b" />
+
