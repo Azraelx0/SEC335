@@ -167,3 +167,17 @@ chmod +x /opt/lab/bin/backup.sh
 Then wait 5 min until running the following cmd to confirm escalation:
 
 <img width="654" height="85" alt="image" src="https://github.com/user-attachments/assets/c4ef3602-6b0b-4477-b509-91ce0d60a7ef" />
+
+Clean Up:
+From the rootshell run
+```
+cat > /opt/lab/bin/backup.sh <<'EOF'
+#!/bin/bash
+echo "backup done" > /tmp/backup.log
+EOF
+```
+Then run:
+```
+rm -f /tmp/rootshell
+exit
+```
