@@ -11,7 +11,7 @@ Used scp to transfer linpeas.sh from kali vm to target ```scp -P 10019 bthomas@1
 Then used ls -la to ensure the file had execute permissions. If it does not then run ```chmod +x /tmp/linpeas.sh```
 Ran it with ```bash /tmp/linpeas.sh &> /tmp/linpeas.out``` to save it to an output file. Then view it using `less -R` so we preserved the colors and can scroll through the file.
 
-
+## linpeas output
 Found under "Files with Interesting Permissions"
 SUID Binarys: 
 
@@ -19,11 +19,13 @@ SUID Binarys:
 
 Found under category seen in screenshot
 Writable Directory & File:
+
 <img width="933" height="71" alt="image" src="https://github.com/user-attachments/assets/d29556b7-7d3a-460d-bfdc-aee86c37ceb6" />
 
 <img width="996" height="123" alt="image" src="https://github.com/user-attachments/assets/15829ffd-6a88-4bb0-84da-98964793c369" />
 
 Found under "Check for vulnerable cron jobs under /etc/cron.d"
+Cron jobs/files
 
 <img width="475" height="52" alt="image" src="https://github.com/user-attachments/assets/8c7db8f7-3d38-4632-b989-c5f061ec9aa8" />
 
@@ -31,3 +33,8 @@ Found under "sudo -l, /etc/sudoers, and /etc/sudoer.d"
 sudo perms:
 
 <img width="446" height="47" alt="image" src="https://github.com/user-attachments/assets/ee7958d8-7d80-4260-9655-7b744f2f149f" />
+
+Found under "Files (scripts) in /etc/profile.d/"
+Writable path:
+
+<img width="446" height="35" alt="image" src="https://github.com/user-attachments/assets/28928567-d2ab-4a4f-9cb1-275419d37746" />
