@@ -134,13 +134,13 @@ Files the current user can modify that root relies on.
 ```bash
 cat /etc/profile.d/*.sh
 ```
-Most output is stock Ubuntu boilerplate. The critical line is the last one:
+Most output is the default. However, the critical line is the last one:
 
 ```bash
 export PATH="/opt/lab/bin:$PATH"
 ```
 
-This prepends the world-writable `/opt/lab/bin` to PATH for every login shell — including root's — which is the basis for the V5 PATH-hijack.
+This prepends the world-writable `/opt/lab/bin` to PATH for every login shell which includes root's.
 
 <img width="295" height="25" alt="writable PATH line" src="https://github.com/user-attachments/assets/e6e0018e-5de2-41e0-b7e9-db4f0d314d7b" />
 
