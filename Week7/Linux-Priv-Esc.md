@@ -210,3 +210,44 @@ Wait 5 min then:
 <img width="659" height="84" alt="image" src="https://github.com/user-attachments/assets/363cf378-83a9-41aa-b194-20f424a1180c" />
 
 Clean up the lab in the same manner as V1.
+
+## V4 - Missing Binary on a Writable Path
+
+Confirm Vuln (note the lack of the file is exactly what we want):
+
+<img width="546" height="127" alt="image" src="https://github.com/user-attachments/assets/18cb558b-3d3e-4608-b10d-af50c6f1b17d" />
+
+Create the expected file with a payload:
+
+<img width="458" height="83" alt="image" src="https://github.com/user-attachments/assets/7c66fc89-86d1-4cb5-851e-61edbc172c96" />
+
+Confirm exploitation:
+
+<img width="646" height="126" alt="image" src="https://github.com/user-attachments/assets/e0903dc0-0e2e-43ac-93b2-cc9a488c74f0" />
+
+Cleanup:
+
+<img width="332" height="49" alt="image" src="https://github.com/user-attachments/assets/abe44eae-37a4-4088-b01b-9096c08429d6" />
+
+## V5 - Root PATH Hijack (profile.d)
+
+Confirm Vuln:
+
+<img width="896" height="131" alt="image" src="https://github.com/user-attachments/assets/966fcf08-1899-473b-8d47-fbed2b55dc66" />
+
+Insert fake `ls`:
+
+<img width="458" height="121" alt="image" src="https://github.com/user-attachments/assets/ebe4fa95-95a8-499e-855e-a96f866f1d97" />
+
+Exploitation proof:
+
+<img width="644" height="168" alt="image" src="https://github.com/user-attachments/assets/f11cba94-ebd3-40ba-b30f-bf919c3300ed" />
+
+Cleanup:
+
+<img width="306" height="66" alt="image" src="https://github.com/user-attachments/assets/5e719bbb-7f57-49f8-a1fa-545a5f36a768" />
+
+## V6 - World-Writable MOTD Directory
+
+
+## V7 - SUID Python Binary
