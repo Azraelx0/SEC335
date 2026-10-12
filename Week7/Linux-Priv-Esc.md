@@ -169,6 +169,7 @@ Then wait 5 min until running the following cmd to confirm escalation:
 <img width="654" height="85" alt="image" src="https://github.com/user-attachments/assets/c4ef3602-6b0b-4477-b509-91ce0d60a7ef" />
 
 Clean Up:
+
 From the rootshell run
 ```
 cat > /opt/lab/bin/backup.sh <<'EOF'
@@ -181,3 +182,19 @@ Then run:
 rm -f /tmp/rootshell
 exit
 ```
+## V2 - sudo NOPASSWD Wildcard Command (find)
+Confirm vuln:
+
+<img width="1016" height="140" alt="image" src="https://github.com/user-attachments/assets/600aa805-9dfe-4f28-80f5-cf4116f4f2ed" />
+
+Proof of exploitation:
+
+<img width="610" height="70" alt="image" src="https://github.com/user-attachments/assets/c55dfa6e-83ee-44b6-9534-3e60760a4be3" />
+
+## V3 - World-Writable Root Cron Script
+Confirmation checks:
+
+<img width="834" height="362" alt="image" src="https://github.com/user-attachments/assets/f0d52025-2a1e-4ead-b797-b9d31d14fce6" />
+
+Exploitation:
+
