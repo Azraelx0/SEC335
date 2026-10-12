@@ -10,7 +10,7 @@ ssh -p 10019 bthomas@192.168.3.205
 
 <img width="347" height="63" alt="SSH connection" src="https://github.com/user-attachments/assets/841367df-277e-4eb5-a9cb-9490c16d5b52" />
 
-### Initial Context
+### Initial Foothold Enum
 
 First thing after landing on a host: establish who you are and what you're allowed to run as root.
 
@@ -23,21 +23,21 @@ sudo -l     # commands you may run via sudo
 
 ### Transferring linpeas.sh to the Target
 
-Push linpeas from the Kali VM to the target over SSH (note `scp` uses a capital `-P` for the port):
+Push linpeas from the Kali VM to the target over SSH:
 
 ```bash
 # On Kali, from the directory containing linpeas.sh:
 scp -P 10019 linpeas.sh bthomas@192.168.3.205:/tmp/
 ```
 
-Confirm it transferred and is executable; add the execute bit if needed:
+Confirm it transferred and is executable. Add the execute bit if needed:
 
 ```bash
 ls -la /tmp/linpeas.sh
 chmod +x /tmp/linpeas.sh      # only if it isn't already executable
 ```
 
-Run it and tee the output to a file, then review with colors preserved:
+Run it and tee the output to a file, this methods maintains colored output:
 
 ```bash
 bash /tmp/linpeas.sh &> /tmp/linpeas.out    # &> captures stdout + stderr
@@ -51,7 +51,7 @@ less -R /tmp/linpeas.out                    # -R renders ANSI colors
 linpeas surfaced the following. Each maps to one of the lab's exploitation vectors.
 
 #### SUID Binaries — *(V7: SUID Python)*
-Found under **"Files with Interesting Permissions."** Note the anomalous `/opt/lab/bin/python3`.
+Found under **"Files with Interesting Permissions."** Note `/opt/lab/bin/python3`.
 
 <img width="692" height="32" alt="SUID binaries" src="https://github.com/user-attachments/assets/c0cf7e64-eabc-4215-b22b-32e1187cc9da" />
 
