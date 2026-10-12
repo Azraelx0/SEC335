@@ -56,7 +56,7 @@ Found under **"Files with Interesting Permissions."** Note `/opt/lab/bin/python3
 <img width="692" height="32" alt="SUID binaries" src="https://github.com/user-attachments/assets/c0cf7e64-eabc-4215-b22b-32e1187cc9da" />
 
 #### Writable Directory & Files — *(V1 / V3 / V4 / V5 / V6)*
-Found under the permissions section. World-writable paths root-owned content depends on.
+Found under the permissions section.
 
 <img width="933" height="71" alt="Writable directory" src="https://github.com/user-attachments/assets/d29556b7-7d3a-460d-bfdc-aee86c37ceb6" />
 
