@@ -266,13 +266,15 @@ id
 
 ### Clean Up
 
-Same idea as V1. From the rootshell, restore the original script, then remove the shell:
+Same idea as V1. From the rootshell, restore the original script, then remove the shell (to be honest I forgot to check what the original rotate.sh had in it so I guessed that it was similar to the backup one.):
 
 ```bash
 cat > /opt/lab/scripts/rotate.sh <<'EOF'
 #!/bin/bash
 echo "rotate done" > /tmp/rotate.log
 EOF
+```
+```
 rm -f /tmp/rootshell
 exit
 ```
