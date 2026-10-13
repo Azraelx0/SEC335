@@ -281,3 +281,7 @@ Exploit:
 
 <img width="734" height="68" alt="image" src="https://github.com/user-attachments/assets/ef17a392-39da-42d8-ab20-cff626cfc995" />
 
+Confirm entire lab is clean:
+
+<img width="550" height="180" alt="image" src="https://github.com/user-attachments/assets/c19abfb6-2105-4863-89a4-b8986c847d62" />
+
