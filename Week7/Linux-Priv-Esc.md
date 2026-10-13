@@ -249,5 +249,35 @@ Cleanup:
 
 ## V6 - World-Writable MOTD Directory
 
+Confirm:
+
+<img width="908" height="312" alt="image" src="https://github.com/user-attachments/assets/2c9cf494-0c46-4edd-a0b4-be68e5f7c547" />
+
+Insert malicious script:
+
+<img width="505" height="120" alt="image" src="https://github.com/user-attachments/assets/0e3859df-18f0-43c6-86ea-b7a42f1a82ca" />
+
+Exploit:
+
+Login to the remote target using ```ssh -p 10019 bthomas@192.168.3.205``` then:
+
+<img width="648" height="172" alt="image" src="https://github.com/user-attachments/assets/9ddff023-7145-4607-9755-21a52bafcd6c" />
+
+Cleanup:
+
+<img width="415" height="83" alt="image" src="https://github.com/user-attachments/assets/953f50f4-3521-4378-968d-bcd819389003" />
 
 ## V7 - SUID Python Binary
+
+Confirm Vuln:
+
+<img width="528" height="499" alt="image" src="https://github.com/user-attachments/assets/2b26683d-9781-44fa-9d38-0bedea61c249" />
+
+Note the `s` bit set in below screenshot
+
+<img width="544" height="71" alt="image" src="https://github.com/user-attachments/assets/2a530c5c-c51b-4afa-b9f8-1f12213c2485" />
+
+Exploit:
+
+<img width="734" height="68" alt="image" src="https://github.com/user-attachments/assets/ef17a392-39da-42d8-ab20-cff626cfc995" />
+
