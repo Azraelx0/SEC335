@@ -283,5 +283,6 @@ Exploit:
 
 Confirm entire lab is clean:
 
-<img width="550" height="180" alt="image" src="https://github.com/user-attachments/assets/c19abfb6-2105-4863-89a4-b8986c847d62" />
+<img width="551" height="166" alt="image" src="https://github.com/user-attachments/assets/01354558-83a1-4d8e-b0d9-175f7edacd69" />
+
 
