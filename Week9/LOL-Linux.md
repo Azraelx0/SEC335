@@ -4,6 +4,7 @@
 **User:** Standard lab user, with sudo used only where noted
 
 All enumeration output was saved to `/tmp/enumeration/` using the naming scheme `##_name.txt`. The script `enu_linm.sh` runs every command in order.
+
 ---
 
 ## Task 1: Enumeration Commands
