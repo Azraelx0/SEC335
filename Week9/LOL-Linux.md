@@ -1,9 +1,9 @@
 # Living Off the Land on Linux - Host Enumeration
 
-**Lab Environment:** Kali Linux container VM (192.168.3.205)
+**Lab Environment:** Linux Container (192.168.3.205)
 **User:** Standard lab user, with sudo used only where noted
 
-All enumeration output was saved to `/tmp/enumeration/` using the naming scheme `##_name.txt`. The script `enu_linm.sh` runs every command in order.
+All enumeration output was saved to `/tmp/enumeration/` using the naming scheme `##_name.txt`. The script `enum_lin.sh` runs every command in order.
 
 ---
 
@@ -255,7 +255,7 @@ This command will show active SMB sessions, connected users, and shared resource
 
 **What the Output Reveals to an attacker:**
 
-This prints the kernel name, version, architecture, and hostname. The kernel version is extremely for an attacker because it maps to known local privilege escalation vulnerabilities. The architecture tells them which exploits will run on the host.
+This prints the kernel name, version, architecture, and hostname. The kernel version is extremely useful for an attacker because it maps to known local privilege escalation vulnerabilities. The architecture tells them which exploits will run on the host.
 
 **MITRE ATT&CK:** T1082 (System Information Discovery)
 
@@ -603,7 +603,7 @@ This shows that the AppArmor module is loaded so a mandatory access control laye
 
 **What the Output Reveals to an attacker:**
 
-If NFS sharing is enables and shares are active then this file defines which directories are shared over NFS and with what options. A share exported with no_root_squash and write access is a path to root and data theft. This output shows that the host doesn't have NFS configured.
+If NFS sharing is enabled and shares are active then this file defines which directories are shared over NFS and with what options. A share exported with no_root_squash and write access is a path to root and data theft. This output shows that the host doesn't have NFS configured.
 
 **MITRE ATT&CK:** T1135 (Network Share Discovery)
 
@@ -727,7 +727,7 @@ This lists files that processes hold open but that have been deleted from disk. 
 
 **What it gathers:** The awk tool reads and processes any file the caller can access. It can also spawn a shell with its system function.
 
-**Why an attacker wants it:** It reads files without using cat and if it has setuid rightsit can be used to run a shell and escalate privileges. Because awk is installed everywhere and is less watched than a direct shell call it can be low profile.
+**Why an attacker wants it:** It reads files without using cat and if it has setuid rights it can be used to run a shell and escalate privileges. Because awk is installed everywhere and is less watched than a direct shell call it can be low profile.
 
 **MITRE ATT&CK:** T1059.004 (Command and Scripting Interpreter: Unix Shell), T1083 (File and Directory Discovery)
 
