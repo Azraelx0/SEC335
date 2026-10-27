@@ -405,11 +405,11 @@ This shows scheduled jobs and the accounts they run as. A job that runs as root 
 
 **Screenshot:**
 
-<img width="1010" height="43" alt="image" src="https://github.com/user-attachments/assets/b7fa0aea-7542-407b-a521-2f67d615d6f9" />
+There was no output from this command as no sec tools were found.
 
 **What the Output Reveals to an attacker:**
 
-This checks whether any antivirus, audit, or endpoint detection agent is running. The result shapes how stealthy the attacker must be. On this Kali host the grep returns nothing, which is itself the finding. No EDR is running, so the attacker can act with less concern about detection.
+This checks whether any antivirus, audit, or endpoint detection agent is running. What is running will decide how stealthy the attacker must be and what countermeasures they may be able to use.
 
 **MITRE ATT&CK:** T1518.001 (Software Discovery: Security Software Discovery)
 
@@ -423,13 +423,13 @@ This checks whether any antivirus, audit, or endpoint detection agent is running
 
 **Output file:** `21_packages.txt`
 
-**Screenshot:**
+**Screenshot(Partial):**
 
-*(paste screenshot here)*
+<img width="1528" height="358" alt="image" src="https://github.com/user-attachments/assets/82e46bc4-58e1-40d0-a4fc-5a7f77638dcf" />
 
 **What the Output Reveals to an attacker:**
 
-This lists every installed package and its version. The attacker scans for versions with known vulnerabilities and for useful tools already present on the host, such as compilers and interpreters that help with exploitation.
+This lists every installed package and its version. The attacker scans for versions with known vulnerabilities and for useful tools already installed like compilers and interpreters that help with exploitation.
 
 **MITRE ATT&CK:** T1518 (Software Discovery)
 
@@ -445,11 +445,11 @@ This lists every installed package and its version. The attacker scans for versi
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="428" height="75" alt="image" src="https://github.com/user-attachments/assets/b83d28c2-ab2b-46f7-8ef4-99d7caffc6de" />
 
 **What the Output Reveals to an attacker:**
 
-This prints the exact kernel release. The attacker matches this version against public kernel exploits to find a precise local privilege escalation that works against this host.
+This prints the kernel release. The attacker can match this version against public kernel exploits to find a local privilege escalation that works against this host.
 
 **MITRE ATT&CK:** T1082 (System Information Discovery)
 
@@ -465,11 +465,11 @@ This prints the exact kernel release. The attacker matches this version against 
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="631" height="268" alt="image" src="https://github.com/user-attachments/assets/a38f7697-dc4d-4420-82d8-88eecd115bcd" />
 
 **What the Output Reveals to an attacker:**
 
-This shows mounted filesystems and how much space is free. The attacker learns where data is stored, whether network shares or removable media are mounted, and where there is room to stage stolen data before exfiltration.
+This shows mounted filesystems and how much space is free. The attacker can learn where data is stored, whether network shares or removable media are mounted, and where there is room to stage stolen data before exfiltration.
 
 **MITRE ATT&CK:** T1082 (System Information Discovery), T1083 (File and Directory Discovery)
 
@@ -483,13 +483,13 @@ This shows mounted filesystems and how much space is free. The attacker learns w
 
 **Output file:** `24_ssh.txt`
 
-**Screenshot:**
+**Screenshot(Partial):**
 
-*(paste screenshot here)*
+<img width="856" height="302" alt="image" src="https://github.com/user-attachments/assets/73b60cc1-76fb-4ae7-bbd1-3022e9950de7" />
 
 **What the Output Reveals to an attacker:**
 
-The SSH server configuration reveals weaknesses such as whether root login is permitted and whether password authentication is allowed. Private keys and authorized_keys files reveal trust relationships, showing which keys grant access to which hosts. Stolen private keys let the attacker move to other systems without a password.
+The SSH server configuration can reveal weaknesses like if root login is permitted and whether password authentication is allowed. Private keys and authorized_keys files reveal trust relationships and show which keys grant access to which hosts. Stolen private keys let the attacker move to other systems without a password.
 
 **MITRE ATT&CK:** T1552.004 (Unsecured Credentials: Private Keys), T1021.004 (Remote Services: SSH)
 
@@ -505,11 +505,11 @@ The SSH server configuration reveals weaknesses such as whether root login is pe
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="510" height="65" alt="image" src="https://github.com/user-attachments/assets/9005940b-a3bf-444f-abea-da36754e0234" />
 
 **What the Output Reveals to an attacker:**
 
-This checks the permissions on the shadow file, which stores password hashes. The file should be readable only by root. If a misconfiguration makes it readable by a normal user, the attacker can copy every password hash and crack them offline at their leisure.
+This checks the permissions on the shadow file which stores password hashes. If a misconfiguration makes it readable by a normal user, the attacker can copy every password hash and crack them offline.
 
 **MITRE ATT&CK:** T1003.008 (OS Credential Dumping: /etc/passwd and /etc/shadow)
 
@@ -527,11 +527,11 @@ This checks the permissions on the shadow file, which stores password hashes. Th
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="712" height="46" alt="image" src="https://github.com/user-attachments/assets/c88ae94f-dad2-4207-b615-a31be0e45280" />
 
 **What the Output Reveals to an attacker:**
 
-This shows failed login attempts recorded by the system. The attacker learns which accounts are being targeted, which source addresses are attacking, and whether their own attempts are being logged. Patterns of failed logins can also hint at weak accounts under active guessing.
+This will show failed login attempts recorded by the system if access to run the command as the user is allowed. The attacker can learn which accounts are being targeted, which source addresses are attacking, and whether their own attempts are being logged.
 
 **MITRE ATT&CK:** T1087 (Account Discovery), T1033 (System Owner/User Discovery)
 
@@ -547,11 +547,11 @@ This shows failed login attempts recorded by the system. The attacker learns whi
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="450" height="37" alt="image" src="https://github.com/user-attachments/assets/80c9ce0d-d785-472a-ad57-19668876701a" />
 
 **What the Output Reveals to an attacker:**
 
-This lists running containers. The permissions on the docker socket matter a great deal. If a normal user can reach the docker socket, or belongs to the docker group, they can start a container that mounts the host filesystem and gain root. On this host the daemon may not be running, which the output will show.
+Note: could not install due to being standard user. If installed this lists running containers. The permissions on the docker socket matter since if a normal user can reach the docker socket, or belongs to the docker group, they can start a container that mounts the host filesystem and gain root.
 
 **MITRE ATT&CK:** T1613 (Container and Resource Discovery)
 
