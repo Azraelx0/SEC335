@@ -99,11 +99,11 @@ This shows which services are active. The list shows the software stack that is 
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="732" height="745" alt="image" src="https://github.com/user-attachments/assets/c08efe12-6778-4790-b670-ea823c34bc96" />
 
 **What the Output Reveals to an attacker:**
 
-This file lists every account with its UID, home directory, and login shell. Accounts with a UID of 1000 or higher are usually real human users and make good targets. A shell of /bin/bash means the account can log in, while /usr/sbin/nologin means it cannot. The home directory paths tell the attacker where to look for keys, history files, and stored credentials.
+This file lists every account with its UID, home directory, and login shell. Accounts with a UID of 1000 or higher are usually real users and make good targets. A shell of /bin/bash means the account can log in, while /usr/sbin/nologin means it cannot. The home directory paths tell the attacker where to look for keys, history files, and stored credentials.
 
 **MITRE ATT&CK:** T1087.001 (Account Discovery: Local Accounts)
 
@@ -117,13 +117,13 @@ This file lists every account with its UID, home directory, and login shell. Acc
 
 **Output file:** `06_groups.txt`
 
-**Screenshot:**
+**Screenshot(Partial):**
 
-*(paste screenshot here)*
+<img width="417" height="292" alt="image" src="https://github.com/user-attachments/assets/ab23a143-84e6-465a-8e22-298046fdd383" />
 
 **What the Output Reveals to an attacker:**
 
-This shows every group and its members. The attacker looks for powerful groups such as sudo, docker, adm, and lxd. Membership in several of these is a direct path to root. This file also reveals the overall structure of who has access to what on the system.
+This shows every group and its members. The attacker looks for groups such as sudo, docker, adm, and lxd. Membership in several of these is a path to root.
 
 **MITRE ATT&CK:** T1069.001 (Permission Groups Discovery: Local Groups)
 
@@ -139,11 +139,11 @@ This shows every group and its members. The attacker looks for powerful groups s
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="465" height="73" alt="image" src="https://github.com/user-attachments/assets/794d6e73-3363-442b-972a-87330da0851d" />
 
 **What the Output Reveals to an attacker:**
 
-This prints the exact list of accounts that belong to the sudo group. These are the administrator accounts worth targeting with password guessing, phishing, or credential theft because compromising any one of them grants root level access.
+This shows the accounts that are in the sudo group. These are the admin accounts worth targeting with password guessing, phishing, or credential theft because compromising them gains root access.
 
 **MITRE ATT&CK:** T1069.001 (Permission Groups Discovery: Local Groups)
 
@@ -159,11 +159,11 @@ This prints the exact list of accounts that belong to the sudo group. These are 
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="921" height="342" alt="image" src="https://github.com/user-attachments/assets/521477d4-f106-4a2c-afd4-12ae7f3a72fb" />
 
 **What the Output Reveals to an attacker:**
 
-This shows the network interfaces and their assigned IP addresses. Combined with the routing table and DNS settings, it gives the attacker a map of the internal network, the subnets in use, and the default gateway. A host with more than one interface may bridge two networks, which is valuable for pivoting deeper into the environment.
+This shows the network interfaces and their assigned IP addresses. Combined with a routing table and DNS settings it basically gives the attacker a map of the network. A host with more than one interface may bridge two networks which is key for moving across the environment.
 
 **MITRE ATT&CK:** T1016 (System Network Configuration Discovery)
 
@@ -181,11 +181,11 @@ This shows the network interfaces and their assigned IP addresses. Combined with
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="911" height="96" alt="image" src="https://github.com/user-attachments/assets/5b6a1c2b-60e3-474f-8aa0-95555e663039" />
 
 **What the Output Reveals to an attacker:**
 
-This shows the firewall rules and the default policy for inbound and outbound traffic. The attacker learns what is blocked and what is allowed, which helps them find open paths for command and control traffic or data exfiltration. If there is no outbound filtering, data can leave the host freely.
+If an account has the access to run this command it will show the firewall rules and the default policy for inbound and outbound traffic. The attacker can learn what is blocked and what is not. This helps them find paths for c2 traffic or data exfiltration.
 
 **MITRE ATT&CK:** T1016 (System Network Configuration Discovery)
 
@@ -201,11 +201,11 @@ This shows the firewall rules and the default policy for inbound and outbound tr
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="490" height="73" alt="image" src="https://github.com/user-attachments/assets/0ac8dfc6-1ab3-4bff-9aaf-647859c042fd" />
 
 **What the Output Reveals to an attacker:**
 
-The ARP or neighbor cache lists other hosts on the local network that this machine has recently talked to. This gives the attacker live targets for lateral movement without running a noisy network scan that could trigger detection.
+The ARP cache shows other hosts on the local network that this machine has recently talked to. This gives the attacker live targets for lateral movement without running a noisy network scan that could trigger detection. In this case only the gateway is shown.
 
 **MITRE ATT&CK:** T1018 (Remote System Discovery)
 
@@ -223,11 +223,11 @@ The ARP or neighbor cache lists other hosts on the local network that this machi
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="467" height="39" alt="image" src="https://github.com/user-attachments/assets/0a241cd4-54e4-495c-b750-40dcc37eaaa8" />
 
 **What the Output Reveals to an attacker:**
 
-This shows active SMB sessions, connected users, and shared resources. It reveals file sharing relationships and which credentials are in use, which supports lateral movement. On this Kali host no SMB server is running, so an empty result is itself a finding that tells the attacker file sharing is not available here.
+If installed and running this command will show active SMB sessions, connected users, and shared resources. It reveals file sharing relationships and which credentials are in use. This can lead to lateral movement.
 
 **MITRE ATT&CK:** T1049 (System Network Connections Discovery), T1135 (Network Share Discovery)
 
@@ -243,11 +243,11 @@ This shows active SMB sessions, connected users, and shared resources. It reveal
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="984" height="63" alt="image" src="https://github.com/user-attachments/assets/a143224b-fa9e-41a8-b4ed-c27ee98b0345" />
 
 **What the Output Reveals to an attacker:**
 
-This prints the kernel name, version, architecture, and hostname. The kernel version is one of the most useful pieces of information for an attacker because it maps directly to known local privilege escalation vulnerabilities. The architecture tells them which compiled exploits will run on the host.
+This prints the kernel name, version, architecture, and hostname. The kernel version is extremely for an attacker because it maps to known local privilege escalation vulnerabilities. The architecture tells them which exploits will run on the host.
 
 **MITRE ATT&CK:** T1082 (System Information Discovery)
 
@@ -265,11 +265,11 @@ This prints the kernel name, version, architecture, and hostname. The kernel ver
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="782" height="169" alt="image" src="https://github.com/user-attachments/assets/a2f9aac4-889c-4c9e-9495-fe00f15dc048" />
 
 **What the Output Reveals to an attacker:**
 
-This lists exactly which commands the current account may run through sudo and whether any of them are set to NOPASSWD. A NOPASSWD entry, or a command that can spawn a shell, is often an instant path to root. This is one of the first checks an attacker runs after gaining a foothold.
+This lists which commands the current account can run using sudo and whether any of them are set to NOPASSWD. A NOPASSWD entry, or a command that can spawn a shell, can be an instant way to gain root. This is one of the first checks an attacker runs after gaining a foothold.
 
 **MITRE ATT&CK:** T1069.001 (Permission Groups Discovery: Local Groups), T1033 (System Owner/User Discovery)
 
@@ -285,11 +285,11 @@ This lists exactly which commands the current account may run through sudo and w
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="686" height="220" alt="image" src="https://github.com/user-attachments/assets/b4f292a1-79bc-47f6-9f11-a0b7f4271140" />
 
 **What the Output Reveals to an attacker:**
 
-This shows a history of logins, including the user, the time, and the source address. The attacker uses this to learn normal login patterns, to blend in with regular activity, and to identify which source IP addresses administrators use. On a fresh VM this list may be short.
+This shows a history of logins, including the user, the time, and the source address. The attacker uses this to learn what times the pc may be used which can allow the attacker to blend in with regular activity. This can also show which source IP addresses admins may use.
 
 **MITRE ATT&CK:** T1033 (System Owner/User Discovery), T1087 (Account Discovery)
 
@@ -303,13 +303,13 @@ This shows a history of logins, including the user, the time, and the source add
 
 **Output file:** `15_shell_history.txt`
 
-**Screenshot:**
+**Screenshot(Partial):**
 
-*(paste screenshot here)*
+<img width="509" height="579" alt="image" src="https://github.com/user-attachments/assets/dfba3b76-b756-422f-b2b6-3390e880df44" />
 
 **What the Output Reveals to an attacker:**
 
-The shell history records commands that users have typed. These often contain plaintext passwords, API tokens, database connection strings, and internal hostnames. Reading other users and root history files can hand the attacker working credentials with no cracking required. The current session is not written to the file until logout, so a fresh account may show little.
+The shell history records commands that users have typed. These can possibly show plaintext passwords, API tokens, database connection strings, and internal hostnames. Reading other users and root history files can lead to the attacker gaining working credentials without having to actually crack anything.
 
 **MITRE ATT&CK:** T1552.003 (Unsecured Credentials: Bash History)
 
@@ -325,11 +325,11 @@ The shell history records commands that users have typed. These often contain pl
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="2286" height="554" alt="image" src="https://github.com/user-attachments/assets/eb90c6ba-42ae-48a6-bdbb-91ee71f92422" />
 
 **What the Output Reveals to an attacker:**
 
-Environment variables can hold secrets that applications need at runtime, such as API keys, database passwords, and tokens. Reading the environment of the current shell and of running processes under /proc can expose these secrets directly.
+Environment variables can hold secrets that applications need, such as API keys, database passwords, and tokens. Reading the environment of the current shell and of running processes under /proc can reveal these secrets directly.
 
 **MITRE ATT&CK:** T1082 (System Information Discovery), T1552.001 (Unsecured Credentials: Credentials In Files)
 
@@ -345,11 +345,11 @@ Environment variables can hold secrets that applications need at runtime, such a
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="516" height="489" alt="image" src="https://github.com/user-attachments/assets/58c244b0-0f59-4960-b586-1c16ee2d93bc" />
 
 **What the Output Reveals to an attacker:**
 
-This finds binaries that run with the privileges of their owner rather than the user who runs them. A setuid root binary that is not standard, or one listed on GTFOBins, can often be abused to gain a root shell. This is a core privilege escalation check.
+This finds binaries that run with the privileges of their owner rather than the user who runs them. A setuid root binary that isn't standard may be able to be abused to gain a root shell.
 
 **MITRE ATT&CK:** T1548.001 (Abuse Elevation Control Mechanism: Setuid and Setgid)
 
@@ -365,11 +365,11 @@ This finds binaries that run with the privileges of their owner rather than the 
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="1545" height="166" alt="image" src="https://github.com/user-attachments/assets/75b445a9-94d8-47e7-91be-cace24051637" />
 
 **What the Output Reveals to an attacker:**
 
-This lists binaries that carry Linux capabilities. Capabilities such as cap_setuid or cap_dac_read_search grant root level powers without the setuid bit being set, which means they are easy for defenders to miss. An attacker can abuse these to escalate privileges or read protected files.
+This lists binaries that carry Linux capabilities. Capabilities such as cap_setuid or cap_dac_read_search grant root powers without the setuid bit being set. This means that defenders can often miss them. An attacker can abuse these to escalate privileges or read protected files.
 
 **MITRE ATT&CK:** T1548 (Abuse Elevation Control Mechanism)
 
