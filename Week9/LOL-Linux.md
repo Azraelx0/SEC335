@@ -223,11 +223,11 @@ The ARP cache shows other hosts on the local network that this machine has recen
 
 **Screenshot:**
 
-<img width="467" height="39" alt="image" src="https://github.com/user-attachments/assets/0a241cd4-54e4-495c-b750-40dcc37eaaa8" />
+<img width="694" height="74" alt="image" src="https://github.com/user-attachments/assets/a96e78ba-51d9-477e-be9d-f635f34b1cff" />
 
 **What the Output Reveals to an attacker:**
 
-If installed and running this command will show active SMB sessions, connected users, and shared resources. It reveals file sharing relationships and which credentials are in use. This can lead to lateral movement.
+This command will show active SMB sessions, connected users, and shared resources. It reveals file sharing relationships and which credentials are in use. This can lead to lateral movement.
 
 **MITRE ATT&CK:** T1049 (System Network Connections Discovery), T1135 (Network Share Discovery)
 
@@ -567,11 +567,11 @@ Note: could not install due to being standard user. If installed this lists runn
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="542" height="79" alt="image" src="https://github.com/user-attachments/assets/68b1455c-e0d2-49c0-8231-ad71d5425c88" />
 
 **What the Output Reveals to an attacker:**
 
-Kali uses AppArmor rather than SELinux. This command shows whether AppArmor is loaded and which profiles are enforcing. A mandatory access control layer that is disabled or in complain mode removes a major barrier that would otherwise contain a compromised process.
+This shows that the AppArmor module is loaded so a mandatory access control layer is active and might have a compromised process. An attacker can learn a MAC layer exists but would need root to show more details like we can see in the above output. This means that the attacker should be careful since blocked actions may be logged.
 
 **MITRE ATT&CK:** T1518.001 (Software Discovery: Security Software Discovery)
 
@@ -587,11 +587,11 @@ Kali uses AppArmor rather than SELinux. This command shows whether AppArmor is l
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="457" height="54" alt="image" src="https://github.com/user-attachments/assets/78a4a1dd-2748-47a0-a410-d6d3df09c5ee" />
 
 **What the Output Reveals to an attacker:**
 
-This file defines which directories are shared over NFS and with what options. A share exported with no_root_squash and write access is a classic path to root and to data theft. On this host the file may not exist, which shows that NFS is not configured.
+If NFS sharing is enables and shares are active then this file defines which directories are shared over NFS and with what options. A share exported with no_root_squash and write access is a path to root and data theft. This output shows that the host doesn't have NFS configured.
 
 **MITRE ATT&CK:** T1135 (Network Share Discovery)
 
@@ -607,11 +607,11 @@ This file defines which directories are shared over NFS and with what options. A
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="508" height="62" alt="image" src="https://github.com/user-attachments/assets/f659663f-2fe7-4aef-a82d-0a9e0ade9f00" />
 
 **What the Output Reveals to an attacker:**
 
-This prints the fully qualified domain name. The name can reveal whether the host is joined to a domain and can hint at the role of the machine and the structure of the wider environment, which helps the attacker plan where to pivot next.
+This shows the fully qualified domain name. The name can reveal whether the host is joined to a domain and depending on the name might hint at the role of the machine and the structure of the environment which can help the attacker plan where to pivot next.
 
 **MITRE ATT&CK:** T1082 (System Information Discovery), T1016 (System Network Configuration Discovery)
 
@@ -625,13 +625,13 @@ This prints the fully qualified domain name. The name can reveal whether the hos
 
 **Output file:** `31_world_writable.txt`
 
-**Screenshot:**
+**Screenshot(Partial):**
 
-*(paste screenshot here)*
+<img width="474" height="341" alt="image" src="https://github.com/user-attachments/assets/d33e32ea-dbf3-4a82-a1f9-266c302b7f5b" />
 
 **What the Output Reveals to an attacker:**
 
-This finds files that any user can write to. A world-writable script or config that is run by root, for example from a cron job or a service, is a direct route to escalation and persistence because the attacker can insert their own commands.
+This finds files that any user can write to. A world-writable script or config that is run by root, for example a cron job, is a path to escalation and persistence because the attacker can insert their own commands.
 
 **MITRE ATT&CK:** T1083 (File and Directory Discovery)
 
@@ -649,11 +649,11 @@ This finds files that any user can write to. A world-writable script or config t
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="695" height="39" alt="image" src="https://github.com/user-attachments/assets/3368474d-4df1-4e1e-b398-4870a8c30d89" />
 
 **What the Output Reveals to an attacker:**
 
-This lists files that processes hold open but that have been deleted from disk. Programs sometimes keep logs, temporary secrets, or hidden data in deleted-but-open files to avoid leaving them on the filesystem. An attacker can recover this content straight from the open file handle.
+This lists files that processes hold open but that have been deleted from disk. Programs sometimes keep logs, temporary secrets, or hidden data in files that were deleted but are open to avoid leaving them on the filesystem. An attacker can recover this content from the open file handle.
 
 **MITRE ATT&CK:** T1057 (Process Discovery), T1083 (File and Directory Discovery)
 
@@ -665,9 +665,13 @@ This lists files that processes hold open but that have been deleted from disk. 
 
 **Command:** `getent passwd`
 
-**What it gathers:** This enumerates user accounts from every configured name service source, not just /etc/passwd. That includes LDAP, SSSD with Active Directory, and NIS.
+**Screenshot:**
 
-**Why an attacker wants it:** On a domain joined host this reveals directory users that reading /etc/passwd alone would miss. It gives the attacker the real list of accounts to target for password spraying and credential theft.
+<img width="725" height="731" alt="image" src="https://github.com/user-attachments/assets/a109d82c-0ab8-49fd-81df-13f4a4b7233b" />
+
+**What it gathers:** This enumerates user accounts from every configured name service source. That includes LDAP, SSSD with Active Directory, and NIS.
+
+**Why an attacker wants it:** On a domain joined host this shows directory users that reading /etc/passwd alone would miss. It gives the attacker the real list of accounts to target for password spraying and credential theft.
 
 **MITRE ATT&CK:** T1087 (Account Discovery)
 
@@ -677,9 +681,13 @@ This lists files that processes hold open but that have been deleted from disk. 
 
 **Command:** `find / -mtime -2 -type f 2>/dev/null`
 
-**What it gathers:** This locates files modified in the last two days. The find binary can also run commands with its -exec flag.
+**Screenshot(Partial):**
 
-**Why an attacker wants it:** Recently changed files often include fresh config, dropped credentials, and deployment artifacts worth stealing. The time filter also helps the attacker see what changed around the time of their intrusion. If find is setuid or allowed through sudo, its -exec feature becomes a root shell.
+<img width="487" height="585" alt="image" src="https://github.com/user-attachments/assets/69dd8e10-665e-448d-8753-7f0ee9f0eb47" />
+
+**What it gathers:** This finds files modified in the last two days.
+
+**Why an attacker wants it:** Recently changed files often include fresh config, dropped credentials, and deployment artifacts worth stealing. The time filter also helps the attacker see what changed around the time of their intrusion.
 
 **MITRE ATT&CK:** T1083 (File and Directory Discovery), T1548.001 (Abuse Elevation Control Mechanism: Setuid and Setgid)
 
@@ -691,7 +699,7 @@ This lists files that processes hold open but that have been deleted from disk. 
 
 **What it gathers:** This prints readable text found inside binary files such as compiled programs, core dumps, and log files.
 
-**Why an attacker wants it:** Hardcoded passwords, API keys, and connection strings are often buried inside compiled service binaries and crash dumps. The strings command pulls them out with no debugger and no special tooling required.
+**Why an attacker wants it:** Hardcoded passwords, API keys, and connection strings can be inside compiled service binaries and crash dumps. The strings command pulls them without special tools involved.
 
 **MITRE ATT&CK:** T1552 (Unsecured Credentials)
 
@@ -703,7 +711,7 @@ This lists files that processes hold open but that have been deleted from disk. 
 
 **What it gathers:** The awk tool reads and processes any file the caller can access. It can also spawn a shell with its system function.
 
-**Why an attacker wants it:** It reads files quietly without using cat, and if it carries setuid rights or is allowed through sudo it can be used to run a shell and escalate privileges. Because awk is installed everywhere and is less watched than a direct shell call, it is a handy and low profile tool.
+**Why an attacker wants it:** It reads files without using cat and if it has setuid rightsit can be used to run a shell and escalate privileges. Because awk is installed everywhere and is less watched than a direct shell call it can be low profile.
 
 **MITRE ATT&CK:** T1059.004 (Command and Scripting Interpreter: Unix Shell), T1083 (File and Directory Discovery)
 
@@ -715,7 +723,7 @@ This lists files that processes hold open but that have been deleted from disk. 
 
 **What it gathers:** This transfers data over HTTP and HTTPS. It can download files and send data to a remote server.
 
-**Why an attacker wants it:** curl ships on nearly every Linux host, so there is no need to upload a custom downloader. The attacker uses it to pull second stage tools onto the host, to send stolen data out to their own server, and to probe internal only services once a foothold exists.
+**Why an attacker wants it:** curl is on almost every Linux host (not installed on some super minimal installs) so there is no need to upload a custom downloader. The attacker uses it to pull second stage tools onto the host, for data exfiltration, and to inspect internal only services once a foothold exists.
 
 **MITRE ATT&CK:** T1105 (Ingress Tool Transfer), T1048 (Exfiltration Over Alternative Protocol)
 
@@ -723,25 +731,23 @@ This lists files that processes hold open but that have been deleted from disk. 
 
 ## Compression
 
-All output files in /tmp/enumeration were compressed into one archive using each of the four tools. A screenshot of each tool creating its archive is included below.
-
 ### tar with gzip
 
 **Command:** `tar -czvf /tmp/enum_tar.tar.gz -C /tmp enumeration`
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="612" height="549" alt="image" src="https://github.com/user-attachments/assets/a8f2c06f-b850-4d54-8b25-c3c8e14059c1" />
 
 ### gzip
 
 **Command:** `tar -cvf /tmp/enum_gzip.tar -C /tmp enumeration && gzip -v /tmp/enum_gzip.tar`
 
-Note: gzip compresses single files, so the directory is placed into a tar archive first and then gzip compresses that single tar file.
+Note: gzip compresses single files so the directory has to be put into a tar archive first and then gzip compresses that single tar file.
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="796" height="583" alt="image" src="https://github.com/user-attachments/assets/689373a2-11fe-445e-b0e5-507b92e9b7e3" />
 
 ### zip
 
@@ -749,7 +755,7 @@ Note: gzip compresses single files, so the directory is placed into a tar archiv
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="521" height="572" alt="image" src="https://github.com/user-attachments/assets/017322d9-b280-4ad0-8af6-dad56d3d5acd" />
 
 ### 7z
 
@@ -757,10 +763,4 @@ Note: gzip compresses single files, so the directory is placed into a tar archiv
 
 **Screenshot:**
 
-*(paste screenshot here)*
-
----
-
-## Summary of Commands Requiring sudo
-
-The following commands required elevation to produce full output: iptables (9), smbstatus (11), sudo -l (13), lastb (26), and lsof +L1 (32). All other commands ran as the standard lab user.
+<img width="1063" height="284" alt="image" src="https://github.com/user-attachments/assets/2c3eadfb-54eb-49fa-9d6f-3d43815652fe" />
