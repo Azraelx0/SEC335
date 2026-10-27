@@ -1,0 +1,1 @@
+-rw-r----- 1 root shadow 2011 Oct 27 05:21 /etc/shadow

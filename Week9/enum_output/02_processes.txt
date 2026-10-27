@@ -1,0 +1,49 @@
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root           1  0.0  0.0 166280 11832 ?        Ss   Oct04   1:08 /lib/systemd/systemd --system --deserialize 22
+root         102  0.0  0.0 601716  9356 ?        Ssl  Oct04   0:11 snapfuse /var/lib/snapd/snaps/core22_2955.snap /snap/core22/2955 -o ro,nodev,allow_other,suid
+root         108  0.0  0.0 302528  9756 ?        Ssl  Oct04   0:02 snapfuse /var/lib/snapd/snaps/lxd_40911.snap /snap/lxd/40911 -o ro,nodev,allow_other,suid
+root         112  0.0  0.0 377292  6008 ?        Ssl  Oct04   0:00 snapfuse /var/lib/snapd/snaps/snapd_27738.snap /snap/snapd/27738 -o ro,nodev,allow_other,suid
+root         381  0.0  0.0   7296  1992 ?        Ss   Oct04   0:12 /usr/sbin/cron -f -P
+message+     382  0.0  0.0   8908  3804 ?        Ss   Oct04   0:07 @dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation --syslog-only
+root         387  0.0  0.0  33100 13948 ?        Ss   Oct04   0:01 /usr/bin/python3 /usr/bin/networkd-dispatcher --run-startup-triggers
+root         397  0.0  0.0  15424  5316 ?        Ss   Oct04   0:05 /lib/systemd/systemd-logind
+root         408  0.0  0.0   6228   668 pts/0    Ss+  Oct04   0:00 /sbin/agetty -o -p -- \u --noclear --keep-baud console 115200,38400,9600 linux
+root         458  0.0  0.0 110180  7896 ?        Ssl  Oct04   0:00 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal
+root       19381  0.0  0.0 751112 16256 ?        Ssl  Oct05   0:13 snapfuse /var/lib/snapd/snaps/snapd_28254.snap /snap/snapd/28254 -o ro,nodev,allow_other,suid
+root       46581  0.0  0.0 2224696 27936 ?       Ssl  Oct08   2:34 /snap/snapd/current/usr/lib/snapd/snapd
+www-data  227792  0.0  0.0   3752  1580 ?        Ss   Oct16   0:52 /usr/bin/htcacheclean -d 120 -p /var/cache/apache2/mod_cache_disk -l 300M -n
+root      334335  0.0  0.0 219480 28256 ?        Ss   Oct23   0:25 /usr/sbin/apache2 -k start
+root      362052  0.0  0.0  66892 33748 ?        Ssl  Oct26   5:05 /opt/easytier/easytier-core -i 192.168.77.50 --network-name ws-19 --network-secret 96b86f03408f42d7b053f175fe9e8b73 -p tcp://108.181.196.156:20190
+www-data  372322  0.0  0.0 220020 13820 ?        S    00:00   0:00 /usr/sbin/apache2 -k start
+www-data  372323  0.0  0.0 220020 13820 ?        S    00:00   0:00 /usr/sbin/apache2 -k start
+www-data  372324  0.0  0.0 220020 13820 ?        S    00:00   0:00 /usr/sbin/apache2 -k start
+www-data  372325  0.0  0.0 220020 13820 ?        S    00:00   0:00 /usr/sbin/apache2 -k start
+www-data  372326  0.0  0.0 220020 13820 ?        S    00:00   0:00 /usr/sbin/apache2 -k start
+root      374518  0.0  0.0  17196 11016 ?        Ss   04:00   0:00 sshd: bthomas [priv]
+bthomas   374521  0.0  0.0  16992  9620 ?        Ss   04:00   0:00 /lib/systemd/systemd --user
+bthomas   374522  0.0  0.0 170280  6640 ?        S    04:00   0:00 (sd-pam)
+bthomas   374587  0.0  0.0  17472  8412 ?        S    04:00   0:01 sshd: bthomas@pts/1
+bthomas   374588  0.0  0.0   9404  5616 pts/1    Ss   04:00   0:01 -bash
+_rpc      376414  0.0  0.0   8116  4268 ?        Ss   05:21   0:00 /sbin/rpcbind -f -w
+root      377374  0.0  0.0  68672 14012 ?        Ss   05:21   0:00 /usr/sbin/nmbd --foreground --no-process-group
+root      377384  0.0  0.0  84916 19572 ?        Ss   05:21   0:00 /usr/sbin/smbd --foreground --no-process-group
+root      377386  0.0  0.0  82436  8372 ?        S    05:21   0:00 /usr/sbin/smbd --foreground --no-process-group
+root      377387  0.0  0.0  82428  6740 ?        S    05:21   0:00 /usr/sbin/smbd --foreground --no-process-group
+root      377388  0.0  0.0  83860 17220 ?        S    05:21   0:00 /usr/lib/x86_64-linux-gnu/samba/samba-bgqd --ready-signal-fd=45 --parent-watch-fd=11 --debuglevel=0 -F
+root      377529  0.0  0.0 296040 20324 ?        Ssl  05:22   0:00 /usr/libexec/packagekitd
+root      377530  0.0  0.0 235492  8796 ?        Ssl  05:22   0:00 /usr/libexec/polkitd --no-debug
+syslog    377534  0.0  0.0 152784  5344 ?        Ssl  05:22   0:00 /usr/sbin/rsyslogd -n -iNONE
+root      377541  0.0  0.0  88700 29936 ?        Ss   05:22   0:00 /lib/systemd/systemd-journald
+root      377542  0.0  0.0  21980  5948 ?        Ss   05:22   0:00 /lib/systemd/systemd-udevd
+root      377545  0.0  0.0  15452  9368 ?        Ss   05:22   0:00 sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups
+systemd+  377549  0.0  0.0  16152  8560 ?        Ss   05:22   0:00 /lib/systemd/systemd-networkd
+systemd+  377552  0.0  0.0  25700 13684 ?        Ss   05:22   0:00 /lib/systemd/systemd-resolved
+postgres  377558  0.0  0.0 218836 29952 ?        Ss   05:22   0:00 /usr/lib/postgresql/14/bin/postgres -D /var/lib/postgresql/14/main -c config_file=/etc/postgresql/14/main/postgresql.conf
+postgres  377560  0.0  0.0 218948  9992 ?        Ss   05:22   0:00 postgres: 14/main: checkpointer 
+postgres  377561  0.0  0.0 218836  8972 ?        Ss   05:22   0:00 postgres: 14/main: background writer 
+postgres  377562  0.0  0.0 218836 12020 ?        Ss   05:22   0:00 postgres: 14/main: walwriter 
+postgres  377563  0.0  0.0 219404 10376 ?        Ss   05:22   0:00 postgres: 14/main: autovacuum launcher 
+postgres  377564  0.0  0.0  73572  7680 ?        Ss   05:22   0:00 postgres: 14/main: stats collector 
+postgres  377565  0.0  0.0 219264  9504 ?        Ss   05:22   0:00 postgres: 14/main: logical replication launcher 
+bthomas   378106  0.0  0.0   7904  4040 pts/1    S+   05:49   0:00 /bin/bash ./enum_lin.sh
+bthomas   378109  0.0  0.0  10480  3508 pts/1    R+   05:49   0:00 ps aux

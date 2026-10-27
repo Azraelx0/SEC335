@@ -1,0 +1,1 @@
+Sorry, user bthomas is not allowed to execute '/usr/sbin/iptables -L -n -v' as root on ws-19.

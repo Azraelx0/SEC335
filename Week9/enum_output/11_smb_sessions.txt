@@ -1,0 +1,1 @@
+Sorry, user bthomas is not allowed to execute '/usr/bin/smbstatus' as root on ws-19.

