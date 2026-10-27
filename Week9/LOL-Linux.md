@@ -385,11 +385,11 @@ This lists binaries that carry Linux capabilities. Capabilities such as cap_setu
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="854" height="393" alt="image" src="https://github.com/user-attachments/assets/8ceba844-1a81-4118-b2c1-84a92a0c9e70" />
 
 **What the Output Reveals to an attacker:**
 
-This shows scheduled jobs and the accounts they run as. A job that runs as root and calls a script the attacker can write to is a reliable method for both privilege escalation and persistence. Systemd timers serve the same purpose and should be checked as well.
+This shows scheduled jobs and the accounts they run as. A job that runs as root and calls a script the attacker can write to is a popular method for both privilege escalation and persistence. Systemd timers have the same purpose and should be checked as well.
 
 **MITRE ATT&CK:** T1053.003 (Scheduled Task/Job: Cron)
 
@@ -405,7 +405,7 @@ This shows scheduled jobs and the accounts they run as. A job that runs as root 
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="1010" height="43" alt="image" src="https://github.com/user-attachments/assets/b7fa0aea-7542-407b-a521-2f67d615d6f9" />
 
 **What the Output Reveals to an attacker:**
 
