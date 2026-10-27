@@ -5,6 +5,10 @@
 
 All enumeration output was saved to `/tmp/enumeration/` using the naming scheme `##_name.txt`. The script `enum_lin.sh` runs every command in order.
 
+**Script:** [enum_lin.sh](enum_lin.sh)
+
+**Output files:** [enum_output/](enum_output/)
+
 ---
 
 ## Task 1: Enumeration Commands
