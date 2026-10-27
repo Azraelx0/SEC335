@@ -183,6 +183,10 @@ This shows the network interfaces and their assigned IP addresses. Combined with
 
 <img width="911" height="96" alt="image" src="https://github.com/user-attachments/assets/5b6a1c2b-60e3-474f-8aa0-95555e663039" />
 
+**Screenshot(Using Adm):**
+
+<img width="894" height="189" alt="image" src="https://github.com/user-attachments/assets/b2fcd644-b106-42dc-add7-cfb8a9ac6c56" />
+
 **What the Output Reveals to an attacker:**
 
 If an account has the access to run this command it will show the firewall rules and the default policy for inbound and outbound traffic. The attacker can learn what is blocked and what is not. This helps them find paths for c2 traffic or data exfiltration.
@@ -224,6 +228,10 @@ The ARP cache shows other hosts on the local network that this machine has recen
 **Screenshot:**
 
 <img width="694" height="74" alt="image" src="https://github.com/user-attachments/assets/a96e78ba-51d9-477e-be9d-f635f34b1cff" />
+
+**Screenshot(Using Adm):**
+
+<img width="1114" height="201" alt="image" src="https://github.com/user-attachments/assets/fbe60c5e-c76c-4353-81a1-914d2c280793" />
 
 **What the Output Reveals to an attacker:**
 
@@ -529,6 +537,10 @@ This checks the permissions on the shadow file which stores password hashes. If 
 
 <img width="712" height="46" alt="image" src="https://github.com/user-attachments/assets/c88ae94f-dad2-4207-b615-a31be0e45280" />
 
+**Screenshot(Using Adm):**
+
+<img width="620" height="100" alt="image" src="https://github.com/user-attachments/assets/4c7056cb-5944-4409-85f7-35a7a770f88c" />
+
 **What the Output Reveals to an attacker:**
 
 This will show failed login attempts recorded by the system if access to run the command as the user is allowed. The attacker can learn which accounts are being targeted, which source addresses are attacking, and whether their own attempts are being logged.
@@ -551,7 +563,7 @@ This will show failed login attempts recorded by the system if access to run the
 
 **What the Output Reveals to an attacker:**
 
-Note: could not install due to being standard user. If installed this lists running containers. The permissions on the docker socket matter since if a normal user can reach the docker socket, or belongs to the docker group, they can start a container that mounts the host filesystem and gain root.
+If installed this lists running containers. The permissions on the docker socket matter since if a normal user can reach the docker socket, or belongs to the docker group, they can start a container that mounts the host filesystem and gain root.
 
 **MITRE ATT&CK:** T1613 (Container and Resource Discovery)
 
@@ -650,6 +662,10 @@ This finds files that any user can write to. A world-writable script or config t
 **Screenshot:**
 
 <img width="695" height="39" alt="image" src="https://github.com/user-attachments/assets/3368474d-4df1-4e1e-b398-4870a8c30d89" />
+
+**Screenshot(Using Adm):**
+
+<img width="885" height="242" alt="image" src="https://github.com/user-attachments/assets/15d8cea0-26fe-4e99-9bb9-d26d3fa5ca99" />
 
 **What the Output Reveals to an attacker:**
 
