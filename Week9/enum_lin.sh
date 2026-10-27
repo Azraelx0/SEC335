@@ -21,8 +21,7 @@ env > 16_environment.txt 2>&1
 find / -perm -4000 -type f 2>/dev/null > 17_suid_sgid.txt
 getcap -r / 2>/dev/null > 18_capabilities.txt
 cat /etc/crontab > 19_scheduled_tasks.txt 2>&1
-ps aux | grep -Ei 'clamav|auditd|falcon|crowdstrike|wazuh|ossec' > 20_security_tools.txt 2>&1
-dpkg -l > 21_packages.txt 2>&1
+ps aux | grep -Ei 'clamav|auditd|falcon|crowdstrike|wazuh|ossec' | grep -v grep > 20_security_tools.txt 2>&1dpkg -l > 21_packages.txt 2>&1
 uname -r > 22_kernel.txt 2>&1
 df -h > 23_mounts_disk.txt 2>&1
 cat /etc/ssh/sshd_config > 24_ssh.txt 2>&1
