@@ -1,15 +1,9 @@
 # Living Off the Land on Linux - Host Enumeration
 
-Output of running `./enum-script.sh`:
-
-<img width="1946" height="337" alt="image" src="https://github.com/user-attachments/assets/33c404b2-91b6-4922-8f08-5142e841af93" />
-# Living Off the Land on Linux - Host Enumeration
-
 **Lab Environment:** Kali Linux container VM (192.168.3.205)
 **User:** Standard lab user, with sudo used only where noted
 
-All enumeration output was saved to `/tmp/enumeration/` using the naming scheme `NN_name.txt`. The script `host_enum.sh` runs every command in order. Commands that required elevation are marked in each entry.
-
+All enumeration output was saved to `/tmp/enumeration/` using the naming scheme `##_name.txt`. The script `enu_linm.sh` runs every command in order.
 ---
 
 ## Task 1: Enumeration Commands
@@ -24,11 +18,11 @@ All enumeration output was saved to `/tmp/enumeration/` using the naming scheme 
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="585" height="67" alt="image" src="https://github.com/user-attachments/assets/a1a05871-b6bd-401e-8fb9-93bcddb488aa" />
 
 **What the Output Reveals to an attacker:**
 
-The output lists the current user name, the numeric UID and GID, and every supplementary group the account belongs to. An attacker checks group membership first. Membership in the sudo group, or wheel and adm on other distributions, means privilege escalation may be simple. Membership in docker or lxd is effectively equal to root because those groups can mount the host filesystem. If the UID is 0 the attacker already has full control and no escalation is needed.
+The output lists the current user name, the numeric UID and GID, and every group the account is in. An attacker would want to check which groups a user might be apart of as membership in the sudo/wheel/adm group, means privilege escalation may be simple. Membership in docker or lxd is basically root because those groups can mount the host filesystem. If the UID is 0 the attacker already has full control and no escalation is needed.
 
 **MITRE ATT&CK:** T1033 (System Owner/User Discovery), T1087.001 (Account Discovery: Local Accounts)
 
@@ -44,11 +38,11 @@ The output lists the current user name, the numeric UID and GID, and every suppl
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="1728" height="729" alt="image" src="https://github.com/user-attachments/assets/6345f26c-2f46-4e31-a0de-037fc4953036" />
 
 **What the Output Reveals to an attacker:**
 
-This shows every running process with the user that owns it and the full command line. An attacker reads the command lines to find passwords or tokens that were passed as arguments, to identify service accounts, and to spot high value targets like databases and web applications. The process list also reveals whether any security or backup agent is running, which tells the attacker how careful they need to be.
+This shows every running process with the user that owns it and the full command line. An attacker reads the command lines to find passwords or tokens that might be visible, to identify service accounts, and to potentially find targets like databases and web apps. The process list also reveals whether any security or backup agent is running.
 
 **MITRE ATT&CK:** T1057 (Process Discovery)
 
@@ -64,11 +58,11 @@ This shows every running process with the user that owns it and the full command
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="692" height="429" alt="image" src="https://github.com/user-attachments/assets/c8c2b2c4-a57e-4d49-813e-6a219fa71928" />
 
 **What the Output Reveals to an attacker:**
 
-This lists listening and established TCP and UDP sockets along with the owning process. Ports bound only to 127.0.0.1 are reachable only after a foothold is gained, which makes them prime targets for lateral movement. Established connections show which other hosts this machine talks to, mapping out trust relationships the attacker can abuse.
+This lists listening and established TCP and UDP sockets along with the process owner. Ports on 127.0.0.1 can only be reached after a foothold is gained which makes them targets for lateral movement. Established connections show which other hosts this pc is talking to. This can map out possible trust relationships that the attacker can abuse.
 
 **MITRE ATT&CK:** T1049 (System Network Connections Discovery)
 
@@ -84,11 +78,11 @@ This lists listening and established TCP and UDP sockets along with the owning p
 
 **Screenshot:**
 
-*(paste screenshot here)*
+<img width="826" height="463" alt="image" src="https://github.com/user-attachments/assets/11670ed3-6c45-4f8d-b0d0-949c306ea0e2" />
 
 **What the Output Reveals to an attacker:**
 
-This shows which services are active. The list exposes the software stack running on the host and points to candidate targets for exploitation and persistence. A service whose unit file or referenced script is writable by the attacker can be modified to run code as root.
+This shows which services are active. The list shows the software stack that is running on the host and points to targets for exploitation and persistence. This can also reveal services that may be writable by the attacker.
 
 **MITRE ATT&CK:** T1007 (System Service Discovery)
 
