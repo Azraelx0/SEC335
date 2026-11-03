@@ -37,9 +37,10 @@ On Linux, msfvenom produces ELF (Executable and Linkable Format) binaries instea
 ### Build and stage
 
 ```bash
-[payload.sh](./Scripts/payload.sh)
+./payload.sh
 python3 -m http.server 8000
 ```
+[payload.sh](./Scripts/payload.sh)
 
 ### Handler
 
