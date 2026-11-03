@@ -1,6 +1,6 @@
 <ruby>
 # Remember last-used values so a repeat run is just Enter-Enter.
-# Shares a plain key=value file with build.sh so the two always match.
+# Shares a plain key=value file with build.sh so the two match.
 state = File.join(Msf::Config.config_directory, "last.conf")
 
 lhost, lport = "192.168.77.2", "4444"
