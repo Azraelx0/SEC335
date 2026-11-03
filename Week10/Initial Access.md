@@ -1,4 +1,4 @@
-# SEC-335 — Initial Access on Linux
+# Initial Access on Linux
 
 This module ports the Windows initial access techniques from earlier in the course over to Linux. The goal is to get a foothold on a target machine while learning new file formats, tools, and package system. Three attack paths are covered: delivering a backdoored ELF binary, tampering with a Debian package, and reusing stolen credentials over SSH.
 
