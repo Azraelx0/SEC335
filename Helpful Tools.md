@@ -1,6 +1,9 @@
 # Tools That I Find Helpful
 This file is a running doc of helpful tools, initially this will contain tools outside the direct scope of the writeups for each week until I have time to format sections for specific cli commands/tools.
 
+## Misc
+Sliver and Mythic C2 Frameworks
+
 
 ## Network Pentesting
 yersinia - network penetration testing tool designed to analyze and exploit vulnerabilities in data link Layer 2 network protocols.
