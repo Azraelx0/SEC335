@@ -6,13 +6,13 @@ phase two hostname deliv:
 
 | Meterpreter Command | Worked on Linux? (Y/N) | Notes |
 |---|---|---|
-| `sysinfo` | | |
-| `getuid` | | |
-| `ps` | | |
-| `hashdump` | | |
-| `getprivs` | | |
-| `ipconfig` | | |
-| `netstat -an` | | |
-| `arp` | | |
-| `idletime` | | |
-| `route` | | |
+| `sysinfo` | Y | Return the same info as on win. |
+| `getuid` | Y | Also worked as expected. |
+| `ps` | Y | Showed all running processes. |
+| `hashdump` | N | Does not support linux. |
+| `getprivs` | N | Not supported. |
+| `ipconfig` | Y | Returned the ip info. |
+| `netstat -an` | Y | Returned network connections properly. |
+| `arp` | Y | Works as expected. |
+| `idletime` | N | Not supported. |
+| `route` | Y | Works. |
