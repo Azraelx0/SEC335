@@ -28,8 +28,8 @@ Role order:
 | /quick/check | GET | Anyone | nav: Quick Check | `connection` |
 | /lookup | GET | Anyone | nav: Bill Lookup | `connection` |
 | /register | GET | Anyone | nav: Register & New Connection | `Name` `E-Mail` `Connection Id` `Address` `Password` `Confirm Password` |
-| /admin/login | GET | Anyone | nav: Staff & Staff Login |  |
-| /password/reset | GET | Anyone | nav: Login/Customer Login -> "Forgot Your Password?" |  |
+| /admin/login | GET | Anyone | nav: Staff & Staff Login | `E-Mail` `Password` |
+| /password/reset | GET | Anyone | nav: Login / Customer Login / Staff -> "Forgot Your Password?" |  |
 |  |  |  |  |  |
 |  |  |  |  |  |
 |  |  |  |  |  |
