@@ -159,13 +159,15 @@ The Ignition page itself is worth noting separately — it leaks the full stack 
 
 <img width="436" height="67" alt="image" src="https://github.com/user-attachments/assets/4fde1671-0334-4605-b9f9-6405925f5c95" />
 
-### Reflected XSS
+### Reflected XSS (Task 4)
 
 Sending `<script>alert(1)</script>` as the `connection` value on `/lookup` fired an alert box in the browser. The input is reflected directly into the page without encoding or sanitisation.
 
 > **Screenshot:** XSS alert firing from `/lookup?connection=<script>alert(1)</script>`
 
 <img width="1488" height="799" alt="image" src="https://github.com/user-attachments/assets/9813df34-5f43-4f20-9c47-2491da76c742" />
+
+<img width="764" height="98" alt="image" src="https://github.com/user-attachments/assets/35eb191c-d94e-4965-ac97-0ccbceb48a6b" />
 
 ### Upload Filter
 
@@ -215,7 +217,7 @@ For `/lookup`, the `connection` parameter takes a 10-digit ID that isn't sequent
 
 ---
 
-## Information Leaks
+## Information Leaks (Task 3)
 
 The two required deliverables for this labs task 2. Found via `robots.txt` and content discovery.
 
