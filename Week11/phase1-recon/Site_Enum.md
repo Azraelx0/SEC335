@@ -6,7 +6,7 @@
 
 ---
 
-The goal of this phase is to build a complete picture of the application before touching anything offensively.
+The goal of this phase is to build a complete picture of the application before touching anything offensively. Quick note as well, this writeup contains tasks 2, 3, and 4 from the lab. I didn't realize I had already done 3 and 4 as part of 2 until after the fact.
 
 ---
 
