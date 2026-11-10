@@ -30,12 +30,20 @@ Role order:
 | /register | GET | Anyone | nav: Register & New Connection | `Name` `E-Mail` `Connection Id` `Address` `Password` `Confirm Password` |
 | /admin/login | GET | Anyone | nav: Staff & Staff Login | `E-Mail` `Password` |
 | /password/reset | GET | Anyone | nav: Login / Customer Login / Staff -> "Forgot Your Password?" | `E-Mail` |
-|  |  |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
+| /home | GET | Customer |  |  |
+| /home/profile | GET | Customer |  |  |
+| /home/upload | GET | Customer |  |  |
+| /home/upload/avatar | POST | Customer |  |  |
+| /home/pay | GET | Customer |  |  |
+| /uploads/ | GET | Customer |  |  |
+| /home/pdf | POST | Customer | | |
+| | | | | |
+| | | | | |
+| | | | | |
+| | | | | |
+
+
+
 
 
 Screenshots to go along:
