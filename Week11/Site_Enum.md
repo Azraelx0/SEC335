@@ -21,7 +21,7 @@ gobuster dir -u http://192.168.77.80 -w /usr/share/wordlists/dirb/common.txt -x 
 nikto -h http://192.168.77.80
 ```
 
-**Screenshot of Short Snippet of Burp History:**
+> **Screenshot of Short Snippet of Burp History:**
 
 <img width="915" height="416" alt="image" src="https://github.com/user-attachments/assets/5853a911-86c8-469e-be5e-511b12dc772d" />
 
@@ -97,7 +97,7 @@ Pulling signals from Burp response headers, the debug error page, cookie format,
 | Security headers | None of: CSP, HSTS, X-Content-Type-Options, Referrer-Policy, Permissions-Policy | No browser-level XSS mitigation — makes any XSS finding worse |
 | Front end | Bootstrap + jQuery | — |
 
-The combination of Laravel/PHP, Apache serving an executable `/uploads/` directory, debug mode on, and no security headers means verbose SQLi, upload→RCE, and XSS→session theft are all viable attack paths on this stack.
+The combination of Laravel/PHP, Apache serving an executable `/uploads/` directory, debug mode on, and no security headers means verbose SQLi, upload -> RCE, and XSS -> session theft are all viable attack paths on this stack.
 
 > **Screenshot:** Burp response headers showing `Server: Apache/2.4.67 (Debian)` and `Set-Cookie: electra_session`
 
@@ -115,20 +115,17 @@ Checking the session cookie after login via Firefox dev tools and the `Set-Cooki
 |---|---|---|---|
 | `electra_session` | **No** | No | None |
 
-The session cookie is readable from JavaScript — `HttpOnly` is not set. This means any XSS that executes in the browser can read `document.cookie` and steal the session outright. `Secure` being unset also means the cookie transmits over plain HTTP. Nikto independently flagged this (`[000029]: Cookie electra_session created without the httponly flag`).
-
-This single cookie flag is what makes the stored XSS in Task 12 turn into full account takeover rather than just a visual injection.
+The session cookie is readable from JavaScript as `HttpOnly` is not set. This means any XSS that executes in the browser can read `document.cookie` and steal the session. `Secure` being unset also means the cookie transmits over plain HTTP. Nikto flagged this (`[000029]: Cookie electra_session created without the httponly flag`).
 
 > **Screenshot:** Firefox dev tools Storage tab showing `electra_session` with HttpOnly: false and Secure: false
 
-> **Screenshot:** Burp `Set-Cookie` response header confirming no flags
+<img width="297" height="227" alt="image" src="https://github.com/user-attachments/assets/a1fd1d7e-af64-4159-8bfe-6c88b7d79d79" />
 
 ---
 
 ## Probe Results
 
-After mapping the surface I did a light probe pass — throwing break characters at every input and watching for differences in the response. The goal here is to locate weaknesses, not exploit them.
-
+After mapping the surface I did a light probe pass of throwing break characters at every input and watching for differences in the response. The goal here is to simply find potential weaknesses.
 ### SQL Injection
 
 **`/lookup?connection='`** immediately returned a verbose database error:
@@ -138,7 +135,7 @@ SQLSTATE[42000]: Syntax error: 1064 You have an error in your SQL syntax
 SQL: SELECT id, customerId, month, year, units, amount, status FROM bills WHERE customerId = '''
 ```
 
-This gives away the table name (`bills`), all seven column names, and confirms the input lands in a single-quoted string context. Feeds Tasks 8 and 10.
+This gives away the table name (`bills`), all seven column names, and confirms the input lands in a single-quoted string context.
 
 **`/login` with `email='`** triggered the Laravel Ignition debug page with a different query:
 
@@ -152,13 +149,23 @@ The Ignition page itself is worth noting separately — it leaks the full stack 
 
 > **Screenshot:** Verbose SQL error on `/lookup`
 
-> **Screenshot:** Ignition debug page on `/login` showing query, MD5 password storage, and environment panel
+<img width="937" height="465" alt="image" src="https://github.com/user-attachments/assets/c244a7ef-7104-4770-81b5-567e6a1291ec" />
+
+> **Screenshot:** Ignition debug page on `/login` showing query, MD5 password storage, and db details from environment panel
+
+<img width="779" height="297" alt="image" src="https://github.com/user-attachments/assets/57c31c00-f7ba-4807-9cb3-f0d99b5d6c62" />
+
+<img width="1298" height="484" alt="image" src="https://github.com/user-attachments/assets/d92485f6-205d-4135-ad70-c93e4b466de0" />
+
+<img width="436" height="67" alt="image" src="https://github.com/user-attachments/assets/4fde1671-0334-4605-b9f9-6405925f5c95" />
 
 ### Reflected XSS
 
-Sending `<script>alert(1)</script>` as the `connection` value on `/lookup` fired an alert box in the browser. The input is reflected directly into the page without encoding or sanitisation. Same parameter as the SQLi finding — two separate vulnerabilities on a single input.
+Sending `<script>alert(1)</script>` as the `connection` value on `/lookup` fired an alert box in the browser. The input is reflected directly into the page without encoding or sanitisation.
 
 > **Screenshot:** XSS alert firing from `/lookup?connection=<script>alert(1)</script>`
+
+<img width="1488" height="799" alt="image" src="https://github.com/user-attachments/assets/9813df34-5f43-4f20-9c47-2491da76c742" />
 
 ### Upload Filter
 
@@ -166,14 +173,20 @@ Submitting `shell.php` to both uploaders:
 
 | Uploader | Result |
 |---|---|
-| `/home/upload` (document) | Blocked silently by extension filter |
+| `/home/upload` (document) | Blocked by extension filter |
 | `/home/upload/avatar` (photo) | `File type not allowed: .php` |
 
 Both check the file extension. Neither was tested against alternative PHP extensions (`.phtml`, `.php5`, `.pht`) or Content-Type spoofing — that's the work of Tasks 7, 13, and 16.
 
-> **Screenshot:** `File type not allowed: .php` error message on the avatar uploader
+> **Screenshot:** Both upload options limit the file type allowed. In exploitation steps will try alternatives.
+> 
+<img width="753" height="230" alt="image" src="https://github.com/user-attachments/assets/47e21bf8-0318-47ab-b8f8-efbec3f5cd5c" />
+
+<img width="744" height="253" alt="image" src="https://github.com/user-attachments/assets/7c1c1f84-79c8-439f-9acc-91f03f38da41" />
 
 ### Hidden Fields & IDOR Setup
+
+## 6. Hidden Fields & IDOR Setup
 
 View-source on `/home/profile` reveals a hidden `id` field with value `1`:
 
@@ -182,11 +195,24 @@ View-source on `/home/profile` reveals a hidden `id` field with value `1`:
     <input type="hidden" name="id" value="1">
 ```
 
-Value `1` is a small integer — almost certainly sequential. Flipping this to `2`, `3`, etc. in Burp is the IDOR test for Task 6. The form also confirms the GET method noted in the endpoint map.
+Value `1` is a small integer which almost certainly means the ID will go sequentially. To test this I sent the profile update request to Repeater and changed `id=1` to `id=4` with a non-conflicting email address. The server returned **302 -> `/home`** which was a successful update. The app ran `UPDATE users WHERE id=4` against a different account using my customer session with no check that `id=4` belonged to me.
 
-For `/lookup`, the `connection` parameter takes a 10-digit ID that isn't sequential or guessable by incrementing — valid IDs would need to come from the admin customer directory or a SQLi dump. Not a viable IDOR path without prior enumeration.
+An earlier attempt with `id=4` but the m.holloway email returned a 500 error. This means that rather than an access control rejection it was a database uniqueness constraint violation. The app tried to write and only failed because my email already existed in the table.
+
+For `/lookup`, the `connection` parameter takes a 10-digit ID that isn't sequential or guessable by incrementing the number. A valid ID would likely need to come from the admin customer directory or a SQLi dump.
+
+| Test | Result |
+|---|---|
+| `GET /home/profile/update?id=4&email=a.test@electra.lab` | 302 -> `/home`. Write succeeded on another user's record. IDOR confirmed — CWE-639. |
+| `/lookup?connection=` ±1 | "No statements found" — IDs not guessable by enumeration. |
 
 > **Screenshot:** View-source of `/home/profile` showing hidden `id=1` and `method="GET"`
+
+<img width="660" height="38" alt="image" src="https://github.com/user-attachments/assets/a2acb4d7-ce9d-4a32-9af8-6f7558d2f4b8" />
+
+> **Screenshot:** Burp Repeater showing `id=4` request with 302 response
+
+<img width="1547" height="617" alt="image" src="https://github.com/user-attachments/assets/dbac50b7-a40e-4648-82ad-e2f55c2d6de3" />
 
 ---
 
