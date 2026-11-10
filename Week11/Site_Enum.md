@@ -24,12 +24,12 @@ Role order:
 | Endpoint | Method | Who can reach | Where in the UI | Interesting input |
 |---|---|---|---|---|
 | / | GET | Anyone | nav: Home Page | None |
-| /login | GET | Anyone | nav: Login | `E-mail` `Pasword` |
+| /login | GET | Anyone | nav: Login & Customer Login | `E-mail` `Pasword` |
 | /quick/check | GET | Anyone | nav: Quick Check | `connection` |
 | /lookup | GET | Anyone | nav: Bill Lookup | `connection` |
-| /register | GET | Anyone |  |  |
-| /admin/login | GET | Anyone |  |  |
-| /password/reset | GET | Anyone |  |  |
+| /register | GET | Anyone | nav: Register & New Connection |  |
+| /admin/login | GET | Anyone | nav: Staff & Staff Login |  |
+| /password/reset | GET | Anyone | nav: Login/Customer Login -> "Forgot Your Password?" |  |
 |  |  |  |  |  |
 |  |  |  |  |  |
 |  |  |  |  |  |
