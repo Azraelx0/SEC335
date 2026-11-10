@@ -9,37 +9,44 @@ Before exploiting anything, build a complete picture of eLECTRA: every page, for
 
 ## Approach
 
-Browse with Burp **Intercept off** and let **Proxy → HTTP history** record every request. Walk the whole app once per role, then read the history back and fill in the tables below — easier than noting things live. Right-click the host → *Add to scope* and filter history to in-scope to cut noise.
-
-Discover the map yourself first; only compare against the guide's reference map afterward. The gaps between the two are the things you'd have missed on a real target — note them.
+Browse with Burp Intercept off and let Proxy -> HTTP history record every request. Walk the whole app once per role and then read the history back to fill in the tables below. Right-click the host -> *Add to scope* and filter history to in-scope. Also highlighting start and end points can help reduce confusion once the requests start to pile up.
 
 Role order:
 
 1. **Anonymous** — logged out / private window
 2. **Customer** — `m.holloway`
-3. **Staff** — can't reach yet; record the nav items as a *boundary*, not a blank
+3. **Staff** — can't reach yet and will record the nav items as a *boundary* rather than blank
 
 ---
 
 ## 1. Endpoint map
 
-One row per endpoint. The example row shows the format — replace it.
-
 | Endpoint | Method | Who can reach | Where in the UI | Interesting input |
 |---|---|---|---|---|
-| `/example` | GET | anyone | nav: Example | `param` |
+| / | GET | Anyone | nav: Home Page | None |
+| /login | GET | Anyone | nav: Login | `E-mail` `Pasword` |
+| /quick/check | GET | Anyone | nav: Quick Check | `connection` |
+| /lookup | GET | Anyone | nav: Bill Lookup | `connection` |
+| /register | GET | Anyone |  |  |
+| /admin/login | GET | Anyone |  |  |
+| /password/reset | GET | Anyone |  |  |
 |  |  |  |  |  |
 |  |  |  |  |  |
 |  |  |  |  |  |
 |  |  |  |  |  |
 |  |  |  |  |  |
 |  |  |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
+
+
+Screenshots to go along:
+
+/lookup?connection=
+
+<img width="404" height="26" alt="image" src="https://github.com/user-attachments/assets/f3090fe6-c222-448a-92dc-f81c30bf848e" />
+
+/quick/check?connection=
+
+<img width="347" height="25" alt="image" src="https://github.com/user-attachments/assets/cfa70e78-9c0f-4fab-ab9f-516932fa8b7f" />
 
 ---
 
