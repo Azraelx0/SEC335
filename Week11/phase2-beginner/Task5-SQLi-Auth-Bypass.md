@@ -6,10 +6,11 @@ So we can bypass this by injecting into the email field to make the WHERE clause
 
 <img width="385" height="45" alt="image" src="https://github.com/user-attachments/assets/86327e1d-ac9b-4ece-a65c-a6d52e5bcc77" />
 
-<img width="385" height="45" alt="image" src="https://github.com/user-attachments/assets/998cf47a-49a3-4d73-86f5-84cba47ecef6" />
+<img width="894" height="50" alt="image" src="https://github.com/user-attachments/assets/dbf6cd88-2457-43eb-8318-1fab2d6838d2" />
 
 
 Submit: Screenshot of the customer dashboard as Marcus Holloway and the staff Billing Console after the bypass (no password used).
 
-<img width="894" height="50" alt="image" src="https://github.com/user-attachments/assets/dbf6cd88-2457-43eb-8318-1fab2d6838d2" />
+<img width="1370" height="611" alt="image" src="https://github.com/user-attachments/assets/20253b46-62cc-40b1-8aba-3dae5f2d298b" />
+
 
