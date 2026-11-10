@@ -1,8 +1,7 @@
-# Task 2 — Mapping the Application
+# Mapping the Application
 
-Before exploiting anything, build a complete picture of eLECTRA: every page, form, parameter, cookie, and role boundary. This map is the reference every later task reaches back into, so the goal here is **coverage, not exploitation** — notice and record, don't attack yet.
-
-- **Target:** `http://192.168.77.80/` (eLECTRA, classroom LAN reached via the EasyTier mesh)
+Before exploiting anything, build a complete picture of eLECTRA: every page, form, parameter, cookie, and role boundary. This map is the reference every later task reaches back into, so the goal here is to be as thorough as possible.
+- **Target:** `http://192.168.77.80/` (eLECTRA website)
 - **Accounts:** `m.holloway@electra.lab` (customer) · anonymous (logged out)
 - **Deliverable:** the filled-in endpoint map below + notes on two information leaks
 
