@@ -184,9 +184,8 @@ Both check the file extension. Neither was tested against alternative PHP extens
 
 <img width="744" height="253" alt="image" src="https://github.com/user-attachments/assets/7c1c1f84-79c8-439f-9acc-91f03f38da41" />
 
-### Hidden Fields & IDOR Setup
 
-## 6. Hidden Fields & IDOR Setup
+## Hidden Fields & IDOR Setup
 
 View-source on `/home/profile` reveals a hidden `id` field with value `1`:
 
@@ -218,7 +217,7 @@ For `/lookup`, the `connection` parameter takes a 10-digit ID that isn't sequent
 
 ## Information Leaks
 
-The two required deliverables for this task. Found via `robots.txt` and content discovery.
+The two required deliverables for this labs task 2. Found via `robots.txt` and content discovery.
 
 `robots.txt` returned the following:
 
@@ -231,24 +230,26 @@ Disallow: /install-notes.txt
 
 > **Screenshot:** `robots.txt` contents in browser
 
-This is a classic mistake — `robots.txt` is public, so listing sensitive paths in it advertises exactly what to request. All three paths were tested directly. `/backup/` returned 404 (not present). The other two are the two leaks below.
+<img width="599" height="150" alt="image" src="https://github.com/user-attachments/assets/4bf80c3f-ef93-4626-aac2-75512e9d5400" />
+
+This is a classic misconfiguration where `robots.txt` is public, so listing sensitive paths in it shows exactly what to request. All three paths were tested directly. `/backup/` returned 404 (not present). The other two are the two leaks below.
 
 ---
 
 ### Leak 1 — `install-notes.txt` *(Critical — CWE-200)*
 
 **Path:** `http://192.168.77.80/install-notes.txt`
-**Found:** listed in `robots.txt`; confirmed 200 by gobuster
+**Found:** listed in `robots.txt` and confirmed 200 by gobuster
 
 ```
 eLECTRA v2.4.1 - DEPLOYMENT NOTES
 
 Staff portal: /admin/login
-  * Billing operations manager : a.deshmukh@electra.lab / admin123   <-- CHANGE THIS
-  * Support supervisor         : v.malone@electra.lab  / trustno1    <-- CHANGE THIS
+  * Billing operations manager : a.deshmukh@electra.lab / <REDACTED>   <-- CHANGE THIS
+  * Support supervisor         : v.malone@electra.lab  / <REDACTED>    <-- CHANGE THIS
 
 Database (local MariaDB)
-  name: electra  user: electraapp  password: electra123              <-- CHANGE THIS
+  name: electra  user: electraapp  password: <REDACTED>              <-- CHANGE THIS
 
 NOTES
   * Customer documents/photos stored in public /uploads/ (must stay web-reachable)
@@ -262,23 +263,27 @@ NOTES
 
 > **Screenshot:** `install-notes.txt` contents in browser
 
+<img width="666" height="504" alt="image" src="https://github.com/user-attachments/assets/84f4f50a-75ec-484c-a18c-175647590b27" />
+
 ---
 
 ### Leak 2 — `/uploads/` Directory Listing *(Medium — CWE-548)*
 
 **Path:** `http://192.168.77.80/uploads/`
-**Found:** linked in the Upload Documents page footer; accessible anonymously
+**Found:** linked in the Upload Documents page footer and accessible anonymously
 
 ```
 Index of /uploads
 Apache/2.4.67 (Debian) Server at 192.168.77.80 Port 80
 ```
 
-**What this reveals:** Directory indexing is enabled, confirmed as intentional by the `options +indexes` note in `install-notes.txt`. Any customer document uploaded to the app — meter photos, proof of payment — is browsable by anyone without authentication. More critically, any file placed in this directory is reachable at a predictable URL. That reachability is the second half of the upload→RCE chain: getting a malicious file past the filter is step one; having a URL to trigger it is step two. Both are now confirmed.
+**What this reveals:** Directory indexing is enabled which was confirmed by the `options +indexes` note in `install-notes.txt`. Any customer document uploaded to the app including meter photos, proof of payment, etc., is viewable by anyone without authentication. More critically, any file placed in this directory is reachable at a predictable URL. That access is the second half of the upload -> RCE chain: getting a malicious file past the filter is step one then having a URL to trigger it is step two.
 
-Nikto flagged `/css/` and `/images/` as also having directory listing enabled, suggesting this is a server-wide misconfiguration rather than a deliberate choice for `/uploads/` alone.
+Nikto flagged `/css/` and `/images/` as also having directory listing enabled, suggesting this is a server-wide misconfiguration rather than `/uploads/` alone.
 
 > **Screenshot:** `http://192.168.77.80/uploads/` showing Apache directory listing
+
+<img width="609" height="305" alt="image" src="https://github.com/user-attachments/assets/c59e4a39-0fc4-4014-a9bd-f067fe9f72f4" />
 
 ---
 
@@ -288,17 +293,20 @@ gobuster:
 
 > **Screenshot:** gobuster output showing hits including `robots.txt` (200), `install-notes.txt` (200), `web.config` (200), `/uploads/` (301), `/admin` (302)
 
+
 Nikto:
 
 > **Screenshot:** Nikto output
 
-Notable Nikto findings not covered elsewhere: missing security headers across the board (no CSP, HSTS, X-Content-Type-Options), internal IP `10.0.2.100` disclosed via Location header on `/images`, and independent confirmation of the missing `HttpOnly` flag on `electra_session`.
+<img width="1463" height="802" alt="image" src="https://github.com/user-attachments/assets/9e7addf8-66ff-41d4-a357-abd035876c50" />
+
+Notable Nikto findings not covered in the manual testing are: missing security headers across the board (no CSP, HSTS, X-Content-Type-Options), internal IP `10.0.2.100` disclosed via Location header on `/images`, and confirmation of the missing `HttpOnly` flag on `electra_session`.
 
 ---
 
 ## Leads Forward
 
-Everything found in this phase maps to a later task:
+Everything found in this phase maps will aid in the actual exploitation later in this lab:
 
 | Finding | Task |
 |---|---|
