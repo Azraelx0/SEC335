@@ -7,15 +7,15 @@
 This repo is a comprehensive write-up on the simulated target web application eLECTRA. As this is a graded lab, for easy navigation the below required tasks are placed at the top along with the chosen electives. The rest of the tasks along with remediations are bonuses. Depending on time remediations may or may not be done for the given tasks.
 
 ## Required Tasks
-| Task | File | Status |
-|---|---|---|
+| Task | File |
+|---|---|
 | Task 5 -- SQLi Auth Bypass | [phase2-beginner/Task5-SQLi-Auth-Bypass.md](./phase2-beginner/Task5-SQLi-Auth-Bypass.md) |
 | Task 10 -- sqlmap Automation | [phase3-intermediate/Task10-sqlmap.md](./phase3-intermediate/Task10-sqlmap.md) |
 | Task 13 -- Upload Filter Bypass | [phase3-intermediate/Task13-Upload-Filter-Bypass.md](./phase3-intermediate/Task13-Upload-Filter-Bypass.md) |
 
 ## Electives
-| Task | File | Status |
-|---|---|---|
+| Task | File |
+|---|---|
 | Task 3 -- Info Disclosure | [phase1-recon/Site_Enum.md](./phase1-recon/Site_Enum.md) |
 | Task 4 -- Reflected XSS | [phase1-recon/Site_Enum.md](./phase1-recon/Site_Enum.md) |
 | Task 15 -- SQLi Write Queries | [phase4-advanced/Task15-SQLi-Write-Queries.md](./phase4-advanced/Task15-SQLi-Write-Queries.md) |
