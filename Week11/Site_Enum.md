@@ -1,4 +1,4 @@
-# Task 2 — Recon & Discovery
+# Recon & Discovery
 
 **Target:** `http://192.168.77.80` — eLECTRA, Springfield Power & Light billing portal
 **Accounts:** `m.holloway@electra.lab` (customer), anonymous, `a.deshmukh@electra.lab` (staff — recovered from info leak)
