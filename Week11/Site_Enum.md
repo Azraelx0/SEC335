@@ -293,6 +293,7 @@ gobuster:
 
 > **Screenshot:** gobuster output showing hits including `robots.txt` (200), `install-notes.txt` (200), `web.config` (200), `/uploads/` (301), `/admin` (302)
 
+<img width="777" height="375" alt="image" src="https://github.com/user-attachments/assets/8dd65475-33f0-4ca1-97c9-8b597e452ea9" />
 
 Nikto:
 
