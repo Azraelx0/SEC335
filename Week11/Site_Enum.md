@@ -321,7 +321,7 @@ Everything found in this phase maps will aid in the actual exploitation later in
 | `/home/upload` + `/home/upload/avatar` — extension filter bypass | 7, 13, 16 |
 | `/uploads/` web-reachable and executable | 7, 13, 16 |
 | `/home/profile/update` `id=1` — IDOR | 6 |
-| `/home/profile/update` via GET, no token — CSRF | 18 |
+| `/home/profile/update` via GET, CSRF | 18 |
 | `/admin/tools/ping` `host` — command injection | 17 |
 | `/admin/updaterate` `rate` — rate tampering, 41,300 customers | 14 |
-| `install-notes.txt` staff creds — direct admin access | 14 |
+| `install-notes.txt` staff creds | 14 |
