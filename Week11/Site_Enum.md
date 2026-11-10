@@ -6,13 +6,13 @@
 
 ---
 
-The goal of this phase is to build a complete picture of the application before touching anything offensively — every endpoint, input, role boundary, and technology signal. Everything found here feeds directly into the exploit tasks that follow.
+The goal of this phase is to build a complete picture of the application before touching anything offensively.
 
 ---
 
 ## Mapping the Application
 
-I started by browsing the app with Burp Intercept off, letting Proxy history record every request automatically. I added the host to scope and filtered to in-scope to keep the history clean. I walked through the app three times — once as an anonymous visitor, once logged in as `m.holloway`, and once using the staff credentials recovered later from `install-notes.txt`.
+I started by browsing the app with Burp Intercept off while letting Proxy history record every request automatically. I added the host to scope and filtered to in-scope to keep the history clean. I navigated through the app three times, once as an anonymous visitor, once logged in as `m.holloway`, and once using the staff credentials recovered later from `install-notes.txt`.
 
 Alongside manual browsing I ran gobuster and Nikto to catch anything the navigation didn't surface:
 
@@ -21,7 +21,9 @@ gobuster dir -u http://192.168.77.80 -w /usr/share/wordlists/dirb/common.txt -x 
 nikto -h http://192.168.77.80
 ```
 
-> **Screenshot:** Burp Proxy history showing full request coverage across all three roles
+**Screenshot of Short Snippet of Burp History:**
+
+<img width="915" height="416" alt="image" src="https://github.com/user-attachments/assets/5853a911-86c8-469e-be5e-511b12dc772d" />
 
 ---
 
@@ -56,11 +58,15 @@ Working through every nav link, form submission, and URL parameter, I built the 
 
 A few things worth noting from the map:
 
-- `/lookup` and `/quick/check` are both reachable without logging in and both take a `connection` parameter — unauthenticated inputs that hit the database are always worth attention.
-- `/home/profile/update` submits over **GET** with no CSRF token. This is confirmed in view-source — a state-changing action over GET means no token is possible, which feeds directly into Task 18.
-- `/admin/updaterate` takes a `rate` field that sets the billing rate for all 41,300 customers. Financial impact makes this a high-value target once inside the admin panel.
+- `/lookup` and `/quick/check` are both reachable without logging in and both take a `connection` parameter.
+- `/home/profile/update` submits over **GET** with no CSRF token.
+- `/admin/updaterate` takes a `rate` field that sets the billing rate for all customers. Financial impact makes this a high-value target once inside the admin panel.
 
-> **Screenshot:** `/lookup?connection=` and `/quick/check?connection=` URL parameters visible in Burp
+> **Screenshot:** `/lookup?connection=` and `/quick/check?connection=` (example id used) URL parameters visible in Burp
+
+<img width="676" height="22" alt="image" src="https://github.com/user-attachments/assets/eacaf900-edf0-4ba0-afba-d8f006195d23" />
+
+<img width="676" height="28" alt="image" src="https://github.com/user-attachments/assets/d611caf9-3d76-4c7e-96c1-b473a0aac949" />
 
 ---
 
@@ -72,7 +78,7 @@ A few things worth noting from the map:
 | Customer (`m.holloway`) | All of the above plus `/home/*` — dashboard, account, uploads, pay, pdf |
 | Staff (`a.deshmukh`) | All `/admin/*` — dashboard, customers, diagnostics, updaterate |
 
-The customer→staff boundary is enforced server-side. Sending `GET /admin` with a customer session cookie returns a 302 redirect to `/login`. The UI boundary matches the server-side enforcement here.
+The customer -> staff boundary is enforced server-side. Sending `GET /admin` with a customer session cookie returns a 302 redirect to `/login`.
 
 ---
 
@@ -86,15 +92,18 @@ Pulling signals from Burp response headers, the debug error page, cookie format,
 | `X-Powered-By` | Not sent | Stripped, but PHP confirmed by other signals |
 | Session cookie | `electra_session` | Laravel `{iv,value,mac}` encrypted format — Laravel/PHP app with renamed default cookie |
 | CSRF token | `csrf-token` meta + `_token` hidden field | Laravel CSRF protection active on POST forms |
-| Error page | Laravel Ignition debug page | Debug mode on in production — full stack traces, source paths, and env vars leak on any error |
+| Error page | Laravel Ignition debug page | Debug mode on in production |
 | Database | MariaDB (from SQL error) | MySQL-family injection syntax |
-| Internal IP | `10.0.2.100` in `/images` Location header | Private IP disclosed via HTTP redirect (Nikto) |
 | Security headers | None of: CSP, HSTS, X-Content-Type-Options, Referrer-Policy, Permissions-Policy | No browser-level XSS mitigation — makes any XSS finding worse |
 | Front end | Bootstrap + jQuery | — |
 
 The combination of Laravel/PHP, Apache serving an executable `/uploads/` directory, debug mode on, and no security headers means verbose SQLi, upload→RCE, and XSS→session theft are all viable attack paths on this stack.
 
 > **Screenshot:** Burp response headers showing `Server: Apache/2.4.67 (Debian)` and `Set-Cookie: electra_session`
+
+<img width="252" height="27" alt="image" src="https://github.com/user-attachments/assets/cc24ed0e-de5a-48bb-942a-3f68e4477b8c" />
+
+<img width="774" height="77" alt="image" src="https://github.com/user-attachments/assets/ddcbc23a-a680-4d7f-ad84-9a6b98b0339b" />
 
 ---
 
