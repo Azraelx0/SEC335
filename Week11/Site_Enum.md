@@ -27,23 +27,25 @@ Role order:
 | `/` | GET | Anyone | nav: Home Page | None |
 | `/login` | GET (page) / POST (submit) | Anyone | nav: Login & Customer Login | `email` `password` |
 | `/quick/check` | GET | Anyone | nav: Quick Check | `connection` |
-| `/lookup` | GET | Anyone | nav: Bill Lookup | `connection` — **SQLi confirmed** (verbose error) |
+| `/lookup` | GET | Anyone | nav: Bill Lookup | `connection` |
 | `/register` | POST | Anyone | nav: Register & New Connection | `name` `email` `connectionId` `address` `password` `confirm password` |
 | `/admin/login` | GET (page) / POST (submit) | Anyone | nav: Staff & Staff Login | `email` `password` |
 | `/password/reset` | POST | Anyone | nav: Login / Staff → "Forgot Your Password?" | `email` |
 | `/home` | GET | Customer | nav: My Dashboard & Home | None |
 | `/home/profile` | GET | Customer | nav: My Account | `full name` `email` `billing address` `new password` |
-| `/home/profile/update` | POST | Customer | My Account (submit) | profile fields (stored → XSS / write-SQLi / IDOR via `id`) |
-| `/home/upload` | GET/POST | Customer | nav: Upload Documents | `file` — `filename` + part `Content-Type` (upload filter) |
-| `/home/upload/avatar` | POST | Customer | My Account / Upload | `avatar` — `filename` + part `Content-Type` |
+| `/home/profile/update` | POST | Customer | My Account (submit) | `id` |
+| `/home/upload` | GET/POST | Customer | nav: Upload Documents | `file`  `filename` + part `Content-Type` (upload filter) |
+| `/home/upload/avatar` | POST | Customer | My Account / Upload | `avatar`  `filename` + part `Content-Type` |
 | `/home/pay` | GET | Customer | nav: My Dashboard | None |
 | `/home/pdf` | POST | Customer | My Dashboard | `month` `year` |
 | `/uploads/` | GET | Anyone | footer link on Upload page | Directory listing enabled; stored files web-reachable/executable |
-| `/logout` | POST | Customer | nav dropdown | `_token` (CSRF) |
-| `/admin` | GET | **Staff (boundary)** | nav: Admin Dashboard | — (gobuster: 302 → `/login` when unauth) |
-| `/admin/customers` | GET | **Staff (boundary)** | nav: Customers | `q` (search) |
-| `/admin/tools/ping` | GET | **Staff (boundary)** | nav: Diagnostics | `host` — command-injection lead (uses `iputils-ping`) |
-
+| `/logout` | POST | Customer | nav: User Account Dropdown | need `_token` |
+| `/admin` | GET | Staff | nav: Admin Dashboard | `Customer Id` `initial` `final` `month` `year` |
+| `/admin/customers` | GET | Staff | nav: Customers | `q` |
+| `/admin/tools/ping` | GET | Staff | nav: Diagnostics | `host` |
+| `/admin/updaterate` | POST | Staff | nav: Admin Dashboard | `rate` |
+| `/admin/store` | POST | Staff | nav: Admin Dashboard | Same as /admin  |
+| `/admin/logout` |	POST |	Staff	| nav: Admin Account Dropdown	| need `_token` |
 Screenshots:
 
 /lookup?connection=
@@ -58,11 +60,11 @@ Screenshots:
 
 ## 2. Roles & boundaries
 
-| Role | Nav / pages visible | Notes |
+| Role | Nav / Pages Visible | Notes |
 |---|---|---|
-| Anonymous | Home, Customer Login, Register/New Connection, Bill Lookup, Quick Check, Staff Login, password reset | `/lookup` and `/quick/check` reachable with no auth — both take `connection` |
-| Customer (`m.holloway`) | My Dashboard, My Account, Upload Documents, pay, pdf, logout | all `/home/*`; current access level |
-| Staff *(boundary — not reachable)* | Admin Dashboard (`/admin`), Customers (`/admin/customers`), Diagnostics (`/admin/tools/ping`) | require staff role; `/admin` returns **302 → /login** when unauth (gobuster). This boundary is where the SQLi auth-bypass task is aimed |
+| Anonymous | Home, Customer Login, Register/New Connection, Bill Lookup, Quick Check, Staff Login, password reset, /uploads/ | `/lookup` and `/quick/check` reachable with no auth and both take `connection` |
+| Customer (`m.holloway`) | My Dashboard, My Account, Upload Documents, pay, pdf, logout | all `/home/*` |
+| Staff | Admin Dashboard (`/admin`), Customers (`/admin/customers`), Diagnostics (`/admin/tools/ping`) | require staff role; `/admin` returns **302 → /login** when unauth (gobuster) |
 
 ---
 
@@ -72,7 +74,7 @@ Screenshots:
 |---|---|---|---|---|
 | `electra_session` | No | No | None | Laravel session cookie (renamed from default `laravel_session`). Max-Age 7200. Confirmed via dev tools + `Set-Cookie` response header. |
 
-**What this reveals to an attacker:** `electra_session` carries the logged-in session, and with `HttpOnly` unset it is readable from JavaScript via `document.cookie` — any XSS becomes full session theft / account takeover. `Secure` unset also means it is sent over plain HTTP and exposed to network sniffing. Feeds the stored-XSS / session-hijacking task.
+**What this reveals to an attacker:** `electra_session` carries the logged-in session, and with `HttpOnly` unset it is readable from JavaScript via `document.cookie` this means that any XSS becomes full session theft / account takeover. `Secure` unset also means it is sent over plain HTTP and exposed to network sniffing. Feeds the stored-XSS / session-hijacking task.
 
 ---
 
@@ -80,7 +82,7 @@ Screenshots:
 
 | Signal | Value observed | Implies |
 |---|---|---|
-| `Server` header | Apache/2.4.67 (Debian) | Apache on Debian; `/uploads/` is server-executed → `.htaccess` hijack plausible |
+| `Server` header | Apache/2.4.67 (Debian) | Apache on Debian; `/uploads/` is server-executed -> `.htaccess` hijack plausible |
 | `X-Powered-By` | Not sent | Stripped, but other signals confirm PHP |
 | Session cookie name | `electra_session` | Laravel cookie format (`{iv,value,mac}`), renamed from default → Laravel/PHP |
 | CSRF token | `csrf-token` meta + `_token` hidden field | Laravel CSRF protection on POST forms |
@@ -99,7 +101,7 @@ Screenshots:
 | Logout form | `_token` | Laravel CSRF token | Confirms POST state changes are CSRF-protected |
 | All pages | `csrf-token` meta | matches `_token` | CSRF task must target a state change that *lacks* a token |
 | `/lookup` | `connection` reflected in page | `'` → `&#039;` | Input reflected but HTML-encoded in `value` attr (escaped there) |
-| Upload (multipart) | `filename`, part `Content-Type` | client-controlled | Classic upload-filter bypass vectors (§1.5 axes 1 & 2) |
+| Upload (multipart) | `filename`, part `Content-Type` | client-controlled | Upload-filter bypass vectors |
 
 ---
 
@@ -137,14 +139,14 @@ Checklist results:
 - [x] `robots.txt` — Disallow: `/uploads/`, `/backup/`, `/install-notes.txt`
 - [x] `install-notes.txt` — present (200)
 - [x] `/uploads/` — directory listing enabled (200)
-- [x] `web.config` — present (200); IIS rewrite rules, low value
-- [ ] `/backup/` — listed in robots.txt but returns 404 (not present)
+- [ ] `web.config` — present (200); IIS rewrite rules, low value
+- [ ] `/backup/` — listed in robots.txt but returns 404
 - [ ] `sitemap.xml`, `README`, `.git/`, `db.sql`/`web.zip` — not found
 
 ### Leak 1 — `install-notes.txt`
 
 - **File / path:** `http://192.168.77.80/install-notes.txt`
-- **How found:** named in `robots.txt`; confirmed 200 via gobuster
+- **How found:** named in `robots.txt` and confirmed with status 200 via gobuster
 - **Contents (relevant part):**
 
 ```
