@@ -1,8 +1,10 @@
 # Tools That I Find Helpful
-This file is a running doc of helpful tools, initially this will contain tools outside the direct scope of the writeups for each week until I have time to format sections for specific cli commands/tools.
+This file is a running doc of helpful tools, initially this will contain tools outside the direct scope of the writeups for each week until I have time to format sections for specific cli commands/tools. Note that due to the sheer amount of tools, only tools that I might forget will be here. For example, for web pentesting niktos, gobuster, burp, etc., are all obvious.
 
 ## Misc
 Sliver and Mythic C2 Frameworks
+
+## Web Pentesting
 
 
 ## Network Pentesting
