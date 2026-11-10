@@ -1,171 +1,219 @@
-# Mapping the Application
+# Task 2 — Recon & Discovery
 
-Before exploiting anything, build a complete picture of eLECTRA: every page, form, parameter, cookie, and role boundary. This map is the reference every later task reaches back into, so the goal here is to be as thorough as possible.
-
-- **Target:** `http://192.168.77.80/` (eLECTRA website)
-- **Accounts:** `m.holloway@electra.lab` (customer) · anonymous (logged out)
-- **Deliverable:** the filled-in endpoint map below + notes on two information leaks
+**Target:** `http://192.168.77.80` — eLECTRA, Springfield Power & Light billing portal
+**Accounts:** `m.holloway@electra.lab` (customer), anonymous, `a.deshmukh@electra.lab` (staff — recovered from info leak)
+**Tools:** Burp Suite, gobuster, Nikto, Firefox dev tools
 
 ---
 
-## Approach
-
-Browse with Burp Intercept off and let Proxy → HTTP history record every request. Walk the whole app once per role, then read the history back to fill in the tables below. Right-click the host → *Add to scope* and filter history to in-scope. Highlighting start and end points helps reduce confusion once the requests pile up.
-
-Role order:
-
-1. **Anonymous** — logged out / private window
-2. **Customer** — `m.holloway`
-3. **Staff** — can't reach yet; recorded as a *boundary* rather than left blank
+The goal of this phase is to build a complete picture of the application before touching anything offensively — every endpoint, input, role boundary, and technology signal. Everything found here feeds directly into the exploit tasks that follow.
 
 ---
 
-## 1. Endpoint map
+## Mapping the Application
+
+I started by browsing the app with Burp Intercept off, letting Proxy history record every request automatically. I added the host to scope and filtered to in-scope to keep the history clean. I walked through the app three times — once as an anonymous visitor, once logged in as `m.holloway`, and once using the staff credentials recovered later from `install-notes.txt`.
+
+Alongside manual browsing I ran gobuster and Nikto to catch anything the navigation didn't surface:
+
+```bash
+gobuster dir -u http://192.168.77.80 -w /usr/share/wordlists/dirb/common.txt -x php,txt,zip,sql,bak
+nikto -h http://192.168.77.80
+```
+
+> **Screenshot:** Burp Proxy history showing full request coverage across all three roles
+
+---
+
+## Endpoint Map
+
+Working through every nav link, form submission, and URL parameter, I built the following map. The staff endpoints were confirmed by logging in with credentials recovered from the information leak described below.
 
 | Endpoint | Method | Who can reach | Where in the UI | Interesting input |
 |---|---|---|---|---|
-| `/` | GET | Anyone | nav: Home Page | None |
-| `/login` | GET (page) / POST (submit) | Anyone | nav: Login & Customer Login | `email` `password` |
-| `/quick/check` | GET | Anyone | nav: Quick Check | `connection` |
-| `/lookup` | GET | Anyone | nav: Bill Lookup | `connection` |
-| `/register` | POST | Anyone | nav: Register & New Connection | `name` `email` `connectionId` `address` `password` `confirm password` |
-| `/admin/login` | GET (page) / POST (submit) | Anyone | nav: Staff & Staff Login | `email` `password` |
-| `/password/reset` | POST | Anyone | nav: Login / Staff → "Forgot Your Password?" | `email` |
-| `/home` | GET | Customer | nav: My Dashboard & Home | None |
-| `/home/profile` | GET | Customer | nav: My Account | `full name` `email` `billing address` `new password` |
-| `/home/profile/update` | POST | Customer | My Account (submit) | `id` |
-| `/home/upload` | GET/POST | Customer | nav: Upload Documents | `file`  `filename` + part `Content-Type` (upload filter) |
-| `/home/upload/avatar` | POST | Customer | My Account / Upload | `avatar`  `filename` + part `Content-Type` |
-| `/home/pay` | GET | Customer | nav: My Dashboard | None |
+| `/` | GET | Anyone | Home Page | — |
+| `/login` | GET/POST | Anyone | Customer Login | `email` `password` |
+| `/quick/check` | GET | Anyone | Quick Check | `connection` |
+| `/lookup` | GET | Anyone | Bill Lookup | `connection` |
+| `/register` | GET/POST | Anyone | New Connection | `name` `email` `connectionId` `address` `password` |
+| `/admin/login` | GET/POST | Anyone | Staff Login | `email` `password` |
+| `/password/reset` | GET/POST | Anyone | Forgot Password | `email` |
+| `/home` | GET | Customer | My Dashboard | — |
+| `/home/profile` | GET | Customer | My Account | `name` `email` `address` `password` |
+| `/home/profile/update` | GET | Customer | My Account (submit) | `id` `name` `email` `address` |
+| `/home/upload` | GET/POST | Customer | Upload Documents | `file` |
+| `/home/upload/avatar` | POST | Customer | Upload Documents | `avatar` |
+| `/home/pay` | GET | Customer | My Dashboard | — |
 | `/home/pdf` | POST | Customer | My Dashboard | `month` `year` |
-| `/uploads/` | GET | Anyone | footer link on Upload page | Directory listing enabled; stored files web-reachable/executable |
-| `/logout` | POST | Customer | nav: User Account Dropdown | need `_token` |
-| `/admin` | GET | Staff | nav: Admin Dashboard | `Customer Id` `initial` `final` `month` `year` |
-| `/admin/customers` | GET | Staff | nav: Customers | `q` |
-| `/admin/tools/ping` | GET | Staff | nav: Diagnostics | `host` |
-| `/admin/updaterate` | POST | Staff | nav: Admin Dashboard | `rate` |
-| `/admin/store` | POST | Staff | nav: Admin Dashboard | Same as /admin  |
-| `/admin/logout` |	POST |	Staff	| nav: Admin Account Dropdown	| need `_token` |
-Screenshots:
+| `/uploads/` | GET | Anyone | Upload Documents (footer) | — |
+| `/logout` | POST | Customer | Account Dropdown | — |
+| `/admin` | GET | Staff | Admin Dashboard | `customerId` `initial` `final` `month` `year` |
+| `/admin/customers` | GET | Staff | Customers | `q` |
+| `/admin/store` | POST | Staff | Admin Dashboard | — |
+| `/admin/updaterate` | POST | Staff | Admin Dashboard | `rate` |
+| `/admin/tools/ping` | GET | Staff | Diagnostics | `host` |
+| `/admin/logout` | POST | Staff | Account Dropdown | — |
 
-/lookup?connection=
+A few things worth noting from the map:
 
-<img width="404" height="26" alt="image" src="https://github.com/user-attachments/assets/f3090fe6-c222-448a-92dc-f81c30bf848e" />
+- `/lookup` and `/quick/check` are both reachable without logging in and both take a `connection` parameter — unauthenticated inputs that hit the database are always worth attention.
+- `/home/profile/update` submits over **GET** with no CSRF token. This is confirmed in view-source — a state-changing action over GET means no token is possible, which feeds directly into Task 18.
+- `/admin/updaterate` takes a `rate` field that sets the billing rate for all 41,300 customers. Financial impact makes this a high-value target once inside the admin panel.
 
-/quick/check?connection=
-
-<img width="347" height="25" alt="image" src="https://github.com/user-attachments/assets/cfa70e78-9c0f-4fab-ab9f-516932fa8b7f" />
+> **Screenshot:** `/lookup?connection=` and `/quick/check?connection=` URL parameters visible in Burp
 
 ---
 
-## 2. Roles & boundaries
+## Roles & Boundaries
 
-| Role | Nav / Pages Visible | Notes |
+| Role | Pages accessible |
+|---|---|
+| Anonymous | Home, Login, Register, Bill Lookup, Quick Check, Staff Login, password reset, `/uploads/` |
+| Customer (`m.holloway`) | All of the above plus `/home/*` — dashboard, account, uploads, pay, pdf |
+| Staff (`a.deshmukh`) | All `/admin/*` — dashboard, customers, diagnostics, updaterate |
+
+The customer→staff boundary is enforced server-side. Sending `GET /admin` with a customer session cookie returns a 302 redirect to `/login`. The UI boundary matches the server-side enforcement here.
+
+---
+
+## Stack Fingerprint
+
+Pulling signals from Burp response headers, the debug error page, cookie format, and Nikto output:
+
+| Signal | Observed | Implies |
 |---|---|---|
-| Anonymous | Home, Customer Login, Register/New Connection, Bill Lookup, Quick Check, Staff Login, password reset, /uploads/ | `/lookup` and `/quick/check` reachable with no auth and both take `connection` |
-| Customer (`m.holloway`) | My Dashboard, My Account, Upload Documents, pay, pdf, logout | all `/home/*` |
-| Staff | Admin Dashboard (`/admin`), Customers (`/admin/customers`), Diagnostics (`/admin/tools/ping`) | require staff role; `/admin` returns **302 → /login** when unauth (gobuster) |
+| `Server` | `Apache/2.4.67 (Debian)` | Apache on Debian; Nikto flags it as outdated (≥2.4.68 current) |
+| `X-Powered-By` | Not sent | Stripped, but PHP confirmed by other signals |
+| Session cookie | `electra_session` | Laravel `{iv,value,mac}` encrypted format — Laravel/PHP app with renamed default cookie |
+| CSRF token | `csrf-token` meta + `_token` hidden field | Laravel CSRF protection active on POST forms |
+| Error page | Laravel Ignition debug page | Debug mode on in production — full stack traces, source paths, and env vars leak on any error |
+| Database | MariaDB (from SQL error) | MySQL-family injection syntax |
+| Internal IP | `10.0.2.100` in `/images` Location header | Private IP disclosed via HTTP redirect (Nikto) |
+| Security headers | None of: CSP, HSTS, X-Content-Type-Options, Referrer-Policy, Permissions-Policy | No browser-level XSS mitigation — makes any XSS finding worse |
+| Front end | Bootstrap + jQuery | — |
+
+The combination of Laravel/PHP, Apache serving an executable `/uploads/` directory, debug mode on, and no security headers means verbose SQLi, upload→RCE, and XSS→session theft are all viable attack paths on this stack.
+
+> **Screenshot:** Burp response headers showing `Server: Apache/2.4.67 (Debian)` and `Set-Cookie: electra_session`
 
 ---
 
-## 3. Cookies & session flags
+## Cookies & Session
 
-| Cookie | HttpOnly | Secure | SameSite | Notes |
-|---|---|---|---|---|
-| `electra_session` | No | No | None | Laravel session cookie (renamed from default `laravel_session`). Max-Age 7200. Confirmed via dev tools + `Set-Cookie` response header. |
+Checking the session cookie after login via Firefox dev tools and the `Set-Cookie` response header in Burp:
 
-**What this reveals to an attacker:** `electra_session` carries the logged-in session, and with `HttpOnly` unset it is readable from JavaScript via `document.cookie` this means that any XSS becomes full session theft / account takeover. `Secure` unset also means it is sent over plain HTTP and exposed to network sniffing. Feeds the stored-XSS / session-hijacking task.
-
----
-
-## 4. Stack fingerprint
-
-| Signal | Value observed | Implies |
-|---|---|---|
-| `Server` header | Apache/2.4.67 (Debian) | Apache on Debian; `/uploads/` is server-executed -> `.htaccess` hijack plausible |
-| `X-Powered-By` | Not sent | Stripped, but other signals confirm PHP |
-| Session cookie name | `electra_session` | Laravel cookie format (`{iv,value,mac}`), renamed from default Laravel/PHP |
-| CSRF token | `csrf-token` meta + `_token` hidden field | Laravel CSRF protection on POST forms |
-| Error-page style | Verbose MariaDB SQL error shown in-page | DB = MariaDB; debug/verbose errors on → leaks queries (CWE-209) |
-| Database | MariaDB (from SQL error) | MySQL-family syntax for injection |
-| Front end | Bootstrap + jQuery (`app.js`, `app.css`) | — |
-
-**Summary:** Laravel/PHP app on Apache/Debian, MariaDB backend, debug errors enabled. This combo puts verbose SQLi, upload→RCE, and XSS→session theft all in play.
-
----
-
-## 5. Hidden fields & parameters
-
-| Form / page | Hidden / non-obvious field | Value seen | Why it's interesting |
+| Cookie | HttpOnly | Secure | SameSite |
 |---|---|---|---|
-| Logout form | `_token` | Laravel CSRF token | Confirms POST state changes are CSRF-protected |
-| All pages | `csrf-token` meta | matches `_token` | CSRF task must target a state change that *lacks* a token |
-| `/lookup` | `connection` reflected in page | `'` → `&#039;` | Input reflected but HTML-encoded in `value` attr (escaped there) |
-| Upload (multipart) | `filename`, part `Content-Type` | client-controlled | Upload-filter bypass vectors |
+| `electra_session` | **No** | No | None |
 
-On the `/login` page, inputting ' into the `E-Mail` and `Password` fields returns a `Whoops!` page.  This includes a very valuable sql statement finding `(SQL: SELECT * FROM users WHERE email = ''' AND password = MD5(''') LIMIT 1)`
+The session cookie is readable from JavaScript — `HttpOnly` is not set. This means any XSS that executes in the browser can read `document.cookie` and steal the session outright. `Secure` being unset also means the cookie transmits over plain HTTP. Nikto independently flagged this (`[000029]: Cookie electra_session created without the httponly flag`).
 
-We get a picture of the database having the table `users` and columns `email` `password`. This will be valuable for sql injection attempts. Second we see that the passwords are stored using MD5 which is an easily crackable hash.
-/
-xss alert:
+This single cookie flag is what makes the stored XSS in Task 12 turn into full account takeover rather than just a visual injection.
 
-<img width="1898" height="1169" alt="image" src="https://github.com/user-attachments/assets/491589e6-4b39-44f8-9118-64c9235c995f" />
+> **Screenshot:** Firefox dev tools Storage tab showing `electra_session` with HttpOnly: false and Secure: false
+
+> **Screenshot:** Burp `Set-Cookie` response header confirming no flags
 
 ---
 
-## 6. State changes over GET
+## Probe Results
 
-Candidate to verify during the CSRF task — the CSRF finding depends on a state change that happens over GET (no token possible).
+After mapping the surface I did a light probe pass — throwing break characters at every input and watching for differences in the response. The goal here is to locate weaknesses, not exploit them.
 
-- `/home/profile/update` — confirm whether the profile update accepts GET; if so, token-less → CSRF (Task 18).
-- Logout is POST + `_token` (protected — not a candidate).
+### SQL Injection
+
+**`/lookup?connection='`** immediately returned a verbose database error:
+
+```
+SQLSTATE[42000]: Syntax error: 1064 You have an error in your SQL syntax
+SQL: SELECT id, customerId, month, year, units, amount, status FROM bills WHERE customerId = '''
+```
+
+This gives away the table name (`bills`), all seven column names, and confirms the input lands in a single-quoted string context. Feeds Tasks 8 and 10.
+
+**`/login` with `email='`** triggered the Laravel Ignition debug page with a different query:
+
+```
+SQL: SELECT * FROM users WHERE email = ''' AND password = MD5(''') LIMIT 1
+```
+
+Two things in that one query: SQLi confirmed on the login form (`email` field, string context), and passwords are stored as plain **MD5 with no salt**. MD5 is a broken hashing algorithm — any password in the `users` table is trivially crackable with a wordlist. Feeds Tasks 5 and 11.
+
+The Ignition page itself is worth noting separately — it leaks the full stack trace, source file paths (`app/Http/Controllers/Auth/LoginController.php`), all POST data, cookies, and server environment variables. Debug mode running in production is a finding on its own (CWE-209).
+
+> **Screenshot:** Verbose SQL error on `/lookup`
+
+> **Screenshot:** Ignition debug page on `/login` showing query, MD5 password storage, and environment panel
+
+### Reflected XSS
+
+Sending `<script>alert(1)</script>` as the `connection` value on `/lookup` fired an alert box in the browser. The input is reflected directly into the page without encoding or sanitisation. Same parameter as the SQLi finding — two separate vulnerabilities on a single input.
+
+> **Screenshot:** XSS alert firing from `/lookup?connection=<script>alert(1)</script>`
+
+### Upload Filter
+
+Submitting `shell.php` to both uploaders:
+
+| Uploader | Result |
+|---|---|
+| `/home/upload` (document) | Blocked silently by extension filter |
+| `/home/upload/avatar` (photo) | `File type not allowed: .php` |
+
+Both check the file extension. Neither was tested against alternative PHP extensions (`.phtml`, `.php5`, `.pht`) or Content-Type spoofing — that's the work of Tasks 7, 13, and 16.
+
+> **Screenshot:** `File type not allowed: .php` error message on the avatar uploader
+
+### Hidden Fields & IDOR Setup
+
+View-source on `/home/profile` reveals a hidden `id` field with value `1`:
+
+```html
+<form method="GET" action="http://192.168.77.80/home/profile/update">
+    <input type="hidden" name="id" value="1">
+```
+
+Value `1` is a small integer — almost certainly sequential. Flipping this to `2`, `3`, etc. in Burp is the IDOR test for Task 6. The form also confirms the GET method noted in the endpoint map.
+
+For `/lookup`, the `connection` parameter takes a 10-digit ID that isn't sequential or guessable by incrementing — valid IDs would need to come from the admin customer directory or a SQLi dump. Not a viable IDOR path without prior enumeration.
+
+> **Screenshot:** View-source of `/home/profile` showing hidden `id=1` and `method="GET"`
 
 ---
 
-## 7. Information leaks *(deliverable)*
+## Information Leaks
 
-Found via `robots.txt` and gobuster content discovery, then read directly.
+The two required deliverables for this task. Found via `robots.txt` and content discovery.
 
-`robots.txt` (ironically advertises the sensitive paths):
-
-<img width="623" height="157" alt="image" src="https://github.com/user-attachments/assets/506ee9f0-99eb-4815-9719-47e6b951a8ba" />
-
-`install-notes.txt`:
-
-<img width="692" height="433" alt="image" src="https://github.com/user-attachments/assets/ca2af2cc-13e4-45c1-bcf9-d62e3de92347" />
-
-gobuster output:
+`robots.txt` returned the following:
 
 ```
-gobuster dir -u http://192.168.77.80 -w /usr/share/wordlists/dirb/common.txt -x php,txt,zip,sql,bak
+User-agent: *
+Disallow: /uploads/
+Disallow: /backup/
+Disallow: /install-notes.txt
 ```
 
-<img width="785" height="312" alt="image" src="https://github.com/user-attachments/assets/e66aa008-7441-443c-95a1-541b48e170d4" />
+> **Screenshot:** `robots.txt` contents in browser
 
-Checklist results:
+This is a classic mistake — `robots.txt` is public, so listing sensitive paths in it advertises exactly what to request. All three paths were tested directly. `/backup/` returned 404 (not present). The other two are the two leaks below.
 
-- [x] `robots.txt` — Disallow: `/uploads/`, `/backup/`, `/install-notes.txt`
-- [x] `install-notes.txt` — present (200)
-- [x] `/uploads/` — directory listing enabled (200)
-- [ ] `web.config` — present (200); IIS rewrite rules, low value
-- [ ] `/backup/` — listed in robots.txt but returns 404
-- [ ] `sitemap.xml`, `README`, `.git/`, `db.sql`/`web.zip` — not found
+---
 
-### Leak 1 — `install-notes.txt`
+### Leak 1 — `install-notes.txt` *(Critical — CWE-200)*
 
-- **File / path:** `http://192.168.77.80/install-notes.txt`
-- **How found:** named in `robots.txt` and confirmed with status 200 via gobuster
-- **Contents (relevant part):**
+**Path:** `http://192.168.77.80/install-notes.txt`
+**Found:** listed in `robots.txt`; confirmed 200 by gobuster
 
 ```
 eLECTRA v2.4.1 - DEPLOYMENT NOTES
 
 Staff portal: /admin/login
-  * Billing operations manager : a.deshmukh@electra.lab / admin123
-  * Support supervisor         : v.malone@electra.lab  / trustno1
+  * Billing operations manager : a.deshmukh@electra.lab / admin123   <-- CHANGE THIS
+  * Support supervisor         : v.malone@electra.lab  / trustno1    <-- CHANGE THIS
 
 Database (local MariaDB)
-  name: electra  user: electraapp  password: electra123
+  name: electra  user: electraapp  password: electra123              <-- CHANGE THIS
 
 NOTES
   * Customer documents/photos stored in public /uploads/ (must stay web-reachable)
@@ -175,43 +223,61 @@ NOTES
   * TODO: move this file out of web root before the audit (ticket SD-1184)
 ```
 
-- **What this reveals to an attacker:** full pre-auth compromise. Plaintext **staff credentials** give direct `/admin` access with no exploitation needed; **DB credentials**, the **vulnerable controller** behind the `/lookup` SQLi, the intentionally-executable `/uploads/` directory, and the command-injection package for the diagnostics tool are all disclosed. Critical (CWE-200).
+**What this reveals:** This file alone gives an unauthenticated attacker everything needed to fully compromise the application without running a single exploit. Staff credentials in plaintext provide immediate `/admin` access. Database credentials expose the entire backend. The note pointing to `LabController.php` names the exact file behind the `/lookup` SQL injection. The mention of `iputils-ping` confirms the attack vector for the command injection task. The `CHANGE THIS` comments and the open ticket (SD-1184) show that none of this was cleaned up before going live.
 
-### Leak 2 — `/uploads/` directory listing
+> **Screenshot:** `install-notes.txt` contents in browser
 
-- **File / path:** `http://192.168.77.80/uploads/`
-- **How found:** footer link on the Upload page; confirmed anonymous access
-- **Contents (relevant part):**
+---
+
+### Leak 2 — `/uploads/` Directory Listing *(Medium — CWE-548)*
+
+**Path:** `http://192.168.77.80/uploads/`
+**Found:** linked in the Upload Documents page footer; accessible anonymously
 
 ```
 Index of /uploads
-Name  Last modified  Size  Description
-Parent Directory       -
 Apache/2.4.67 (Debian) Server at 192.168.77.80 Port 80
 ```
 
-- **What this reveals to an attacker:** directory indexing is enabled, so stored customer documents (meter photos, proof-of-payment) are browsable, and any file placed here is reachable at a predictable URL — the "reachable + executable" half of the upload→RCE chain. Also confirms Apache/2.4.67 (Debian). Medium–High (CWE-200).
+**What this reveals:** Directory indexing is enabled, confirmed as intentional by the `options +indexes` note in `install-notes.txt`. Any customer document uploaded to the app — meter photos, proof of payment — is browsable by anyone without authentication. More critically, any file placed in this directory is reachable at a predictable URL. That reachability is the second half of the upload→RCE chain: getting a malicious file past the filter is step one; having a URL to trigger it is step two. Both are now confirmed.
+
+Nikto flagged `/css/` and `/images/` as also having directory listing enabled, suggesting this is a server-wide misconfiguration rather than a deliberate choice for `/uploads/` alone.
+
+> **Screenshot:** `http://192.168.77.80/uploads/` showing Apache directory listing
 
 ---
 
-## Leads forward
+## Content Discovery Output
 
-| Input / endpoint | Suspected weakness | Task it feeds |
-|---|---|---|
-| `/lookup` `connection` | SQLi — verbose/error-based (`bills` table, 7 cols, string context) | 8, 10 |
-| `/quick/check` `connection` | SQLi — likely blind | 9, 10 |
-| `/login`, `/admin/login` `email` | SQLi auth bypass | 5 |
-| `install-notes.txt` staff creds | direct staff login (no exploit needed) | 5 / 14 shortcut |
-| `/home/upload`, `/home/upload/avatar` `filename` / `Content-Type` | upload filter bypass → RCE | 7, 13, 16 |
-| `/uploads/` (executable, indexed) | reachable/executable payload location | 7, 13, 16 |
-| `/home/profile/update` fields | stored XSS / write-query SQLi / IDOR (`id`) | 6, 12, 15 |
-| `electra_session` (no HttpOnly) | session theft via XSS | 12 |
-| `/admin/tools/ping` `host` | OS command injection (`iputils-ping`) | 17 |
-| `/register` `connectionId` | account-binding / IDOR | 6 |
-| `_token` present on POST | CSRF needs a token-less GET state change | 18 |
+gobuster:
+
+> **Screenshot:** gobuster output showing hits including `robots.txt` (200), `install-notes.txt` (200), `web.config` (200), `/uploads/` (301), `/admin` (302)
+
+Nikto:
+
+> **Screenshot:** Nikto output
+
+Notable Nikto findings not covered elsewhere: missing security headers across the board (no CSP, HSTS, X-Content-Type-Options), internal IP `10.0.2.100` disclosed via Location header on `/images`, and independent confirmation of the missing `HttpOnly` flag on `electra_session`.
 
 ---
 
-## Evidence
+## Leads Forward
 
-Screenshots captured: endpoint probes (`/lookup`, `/quick/check`), cookie flags panel + `Set-Cookie`, verbose SQL error on `/lookup`, `robots.txt`, `install-notes.txt`, and gobuster output.
+Everything found in this phase maps to a later task:
+
+| Finding | Task |
+|---|---|
+| `/lookup` `connection` — SQLi, verbose, `bills` table, 7 cols | 8, 10 |
+| `/quick/check` `connection` — SQLi, likely blind | 9, 10 |
+| `/login` `email` — SQLi auth bypass | 5 |
+| `users` table passwords stored as MD5 | 11 |
+| `/lookup` `connection` — reflected XSS | 4 |
+| `/home/profile/update` `name`/`address` — stored XSS sink | 12 |
+| `electra_session` no HttpOnly — session theft via XSS | 12 |
+| `/home/upload` + `/home/upload/avatar` — extension filter bypass | 7, 13, 16 |
+| `/uploads/` web-reachable and executable | 7, 13, 16 |
+| `/home/profile/update` `id=1` — IDOR | 6 |
+| `/home/profile/update` via GET, no token — CSRF | 18 |
+| `/admin/tools/ping` `host` — command injection | 17 |
+| `/admin/updaterate` `rate` — rate tampering, 41,300 customers | 14 |
+| `install-notes.txt` staff creds — direct admin access | 14 |
