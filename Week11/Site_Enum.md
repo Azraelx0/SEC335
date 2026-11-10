@@ -84,7 +84,7 @@ Screenshots:
 |---|---|---|
 | `Server` header | Apache/2.4.67 (Debian) | Apache on Debian; `/uploads/` is server-executed -> `.htaccess` hijack plausible |
 | `X-Powered-By` | Not sent | Stripped, but other signals confirm PHP |
-| Session cookie name | `electra_session` | Laravel cookie format (`{iv,value,mac}`), renamed from default → Laravel/PHP |
+| Session cookie name | `electra_session` | Laravel cookie format (`{iv,value,mac}`), renamed from default Laravel/PHP |
 | CSRF token | `csrf-token` meta + `_token` hidden field | Laravel CSRF protection on POST forms |
 | Error-page style | Verbose MariaDB SQL error shown in-page | DB = MariaDB; debug/verbose errors on → leaks queries (CWE-209) |
 | Database | MariaDB (from SQL error) | MySQL-family syntax for injection |
@@ -102,6 +102,14 @@ Screenshots:
 | All pages | `csrf-token` meta | matches `_token` | CSRF task must target a state change that *lacks* a token |
 | `/lookup` | `connection` reflected in page | `'` → `&#039;` | Input reflected but HTML-encoded in `value` attr (escaped there) |
 | Upload (multipart) | `filename`, part `Content-Type` | client-controlled | Upload-filter bypass vectors |
+
+On the `/login` page, inputting ' into the `E-Mail` and `Password` fields returns a `Whoops!` page.  This includes a very valuable sql statement finding `(SQL: SELECT * FROM users WHERE email = ''' AND password = MD5(''') LIMIT 1)`
+
+We get a picture of the database having the table `users` and columns `email` `password`. This will be valuable for sql injection attempts. Second we see that the passwords are stored using MD5 which is an easily crackable hash.
+/
+xss alert:
+
+<img width="1898" height="1169" alt="image" src="https://github.com/user-attachments/assets/491589e6-4b39-44f8-9118-64c9235c995f" />
 
 ---
 
