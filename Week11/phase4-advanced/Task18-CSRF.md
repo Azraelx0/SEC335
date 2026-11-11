@@ -43,8 +43,7 @@ The payload page as the victim sees it:
 
 <img width="645" height="198" alt="image" src="https://github.com/user-attachments/assets/3d7ac434-4346-467a-8c88-b1e0fa273257" />
 
-My Account showing the address changed to "Owned via CSRF" with no interaction
-in eLECTRA:
+My Account showing the address changed to "Owned via CSRF" with no interaction in eLECTRA:
 
 <img width="816" height="495" alt="image" src="https://github.com/user-attachments/assets/742f336a-6e32-4c4e-a404-a2d3548f5127" />
 
