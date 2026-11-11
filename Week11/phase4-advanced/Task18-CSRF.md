@@ -45,7 +45,7 @@ The payload page as the victim sees it:
 
 My Account showing the address changed to "Owned via CSRF" with no interaction in eLECTRA:
 
-<img width="816" height="495" alt="image" src="https://github.com/user-attachments/assets/742f336a-6e32-4c4e-a404-a2d3548f5127" />
+<img width="816" height="495" alt="image" src="https://github.com/user-attachments/assets/742f336a-6e30-4c4e-a404-a2d3548f5127" />
 
 ## What this reveals to an attacker
 
