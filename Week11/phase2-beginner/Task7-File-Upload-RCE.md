@@ -1,4 +1,4 @@
-# Task 7 -- File Upload → RCE
+# Task 7: File Upload -> RCE
 
 **Vulnerability:** Unrestricted File Upload (CWE-434)
 **Endpoint:** `POST /home/upload`
