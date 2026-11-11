@@ -27,7 +27,7 @@ This repo is a comprehensive write-up on the simulated target web application eL
 | Task | File |
 |---|---|
 | Task 1 -- Lab Access & Burp Setup | [phase1-recon/Site_Enum.md](./phase1-recon/Site_Enum.md) |
-| Task 2 -- Map the Application | [Web-App-Exp&Discovery.md](./Web-App-Exp&Discovery.md) |
+| Task 2 -- Map the Application | [phase1-recon/Site_Enum.md](./phase1-recon/Site_Enum.md) |
 | Task 3 -- Info Disclosure | [phase1-recon/Site_Enum.md](./phase1-recon/Site_Enum.md) |
 | Task 4 -- Reflected XSS | [phase1-recon/Site_Enum.md](./phase1-recon/Site_Enum.md) |
 | Task 5 -- SQLi Auth Bypass | [phase2-beginner/Task5-SQLi-Auth-Bypass.md](./phase2-beginner/Task5-SQLi-Auth-Bypass.md) |
