@@ -1,4 +1,4 @@
-# Task 6 -- IDOR: Account Tampering
+# Task 6: IDOR: Account Tampering
 
 **Vulnerability:** Insecure Direct Object Reference (CWE-639)
 **Endpoint:** `GET /home/profile/update`
