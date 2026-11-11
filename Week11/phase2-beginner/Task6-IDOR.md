@@ -11,5 +11,4 @@ Using Burp we can send this request to the repeater and attempt to gain access t
 <img width="1039" height="30" alt="image" src="https://github.com/user-attachments/assets/1620c5d5-ed12-4847-86bd-f3e44f59548e" />
 
 
-<img width="1534" height="675" alt="image" src="https://github.com/user-attachments/assets/446161e0-b006-4cc9-9bb3-a767cc3088ad" />
-
+<img width="1526" height="679" alt="image" src="https://github.com/user-attachments/assets/664f3680-d6c2-487e-8809-33d2f3e627ca" />
