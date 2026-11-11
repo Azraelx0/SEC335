@@ -1,4 +1,4 @@
-# Task 13 -- Upload Filter Bypass
+# Task 13: Upload Filter Bypass
 
 **Vulnerability:** Unrestricted File Upload (CWE-434)
 **Endpoint:** `POST /home/upload/avatar`
