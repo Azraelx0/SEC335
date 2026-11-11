@@ -1,4 +1,4 @@
-# Task 16 - .htaccess Handler Hijacking
+# Task 16: .htaccess Handler Hijacking
 
 **Vulnerability:** Unrestricted File Upload (CWE-434)
 **Endpoint:** `POST /home/upload/avatar`
