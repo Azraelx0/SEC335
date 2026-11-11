@@ -49,7 +49,7 @@ Staff billing console accessed with no password:
 ## What this reveals to an attacker
 
 Both the customer and staff portals are fully accessible without valid credentials.
-The root cause is string concatenation -- user input is inserted directly into the
+The root cause is string concatenation as user input is inserted directly into the
 SQL query with no parameterization, so injected syntax is interpreted as part of
 the query rather than as a literal value.
 
