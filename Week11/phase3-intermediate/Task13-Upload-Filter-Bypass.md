@@ -1,4 +1,3 @@
-
 The first file upload that I tried was just a standard php shell script with the payload `<?php echo system($_GET['cmd']); ?>` this results in this output:
 
 <img width="748" height="626" alt="image" src="https://github.com/user-attachments/assets/c92b570a-066f-4e88-bc2c-dfdc74e2cfb6" />
