@@ -8,4 +8,10 @@ We then just change `application/x-php` to `image/png` and hit "forward" in Burp
 
 <img width="749" height="614" alt="image" src="https://github.com/user-attachments/assets/c9bc2de0-31f8-4350-9673-e190b83880c1" />
 
-<img width="749" height="614" alt="image" src="https://github.com/user-attachments/assets/d7518844-e5ac-487e-b953-91f9974caeb8" />
+Verify our script is working with by querying the `cmd` parameter:
+
+<img width="720" height="111" alt="image" src="https://github.com/user-attachments/assets/377a6baa-4ec9-4fc1-83b9-808301ab0d1a" />
+
+Now we can simply use cat as we would in a normal terminal to read the .env file:
+
+<img width="2480" height="166" alt="image" src="https://github.com/user-attachments/assets/a5a1881d-0031-4a15-bea9-d7fb7071b71f" />
