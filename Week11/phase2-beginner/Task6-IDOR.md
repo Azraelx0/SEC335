@@ -12,3 +12,7 @@ Using Burp we can send this request to the repeater and attempt to gain access t
 
 
 <img width="1526" height="679" alt="image" src="https://github.com/user-attachments/assets/664f3680-d6c2-487e-8809-33d2f3e627ca" />
+
+Now to verify I just have to log in with that user's account. Since the sqlmap also conveniently dumped this user's password, this is simply enough. Alternatively I could use the sqli auth bypass as well. After logging into the user's home page we see the following:
+
+<img width="379" height="150" alt="image" src="https://github.com/user-attachments/assets/c327ecb3-e95d-4188-9537-6c059a454c5b" />
