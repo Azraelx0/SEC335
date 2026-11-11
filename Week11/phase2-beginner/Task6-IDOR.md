@@ -6,7 +6,7 @@ Critically, the `ID` value isn't hidden very well as can be seen below:
 
 <img width="661" height="122" alt="image" src="https://github.com/user-attachments/assets/cbba5ea4-f5b7-49d3-b948-9315c25ea90d" />
 
-Using Burp we can send this request to the repeater and attempt to gain access to another user's account. First, I will run an sqlmap dump on the target table using `sqlmap -u "http://192.168.77.80/lookup?connection=1" --batch -D electra -T users --dump` to attempt to find the customer list. After running this I randomly chose the lucky individual who owns the account with ID 7:
+Using Burp we can send this request to the repeater and attempt to gain access to another user's account. First, I will run an sqlmap dump on the target table using `sqlmap -u "http://192.168.77.80/lookup?connection=1" --batch -D electra -T users --dump` to attempt to find the customer list. After running this I randomly selected the account with ID 7:
 
 <img width="1039" height="30" alt="image" src="https://github.com/user-attachments/assets/1620c5d5-ed12-4847-86bd-f3e44f59548e" />
 
@@ -16,3 +16,7 @@ Using Burp we can send this request to the repeater and attempt to gain access t
 Now to verify I just have to log in with that user's account. Since the sqlmap also conveniently dumped this user's password, this is simply enough. Alternatively I could use the sqli auth bypass as well. After logging into the user's home page we see the following:
 
 <img width="379" height="150" alt="image" src="https://github.com/user-attachments/assets/c327ecb3-e95d-4188-9537-6c059a454c5b" />
+
+From there we can change this user's login credentials included their password and email shown below.
+
+<img width="379" height="150" alt="image" src="https://github.com/user-attachments/assets/f51ba97b-a82c-4c34-93ab-79a62f6dba52" />
