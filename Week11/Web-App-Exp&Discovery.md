@@ -16,9 +16,6 @@ This repo is a comprehensive write-up on the simulated target web application eL
 ## Electives
 | Task | File |
 |---|---|
-| Task 3 -- Info Disclosure | [phase1-recon/Site_Enum.md](./phase1-recon/Site_Enum.md) |
-| Task 4 -- Reflected XSS | [phase1-recon/Site_Enum.md](./phase1-recon/Site_Enum.md) |
-| Task 15 -- SQLi Write Queries | [phase4-advanced/Task15-SQLi-Write-Queries.md](./phase4-advanced/Task15-SQLi-Write-Queries.md) |
 | Task 16 -- .htaccess Hijacking | [phase4-advanced/Task16-htaccess-Hijacking.md](./phase4-advanced/Task16-htaccess-Hijacking.md) |
 | Task 17 -- Command Injection | [phase4-advanced/Task17-Command-Injection.md](./phase4-advanced/Task17-Command-Injection.md) |
 | Task 18 -- CSRF | [phase4-advanced/Task18-CSRF.md](./phase4-advanced/Task18-CSRF.md) |
