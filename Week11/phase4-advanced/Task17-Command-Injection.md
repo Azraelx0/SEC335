@@ -41,7 +41,7 @@ Burp request edited and sent seen below:
 
 ## Evidence
 
-> **Screenshot:** `id` and `cat /var/www/electra/.env` output from the reverse shell
+The `id` and `cat /var/www/electra/.env` output from the reverse shell:
 
 <img width="699" height="853" alt="image" src="https://github.com/user-attachments/assets/1a292056-02d9-4dfe-90ed-b4ae522f98b4" />
 
