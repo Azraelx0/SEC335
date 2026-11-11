@@ -1,4 +1,4 @@
-# Task 10 -- sqlmap Automation
+# Task 10: sqlmap Automation
 
 **Vulnerability:** SQL Injection (CWE-89)
 **Endpoints:** `GET /lookup`, `GET /quick/check`
