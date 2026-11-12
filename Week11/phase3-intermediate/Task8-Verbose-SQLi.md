@@ -146,16 +146,13 @@ The admins table dumped the same way, the staff `email:hash` pairs:
 The error-based variant, first attempt: `extractvalue` refused by this build with
 "Only constant XPATH queries are supported," so the XPath channel is unavailable:
 
-<img width="914" height="495" alt="extractvalue blocked, only constant XPATH supported" src="https://github.com/user-attachments/assets/1794448107660_image.png" />
+<img width="921" height="471" alt="image" src="https://github.com/user-attachments/assets/152188c2-b9f5-4160-b420-18c986b47711" />
 
 The double-query fallback succeeding, leaking the first user's `email:hash` through
 a duplicate-key error with the `~` marker separating the value from the random
 collision output:
 
-<img width="914" height="548" alt="double-query group-by error leaking email and hash" src="https://github.com/user-attachments/assets/1794448163635_image.png" />
-
-Extracted hash values are `<REDACTED>` in this prose and kept in the local hash
-file for Task 11. They remain visible in the screenshots, which are the evidence.
+<img width="914" height="548" alt="image" src="https://github.com/user-attachments/assets/a77d325a-c828-4173-b3c0-dc4348722fbf" />
 
 ## What this reveals to an attacker
 
