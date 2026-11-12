@@ -1,4 +1,4 @@
-# Task 11 -- Cracking the Stolen Hashes
+# Task 11: Cracking the Stolen Hashes
 
 **Vulnerability:** Use of a Broken or Weak Hash, unsalted MD5 (CWE-916)
 **Endpoint:** offline, against the hashes dumped in Task 8
