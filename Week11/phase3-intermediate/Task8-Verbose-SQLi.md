@@ -146,7 +146,7 @@ The admins table dumped the same way, the staff `email:hash` pairs:
 The error-based variant, first attempt: `extractvalue` refused by this build with
 "Only constant XPATH queries are supported," so the XPath channel is unavailable:
 
-<img width="921" height="471" alt="image" src="https://github.com/user-attachments/assets/152188c2-b9f5-4160-b420-18c986b47711" />
+<img width="959" height="482" alt="image" src="https://github.com/user-attachments/assets/845916d2-0cf1-4ed5-ba24-400cdb2f967f" />
 
 The double-query fallback succeeding, leaking the first user's `email:hash` through
 a duplicate-key error with the `~` marker separating the value from the random
