@@ -21,4 +21,6 @@ Now we just change the value of `4` to something else in order to test. The goal
 
 <img width="2201" height="1218" alt="image" src="https://github.com/user-attachments/assets/a9048038-c5c5-427b-ab3d-6b6d392ba7c2" />
 
-Obviously this is pretty tedious, so I made a script that will speed this up, see [blind_extract.py](./blind_extract.py)
+Obviously this is pretty tedious, so I made a script that will speed this up, see [blind_extract.py](./blind_extract.py). Output from this script below.
+
+<img width="712" height="190" alt="image" src="https://github.com/user-attachments/assets/5427a819-62a4-4f67-932b-f2f87322c0ac" />
