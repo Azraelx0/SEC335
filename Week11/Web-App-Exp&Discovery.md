@@ -4,7 +4,7 @@
 
 ## Overview
 
-This repo is a comprehensive write-up on the simulated target web application eLECTRA. As this is a graded lab, for easy navigation the below required tasks are placed at the top along with the chosen electives. The rest of the tasks along with remediations are bonuses. Depending on time remediations may or may not be done for the given tasks.
+This repo is a comprehensive write-up on the simulated target web application eLECTRA. As this is a graded lab, for easy navigation the below required tasks are placed at the top along with the chosen electives. The rest of the tasks along with remediations are bonuses. Depending on time remediations may or may not be done for the given tasks. A helpful note that I figured out way to late is that you can select the text you want to URL encode within the repeater and press `ctrl+u`.
 
 Progress in lab: All tasks done except, 9, 12, 14, 15, and remediations.
 
