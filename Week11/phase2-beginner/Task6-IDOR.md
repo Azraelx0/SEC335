@@ -1,6 +1,7 @@
 # Task 6: IDOR: Account Tampering
 
 **Vulnerability:** Insecure Direct Object Reference (CWE-639)
+
 **Endpoint:** `GET /home/profile/update`
 
 From recon we know that profile updates submit over GET with the user's `id` as a
