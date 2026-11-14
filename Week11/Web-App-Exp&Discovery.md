@@ -1,6 +1,6 @@
 # eLECTRA Web Application Exploitation
 
-**Target:** `http://192.168.77.80` -- eLECTRA, Springfield Power & Light
+**Target:** `http://192.168.77.80` --> eLECTRA, Springfield Power & Light
 
 ## Overview
 
