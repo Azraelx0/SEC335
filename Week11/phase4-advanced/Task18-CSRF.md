@@ -1,4 +1,4 @@
-# Task 18 -- CSRF: The Free Extra Finding
+# Task 18: CSRF: The Free Extra Finding
 
 **Vulnerability:** Cross-Site Request Forgery (CWE-352)
 
