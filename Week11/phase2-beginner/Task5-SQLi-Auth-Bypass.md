@@ -1,6 +1,7 @@
 # Task 5: SQLi Authentication Bypass
 
 **Vulnerability:** SQL Injection (CWE-89)
+
 **Endpoint:** `POST /login`, `POST /admin/login`
 
 ---
