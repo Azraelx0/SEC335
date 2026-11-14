@@ -1,4 +1,4 @@
-# Task 17 -- Command Injection
+# Task 17: Command Injection
 
 **Vulnerability:** OS Command Injection (CWE-78)
 
