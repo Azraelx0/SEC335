@@ -1,6 +1,7 @@
 # Task 17 -- Command Injection
 
 **Vulnerability:** OS Command Injection (CWE-78)
+
 **Endpoint:** `GET /admin/tools/ping`
 
 The staff diagnostics tool passes the `host` parameter directly to a system ping
