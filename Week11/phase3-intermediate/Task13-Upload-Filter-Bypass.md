@@ -1,6 +1,7 @@
 # Task 13: Upload Filter Bypass
 
 **Vulnerability:** Unrestricted File Upload (CWE-434)
+
 **Endpoint:** `POST /home/upload/avatar`
 
 The avatar uploader blocks `.php` by extension but does not validate alternative
