@@ -1,6 +1,7 @@
 # Task 7: File Upload -> RCE
 
 **Vulnerability:** Unrestricted File Upload (CWE-434)
+
 **Endpoint:** `POST /home/upload`
 
 As seen in recon, the document uploader on `/home/upload` rejects PHP files but its
