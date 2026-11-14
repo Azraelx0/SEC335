@@ -1,6 +1,7 @@
 # Task 18 -- CSRF: The Free Extra Finding
 
 **Vulnerability:** Cross-Site Request Forgery (CWE-352)
+
 **Endpoint:** `GET /home/profile/update`
 
 From recon we confirmed that `/home/profile/update` submits over GET with no CSRF
