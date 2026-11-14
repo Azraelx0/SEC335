@@ -1,8 +1,8 @@
 # Task 8: Verbose SQLi Extraction
 
 **Vulnerability:** SQL Injection, UNION and error-based (CWE-89)
+
 **Endpoint:** `GET /lookup?connection=`
-**Context:** single-quoted string, 7 columns, all displayed
 
 The Bill Lookup page prints the `connection` value straight back and concatenates
 it into a single-quoted SQL string against the `bills` table. That gives both a
