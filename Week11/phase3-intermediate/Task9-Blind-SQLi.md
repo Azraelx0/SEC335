@@ -1,8 +1,8 @@
 # Task 9: Time-Based Blind SQLi
 
 **Vulnerability:** SQL Injection, time-based blind (CWE-89)
+
 **Endpoint:** `GET /quick/check?connection=`
-**Context:** single-quoted string, no data reflected, no error text
 
 The Quick Check page tells a visitor whether a connection ID is registered, and it
 answers FOUND or not. Unlike the `/lookup` endpoint in Task 8, it reflects no rows
