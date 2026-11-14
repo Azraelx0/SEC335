@@ -3,6 +3,8 @@
 **Vulnerability:** SQL Injection (CWE-89)
 **Endpoint:** `POST /login`, `POST /admin/login`
 
+---
+
 From recon we know that `/login` takes `email` in a single-quoted string context:
 
 ```sql
