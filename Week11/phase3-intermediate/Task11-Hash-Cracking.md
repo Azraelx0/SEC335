@@ -1,8 +1,8 @@
 # Task 11: Cracking the Stolen Hashes
 
 **Vulnerability:** Use of a Broken or Weak Hash, unsalted MD5 (CWE-916)
+
 **Endpoint:** offline, against the hashes dumped in Task 8
-**Source:** `users` and `admins` tables via the `/lookup` UNION dump
 
 Task 8 pulled every `email:hash` pair out of the `users` and `admins` tables through
 the pre-auth lookup injection. The stored passwords are unsalted MD5, which is fast
