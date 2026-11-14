@@ -1,6 +1,7 @@
 # Task 16: .htaccess Handler Hijacking
 
 **Vulnerability:** Unrestricted File Upload (CWE-434)
+
 **Endpoint:** `POST /home/upload/avatar`
 
 The avatar uploader's blacklist only checks for executable extensions like `.php`
