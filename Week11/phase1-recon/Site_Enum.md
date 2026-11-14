@@ -1,7 +1,9 @@
 # Recon & Discovery
 
 **Target:** `http://192.168.77.80` — eLECTRA, Springfield Power & Light billing portal
+
 **Accounts:** `m.holloway@electra.lab` (customer), anonymous, `a.deshmukh@electra.lab` (staff acc recovered from info leak)
+
 **Tools:** Burp Suite, gobuster, Nikto, Firefox dev tools
 
 ---
