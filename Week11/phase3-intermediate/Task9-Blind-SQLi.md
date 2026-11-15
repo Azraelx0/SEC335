@@ -66,11 +66,12 @@ id=1's hash is `0`:
 
 Recovering all 32 characters of an MD5 hash one guess at a time by hand is quite
 slow, so I wrote a script to automate it (see [blind_extract.py](./blind_extract.py)).
-It does the same thing the manual requests do, but it binary-searches each
-character by its ASCII value instead of guessing letter by letter, which resolves a
+It does the same thing the manual requests do except it binary-searches each
+character by its ASCII value instead of guessing letter by letter. This resolves a
 character in a handful of requests rather than up to sixteen. It goes through the whole
 table row by row, so pointing it at `admins` recovers every staff account, and the
-same code dumps `users` if I point it there.
+same code dumps `users` if I point it there. Also note that this is pretty slow as it waits the five seconds
+and sqlmap is a much more logical option to use here but it was a neat application in this instance.
 
 ## Evidence
 
