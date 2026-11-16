@@ -1,0 +1,18 @@
+OAS v1.2 - DEPLOYMENT NOTES   (left by the install contractor -- do not publish!)
+
+Staff console   : /adminlogin.php
+  * Admission manager  : AD00000001 / admin        <-- CHANGE THIS
+  * Assistant manager  : AD00002   / QCoxFrwx      <-- CHANGE THIS
+
+Database        : MySQL on localhost
+  * user: root   password: (none)                  <-- CHANGE THIS
+  * schema: oas
+
+Uploads         : studentpic/, studentdoc/, studentproof/   (inside web root)
+  * old vendor asked for directory listing to stay ON so the review team can
+    browse documents without logging in.
+
+Network tool    : /tools.php   (ping test for the campus network team)
+
+TODO before go-live: move this file out of the web root, turn off directory
+listing on the document folders, and rotate every credential above.
