@@ -1,0 +1,32 @@
+- Nikto v2.6.1/
++ Target Host: 192.168.77.90
++ Target Port: 80
++ GET /studentdoc/: Directory indexing found. See: CWE-548: 
++ GET /robots.txt: Entry '/studentdoc/' is returned a non-forbidden or redirect HTTP code (200). See: https://portswigger.net/kb/issues/00600600_robots-txt-file: 
++ GET /studentpic/: Directory indexing found. See: CWE-548: 
++ GET /robots.txt: Entry '/studentpic/' is returned a non-forbidden or redirect HTTP code (200). See: https://portswigger.net/kb/issues/00600600_robots-txt-file: 
++ GET /studentproof/: Directory indexing found. See: CWE-548: 
++ GET /robots.txt: Entry '/studentproof/' is returned a non-forbidden or redirect HTTP code (200). See: https://portswigger.net/kb/issues/00600600_robots-txt-file: 
++ GET /robots.txt: Entry '/install-notes.txt' is returned a non-forbidden or redirect HTTP code (200). See: https://portswigger.net/kb/issues/00600600_robots-txt-file: 
++ GET /robots.txt: contains 4 entries which should be manually viewed. See: https://developer.mozilla.org/en-US/docs/Glossary/Robots.txt: 
++ UKXQPPCM /: Web Server returns a valid response with junk HTTP methods which may cause false positives.
++ HEAD Apache/2.4.67 appears to be outdated (current is at least 2.4.68).
++ GET /images: RFC-1918 IP address found in the 'location' header. The IP is "10.0.2.100". See: https://portswigger.net/kb/issues/00600300_private-ip-addresses-disclosed: 
++ GET /images: The web server may reveal its internal or real IP in the Location header via a request to with HTTP/1.0. The value is "10.0.2.100". See: CVE-2000-0649: 
++ GET /: Suggested security header missing: x-content-type-options. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options: 
++ GET /: Suggested security header missing: content-security-policy. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP: 
++ GET /: Suggested security header missing: permissions-policy. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Permissions-Policy: 
++ GET /: Suggested security header missing: referrer-policy. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy: 
++ GET /: Suggested security header missing: strict-transport-security. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security: 
++ GET /admin.php?en_log_id=0&action=config: EasyNews version 4.3 allows remote admin access. This PHP file should be protected. See: CVE-2006-5412: 
++ GET /admin.php?en_log_id=0&action=users: EasyNews version 4.3 allows remote admin access. This PHP file should be protected. See: CVE-2006-5412: 
++ GET /admin.php: This might be interesting.
++ GET /css/: Directory indexing found. See: CWE-548: 
++ GET /css/: This might be interesting.
++ GET /mail/: Directory indexing found. See: CWE-548: 
++ GET /mail/: This might be interesting.
++ GET /images/: Directory indexing found. See: CWE-548: 
++ GET /.gitignore: .gitignore file found. It is possible to grasp the directory structure.
++ GET /.dockerignore: .dockerignore file found. It may be possible to grasp the directory structure and learn more about the site.
++ GET /: X-Frame-Options header is deprecated and was replaced with the Content-Security-Policy HTTP header with the frame-ancestors directive. See: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/X-Frame-Options: 
++ GET /: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/: 
