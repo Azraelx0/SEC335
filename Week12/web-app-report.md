@@ -5,3 +5,5 @@ This md will be structured as a professional level web app pentest report on Cen
 
 
 start time: 11/15/2026 19:06
+
+In this pentest I will primarily be using the WSTG framework.
