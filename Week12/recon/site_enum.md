@@ -57,7 +57,12 @@ That led me to the "Track Application" page where I input the newly acquired "Us
 ### Digging Deeper
 With the endpoints that anyone on the website can get to mapped, I am going to move onto the sub-directories found by nmap. 
 I begin with `/robots.txt` which mentions four disallowed directories: `/install-notes.txt`, `/studentdoc/`, `/studentpic/`, and `/studentproof/`.
-First, I browse to `/install-notes.txt/` as files like this can be extremely high value. We find the following info:
+One other thing of note is that I did check for a site map and .git file using:
+```
+curl -s http://192.168.77.90/sitemap.xml
+curl -s http://192.168.77.90/.git/HEAD
+```
+However, this turned up no results. So I moved onto examining the  `/install-notes.txt` as files like this can be extremely high value. We find the following info:
 
 <img width="636" height="366" alt="image" src="https://github.com/user-attachments/assets/a7e52eeb-5f7f-429a-a612-e7317dd1bde3" />
 
@@ -111,9 +116,6 @@ Add New Manager
 
 <img width="1396" height="601" alt="image" src="https://github.com/user-attachments/assets/552308bd-69b3-4632-9a52-159c2a7b136f" />
 
-
-
-
 ### Endpoint Map
 
 | Endpoint | Method | Who can reach | Where in the UI | Interesting input |
@@ -139,3 +141,14 @@ Add New Manager
 | `/adminac.php` | GET | Admin | Admit card | `id` |
 | `/global_search.php` | GET | Admin | Search bar | `term` |
 | `/readID.php` | POST | Admin | Search autocomplete | `keyword` |
+
+
+
+## Active Scanning
+
+first I run a gobuster scan with `gobuster dir -u http://192.168.77.90/ -w /usr/share/wordlists/dirb/common.txt -x php,txt,bak,old,sql,zip,conf -o scans/gobuster-root.txt`. This turned up some interesting additional directories including `/mail/` and `/fileupload.php`.
+
+Next I will run a niktos scan on the target using `nikto -h http://192.168.77.90/ -o scans/nikto.txt`. This scan's output can be seen below:
+
+<img width="2163" height="895" alt="image" src="https://github.com/user-attachments/assets/cd45fd95-0317-45d9-9283-57c84963fe68" />
+
