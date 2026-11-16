@@ -76,6 +76,40 @@ Note the vary interesting option below this tool. Clicking "Back to admin consol
 
 Next, I follow the prompt to login. This reveals the endpoint `/adminlogin.php` with an option to login. Here I attempt to login using the credentials `test` and `test` to trigger a POST request in Burp.
 On the website we get the message "Invalid Login! Please try again."
+This concludes the site walk from an unauthenticated user. Next I will do the same thing from the standard user account created earlier.
+Logging in reveals an admissions form page with a large multi-field input document. Filling it in and sending it results in the following in Burp:
+
+<img width="1036" height="469" alt="image" src="https://github.com/user-attachments/assets/fad18c14-064a-4d65-8e9a-252e03243562" />
+
+This is a large list of parameters but I will note one, `detid`, yet another hidden parameter that passes a blank value. After submitting that it brings us to a page where we upload various supporting documents for the application at `/documents.php`. After some testing only picture file extensions are allow to be uploaded. An example POST request from this page is below:
+
+<img width="824" height="334" alt="image" src="https://github.com/user-attachments/assets/f6f73e2e-f6d8-4c27-86d3-296270b7ca67" />
+
+Once the POST goes through an interesting message is displayed at the top left of the webpage "Inserted to DB" as seen below:
+
+<img width="1358" height="886" alt="image" src="https://github.com/user-attachments/assets/cd8b5ed0-6365-497d-a5a2-5b870ff29e6a" />
+
+Another interesting thing about this page is that if the "I accept" option in the agreement portion of the page is selected then the page immediately moves to the `/admsnreport.php` page without allowing document submission. In addition, if this agreement is not selected then the page will not show the aforementioned report page.
+After this page the only other options are to print the report or use the "Login again" button to trigger `/logout.php` to login again or as another user.
+
+Since admin credentials were recovered during this phase, I can now walk the site as an admin. First, we'll examine the site from the admission manager's account.
+After logging in the follow new options are found, also note the previously discovered diagnostics tool. The other admin account shows the same endpoints so this concludes the site walk with Burp. The below screenshots are the most prominent new endpoint in the admin console.
+
+Administration Cell
+
+<img width="1438" height="887" alt="image" src="https://github.com/user-attachments/assets/3f1937df-3987-46fd-b528-120a221b42fe" />
+
+Enter OMR
+
+<img width="1427" height="448" alt="image" src="https://github.com/user-attachments/assets/59161311-3302-43d6-91e6-c6efe8c27556" />
+
+Enter Marks
+
+<img width="1386" height="458" alt="image" src="https://github.com/user-attachments/assets/947a1b84-2508-4524-b9c6-e448c649dcd2" />
+
+Add New Manager
+
+<img width="1396" height="601" alt="image" src="https://github.com/user-attachments/assets/552308bd-69b3-4632-9a52-159c2a7b136f" />
 
 
 
@@ -96,3 +130,12 @@ On the website we get the message "Invalid Login! Please try again."
 | `/tools.php` | GET | Anyone | /install-notes.txt | `host` |
 | `/admin.php` | GET | Anyone | /tools.php | N/A |
 | `/adminlogin.php` | GET/POST | Anyone | /admin.php | `a_id` `a_ps` `txtid` |
+| `/admsnform.php` | GET/POST | Registered User | Admission Form | See admissions form POST above|
+| `/documents.php` | GET/POST | Registered User | Document Upload Page | `image upload` |
+| `/admsnreport.php` | GET | Registered User | Admissions Report | N/A |
+| `/logout.php` | GET | Registered User | /admsnreport.php | Can test if session invalidates on server-side |
+| `/admin.php` | GET/POST | Admin | Admin console | `disapp` `markof` `omarkof` `txtid` `txtpwd` |
+| `/viewform.php` | GET | Admin | Applicant form | `id` |
+| `/adminac.php` | GET | Admin | Admit card | `id` |
+| `/global_search.php` | GET | Admin | Search bar | `term` |
+| `/readID.php` | POST | Admin | Search autocomplete | `keyword` |
