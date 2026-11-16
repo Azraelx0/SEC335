@@ -1,0 +1,58 @@
+# Nmap 7.991 scan initiated Sun Nov 15 19:16:24 2026 as: /usr/lib/nmap/nmap --privileged -sC -sV -p 80,11010,11011,11012,11013,15888 -oA scans/nmap-services 192.168.77.90
+Nmap scan report for 192.168.77.90
+Host is up (0.053s latency).
+
+PORT      STATE SERVICE     VERSION
+80/tcp    open  http        Apache httpd 2.4.67 ((Debian))
+| http-cookie-flags: 
+|   /: 
+|     PHPSESSID: 
+|_      httponly flag not set
+| http-robots.txt: 4 disallowed entries 
+| /install-notes.txt /studentdoc/ /studentpic/ 
+|_/studentproof/
+|_http-title: Site doesn't have a title (text/html; charset=UTF-8).
+|_http-server-header: Apache/2.4.67 (Debian)
+11010/tcp open  tcpwrapped
+11011/tcp open  unknown
+| fingerprint-strings: 
+|   DNSStatusRequestTCP, DNSVersionBindReqTCP, FourOhFourRequest, GetRequest, HTTPOptions, Help, JavaRMI, Kerberos, LANDesk-RC, LDAPBindReq, LDAPSearchReq, LPDString, NCP, NotesRPC, RPCCheck, RTSPRequest, SIPOptions, SMBProgNeg, SSLSessionReq, TLSSessionReq, TerminalServer, TerminalServerCookie, WMSRequest, X11Probe, afp, giop, ms-sql-s, oracle-tns: 
+|_    HTTP/1.1 400 Bad Request
+11012/tcp open  ssl/unknown
+| ssl-cert: Subject: commonName=rcgen self signed cert
+| Subject Alternative Name: DNS:localhost
+| Not valid before: 1975-01-01T00:00:00
+|_Not valid after:  4096-01-01T00:00:00
+|_ssl-date: TLS randomness does not represent time
+11013/tcp open  tcpwrapped
+15888/tcp open  tcpwrapped
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port11011-TCP:V=7.991%I=7%D=11/15%Time=6AFA4B5F%P=x86_64-pc-linux-gnu%r
+SF:(GetRequest,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(HTTPOpti
+SF:ons,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(RTSPRequest,1C,"
+SF:HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(RPCCheck,1C,"HTTP/1\.1\x
+SF:20400\x20Bad\x20Request\r\n\r\n")%r(DNSVersionBindReqTCP,1C,"HTTP/1\.1\
+SF:x20400\x20Bad\x20Request\r\n\r\n")%r(DNSStatusRequestTCP,1C,"HTTP/1\.1\
+SF:x20400\x20Bad\x20Request\r\n\r\n")%r(Help,1C,"HTTP/1\.1\x20400\x20Bad\x
+SF:20Request\r\n\r\n")%r(SSLSessionReq,1C,"HTTP/1\.1\x20400\x20Bad\x20Requ
+SF:est\r\n\r\n")%r(TerminalServerCookie,1C,"HTTP/1\.1\x20400\x20Bad\x20Req
+SF:uest\r\n\r\n")%r(TLSSessionReq,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r
+SF:\n\r\n")%r(Kerberos,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(
+SF:SMBProgNeg,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(X11Probe,
+SF:1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(FourOhFourRequest,1C
+SF:,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(LPDString,1C,"HTTP/1\.
+SF:1\x20400\x20Bad\x20Request\r\n\r\n")%r(LDAPSearchReq,1C,"HTTP/1\.1\x204
+SF:00\x20Bad\x20Request\r\n\r\n")%r(LDAPBindReq,1C,"HTTP/1\.1\x20400\x20Ba
+SF:d\x20Request\r\n\r\n")%r(SIPOptions,1C,"HTTP/1\.1\x20400\x20Bad\x20Requ
+SF:est\r\n\r\n")%r(LANDesk-RC,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r
+SF:\n")%r(TerminalServer,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%
+SF:r(NCP,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(NotesRPC,1C,"H
+SF:TTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(JavaRMI,1C,"HTTP/1\.1\x20
+SF:400\x20Bad\x20Request\r\n\r\n")%r(WMSRequest,1C,"HTTP/1\.1\x20400\x20Ba
+SF:d\x20Request\r\n\r\n")%r(oracle-tns,1C,"HTTP/1\.1\x20400\x20Bad\x20Requ
+SF:est\r\n\r\n")%r(ms-sql-s,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n
+SF:")%r(afp,1C,"HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n")%r(giop,1C,"HT
+SF:TP/1\.1\x20400\x20Bad\x20Request\r\n\r\n");
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sun Nov 15 19:16:49 2026 -- 1 IP address (1 host up) scanned in 25.95 seconds
