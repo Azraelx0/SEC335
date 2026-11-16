@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.991 scan initiated Sun Nov 15 19:16:24 2026 as: /usr/lib/nmap/nmap -&#45;privileged -sC -sV -p 80,11010,11011,11012,11013,15888 -oA scans/nmap-services 192.168.77.90 -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -&#45;privileged -sC -sV -p 80,11010,11011,11012,11013,15888 -oA scans/nmap-services 192.168.77.90" start="1794788184" startstr="Sun Nov 15 19:16:24 2026" version="7.991" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="6" services="80,11010-11013,15888"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<hosthint><status state="up" reason="unknown-response" reason_ttl="0"/>
+<address addr="192.168.77.90" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<host starttime="1794788184" endtime="1794788209"><status state="up" reason="echo-reply" reason_ttl="64"/>
+<address addr="192.168.77.90" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" product="Apache httpd" version="2.4.67" extrainfo="(Debian)" method="probed" conf="10"><cpe>cpe:/a:apache:http_server:2.4.67</cpe></service><script id="http-cookie-flags" output="&#xa;  /: &#xa;    PHPSESSID: &#xa;      httponly flag not set"><table key="/">
+<table key="PHPSESSID">
+<elem>httponly flag not set</elem>
+</table>
+</table>
+</script><script id="http-robots.txt" output="4 disallowed entries &#xa;/install-notes.txt /studentdoc/ /studentpic/ &#xa;/studentproof/"/><script id="http-title" output="Site doesn&apos;t have a title (text/html; charset=UTF-8)."><elem key="title"></elem>
+</script><script id="http-server-header" output="Apache/2.4.67 (Debian)"><elem>Apache/2.4.67 (Debian)</elem>
+</script></port>
+<port protocol="tcp" portid="11010"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="tcpwrapped" method="probed" conf="8"/></port>
+<port protocol="tcp" portid="11011"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="unknown" servicefp="SF-Port11011-TCP:V=7.991%I=7%D=11/15%Time=6AFA4B5F%P=x86_64-pc-linux-gnu%r(GetRequest,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(HTTPOptions,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(RTSPRequest,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(RPCCheck,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(DNSVersionBindReqTCP,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(DNSStatusRequestTCP,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(Help,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(SSLSessionReq,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(TerminalServerCookie,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(TLSSessionReq,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(Kerberos,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(SMBProgNeg,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(X11Probe,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(FourOhFourRequest,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(LPDString,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(LDAPSearchReq,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(LDAPBindReq,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(SIPOptions,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(LANDesk-RC,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(TerminalServer,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(NCP,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(NotesRPC,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(JavaRMI,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(WMSRequest,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(oracle-tns,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(ms-sql-s,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(afp,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;)%r(giop,1C,&quot;HTTP/1\.1\x20400\x20Bad\x20Request\r\n\r\n&quot;);" method="table" conf="3"/><script id="fingerprint-strings" output="&#xa;  DNSStatusRequestTCP, DNSVersionBindReqTCP, FourOhFourRequest, GetRequest, HTTPOptions, Help, JavaRMI, Kerberos, LANDesk-RC, LDAPBindReq, LDAPSearchReq, LPDString, NCP, NotesRPC, RPCCheck, RTSPRequest, SIPOptions, SMBProgNeg, SSLSessionReq, TLSSessionReq, TerminalServer, TerminalServerCookie, WMSRequest, X11Probe, afp, giop, ms-sql-s, oracle-tns: &#xa;    HTTP/1.1 400 Bad Request"><elem key="DNSStatusRequestTCP, DNSVersionBindReqTCP, FourOhFourRequest, GetRequest, HTTPOptions, Help, JavaRMI, Kerberos, LANDesk-RC, LDAPBindReq, LDAPSearchReq, LPDString, NCP, NotesRPC, RPCCheck, RTSPRequest, SIPOptions, SMBProgNeg, SSLSessionReq, TLSSessionReq, TerminalServer, TerminalServerCookie, WMSRequest, X11Probe, afp, giop, ms-sql-s, oracle-tns">&#xa;    HTTP/1.1 400 Bad Request</elem>
+</script></port>
+<port protocol="tcp" portid="11012"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="unknown" tunnel="ssl" method="table" conf="3"/><script id="ssl-cert" output="Subject: commonName=rcgen self signed cert&#xa;Subject Alternative Name: DNS:localhost&#xa;Not valid before: 1975-01-01T00:00:00&#xa;Not valid after:  4096-01-01T00:00:00"><table key="subject">
+<elem key="commonName">rcgen self signed cert</elem>
+</table>
+<table key="issuer">
+<elem key="commonName">rcgen self signed cert</elem>
+</table>
+<table key="pubkey">
+<elem key="type">ec</elem>
+<elem key="bits">256</elem>
+<table key="ecdhparams">
+<table key="curve_params">
+<elem key="ec_curve_type">namedcurve</elem>
+<elem key="curve">prime256v1</elem>
+</table>
+</table>
+</table>
+<table key="extensions">
+<table>
+<elem key="name">X509v3 Subject Alternative Name</elem>
+<elem key="value">DNS:localhost</elem>
+</table>
+</table>
+<elem key="sig_algo">ecdsa-with-SHA256</elem>
+<table key="validity">
+<elem key="notBefore">1975-01-01T00:00:00</elem>
+<elem key="notAfter">4096-01-01T00:00:00</elem>
+</table>
+<elem key="md5">a6e53fd3baf0dbd885b4ea684b20e497</elem>
+<elem key="sha1">76978ed2dca86d6b02484d1b7369b2312372e806</elem>
+<elem key="sha256">8f96110128627d5ea75e5ebdfab32727f2f2d3fd00f2eac601fabe397373b74d</elem>
+<elem key="pem">-&#45;&#45;&#45;&#45;BEGIN CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;MIIBXDCCAQSgAwIBAgIUdNxw5H9YfOMQhlZbLBVZaSzd5PgwCgYIKoZIzj0EAwIw&#xa;ITEfMB0GA1UEAwwWcmNnZW4gc2VsZiBzaWduZWQgY2VydDAgFw03NTAxMDEwMDAw&#xa;MDBaGA80MDk2MDEwMTAwMDAwMFowITEfMB0GA1UEAwwWcmNnZW4gc2VsZiBzaWdu&#xa;ZWQgY2VydDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBk++zK8DkktCYoyFibj&#xa;5AfZm7HXs0Z3fKyRgmuENm1DIUTTrBC3mAlNlSI5WdN/y4mGO+ACzCOXUV2NEtUn&#xa;lvGjGDAWMBQGA1UdEQQNMAuCCWxvY2FsaG9zdDAKBggqhkjOPQQDAgNGADBDAh87&#xa;I5JAeTVpAHJch6egnOwZd0mbeUNOqbxAmuKmxV1WAiBFDCbPv5V6SrJGj2mksoOH&#xa;5Cw68SGwQkw9KP6/KqlgIw==&#xa;-&#45;&#45;&#45;&#45;END CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;</elem>
+</script><script id="ssl-date" output="TLS randomness does not represent time"></script></port>
+<port protocol="tcp" portid="11013"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="tcpwrapped" method="probed" conf="8"/></port>
+<port protocol="tcp" portid="15888"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="tcpwrapped" method="probed" conf="8"/></port>
+</ports>
+<times srtt="52689" rttvar="9380" to="100000"/>
+</host>
+<runstats><finished time="1794788209" timestr="Sun Nov 15 19:16:49 2026" summary="Nmap done at Sun Nov 15 19:16:49 2026; 1 IP address (1 host up) scanned in 25.95 seconds" elapsed="25.95" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>
