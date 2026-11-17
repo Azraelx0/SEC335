@@ -38,10 +38,10 @@ Tooling included nmap, whatweb, wafw00f, Burp Suite, gobuster, and nikto for dis
 
 | # | Finding | Severity | CVSS | WSTG | CWE | Detail |
 |---|---|---|---|---|---|---|
-| 1 | SQL Injection Authentication Bypass | Critical | 9.8 | ATHN-04, INPV-05 | CWE-89 | [View](./findings/ATHN-01_sqli-auth-bypass/README.md) |
-| 2 | OS Command Injection (unauthenticated RCE) | Critical | 9.8 | INPV-12 | CWE-78 | [View](./findings/INPV-01_command-injection/README.md) |
-| 3 | Insecure Direct Object Reference (unauthenticated PII) | High | 7.5 | ATHZ-04 | CWE-639 | [View](./findings/ATHZ-01_idor/README.md) |
-| 4 | Stored Cross-Site Scripting (admin session theft) | High | 8.2 | INPV-02 | CWE-79 | [View](./findings/INPV-02_stored-xss/README.md) |
+| 1 | SQL Injection Authentication Bypass | Critical | 9.8 | ATHN-04, INPV-05 | CWE-89 | [View](./findings/sqli-auth-bypass/README.md) |
+| 2 | OS Command Injection (unauthenticated RCE) | Critical | 9.8 | INPV-12 | CWE-78 | [View](./findings/command-injection/README.md) |
+| 3 | Insecure Direct Object Reference (unauthenticated PII) | High | 7.5 | ATHZ-04 | CWE-639 | [View](./findings/idor/README.md) |
+| 4 | Stored Cross-Site Scripting (admin session theft) | High | 8.2 | INPV-02 | CWE-79 | [View](./findings/stored-xss/README.md) |
 
 Supporting weaknesses observed during testing and referenced within the findings above include cleartext storage of credentials (CWE-256), database access as root with no password, a session cookie without the HttpOnly flag, directory listing enabled on document folders, sensitive files left in the web root, and a session identifier that is not regenerated on login.
 
