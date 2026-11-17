@@ -30,7 +30,7 @@ Four distinct vulnerability classes were confirmed end to end, with additional s
 
 The engagement followed the PTES lifecycle, moving from intelligence gathering through vulnerability analysis to exploitation and post-exploitation. Individual tests were structured around the OWASP Web Security Testing Guide categories, and each confirmed vulnerability is mapped to its WSTG identifier, its CWE, and the relevant MITRE ATT&CK technique. The reconnaissance phase (host discovery, service fingerprinting, three-tier application mapping, and content discovery) is documented separately:
 
-- **Reconnaissance and enumeration:** [recon/Site_Enum.md](./recon/Site_Enum.md)
+- **Reconnaissance and enumeration:** [recon/Site_Enum.md](./recon/site_enum.md)
 
 Tooling included nmap, whatweb, wafw00f, Burp Suite, gobuster, and nikto for discovery and testing, and netcat for the post-exploitation shell. All exploitation was performed manually and reproduced end to end.
 
@@ -89,4 +89,4 @@ All findings share a common root cause theme: user input is trusted and acted up
 
 ## 8. Appendix: Reconnaissance
 
-The full reconnaissance and enumeration phase, including the host and service scans, the three-tier application map, the endpoint inventory, content discovery, and the candidate vulnerability list that drove the exploitation phase, is documented here: [recon/Site_Enum.md](./recon/Site_Enum.md)
+The full reconnaissance and enumeration phase, including the host and service scans, the three-tier application map, the endpoint inventory, content discovery, and the candidate vulnerability list that drove the exploitation phase, is documented here: [recon/Site_Enum.md](./recon/site_enum.md)
