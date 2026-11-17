@@ -3,7 +3,7 @@
 **Target:** `http://192.168.77.90/` (Online Admission System, OAS v1.2)
 **Assessment type:** Authenticated and unauthenticated web application penetration test
 **Methodology:** OWASP Web Security Testing Guide (WSTG), Penetration Testing Execution Standard (PTES), MITRE ATT&CK
-**Author:** Caden Mercer (SEC335)
+**Author:** Azraelx0 (SEC335)
 
 ---
 
@@ -61,19 +61,19 @@ Each finding below is documented in full, with the exact request or payload, the
 
 ### 6.1 SQL Injection Authentication Bypass (Critical)
 
-The administrator login at `/adminlogin.php` is vulnerable to SQL injection in the `a_id` parameter. The payload `' OR 1=1-- -` bypasses the login entirely and authenticates as the super-admin with no credentials. Full writeup: [findings/ATHN-01_sqli-auth-bypass/README.md](./findings/ATHN-01_sqli-auth-bypass/README.md)
+The administrator login at `/adminlogin.php` is vulnerable to SQL injection in the `a_id` parameter. The payload `' OR 1=1-- -` bypasses the login entirely and authenticates as the super-admin with no credentials. Full writeup: [findings/ATHN-01_sqli-auth-bypass/README.md](./findings/sqli-auth-bypass/README.md)
 
 ### 6.2 OS Command Injection (Critical)
 
-The unauthenticated diagnostic tool at `/tools.php` passes the `host` parameter to a shell, allowing arbitrary command execution as `www-data`. This was escalated to an interactive shell, database compromise, and recovery of the plaintext administrator credential store. Full writeup: [findings/INPV-01_command-injection/README.md](./findings/INPV-01_command-injection/README.md)
+The unauthenticated diagnostic tool at `/tools.php` passes the `host` parameter to a shell, allowing arbitrary command execution as `www-data`. This was escalated to an interactive shell, database compromise, and recovery of the plaintext administrator credential store. Full writeup: [findings/INPV-01_command-injection/README.md](./findings/command-injection/README.md)
 
 ### 6.3 Insecure Direct Object Reference (High)
 
-The `/viewform.php` endpoint returns any applicant's full record based on a predictable `id` parameter and performs no authorization check, so an unauthenticated attacker can read and enumerate every applicant's personal data. Full writeup: [findings/ATHZ-01_idor/README.md](./findings/ATHZ-01_idor/README.md)
+The `/viewform.php` endpoint returns any applicant's full record based on a predictable `id` parameter and performs no authorization check, so an unauthenticated attacker can read and enumerate every applicant's personal data. Full writeup: [findings/ATHZ-01_idor/README.md](./findings/idor/README.md)
 
 ### 6.4 Stored Cross-Site Scripting (High)
 
-Admission form fields are stored and rendered without output encoding, so a low-privilege applicant can store a script that executes in the administrator's session during normal review. Combined with a session cookie that lacks the HttpOnly flag, this enables administrator session theft. Full writeup: [findings/INPV-02_stored-xss/README.md](./findings/INPV-02_stored-xss/README.md)
+Admission form fields are stored and rendered without output encoding, so a low-privilege applicant can store a script that executes in the administrator's session during normal review. Combined with a session cookie that lacks the HttpOnly flag, this enables administrator session theft. Full writeup: [findings/INPV-02_stored-xss/README.md](./findings/stored-xss/README.md)
 
 ## 7. Remediation Summary
 
