@@ -82,6 +82,34 @@ The tester repeated the injection with no session cookie set. The request carrie
 
 <img width="1814" height="960" alt="image" src="https://github.com/user-attachments/assets/93c4d44d-ba1f-4578-a005-ce4370731931" />
 
+
+### reverse shell
+
+injecting payload and listener opening session:
+
+<img width="1925" height="847" alt="image" src="https://github.com/user-attachments/assets/421d76c8-e4a2-4543-90bb-cc7b017c4d10" />
+
+stabilizing shell
+
+<img width="630" height="194" alt="image" src="https://github.com/user-attachments/assets/a5fde40a-a2e7-4411-8b23-67543880ab7a" />
+
+db creds:
+
+<img width="1147" height="293" alt="image" src="https://github.com/user-attachments/assets/0baeef1c-5840-42f8-9ae8-e853797d6c45" />
+
+mysql tables output
+
+<img width="666" height="206" alt="image" src="https://github.com/user-attachments/assets/3de6c8c7-ef1a-485c-a388-3ddff5d8ca43" />
+
+ls la of the webserver root
+
+<img width="657" height="1084" alt="image" src="https://github.com/user-attachments/assets/ed914875-b5ac-41ac-8b1c-d8df53fda267" />
+
+getting passwords from the admins table
+
+<img width="742" height="184" alt="image" src="https://github.com/user-attachments/assets/55336c34-a550-4446-9603-ecc047fe15c3" />
+
+
 ## Impact
 
 This is a critical vulnerability. Any unauthenticated attacker who can reach the diagnostics tool gains arbitrary command execution on the server as the `www-data` account, which includes reading local files such as `/etc/passwd` and the application source. Command execution reaches the local MySQL service, which runs as root with no password, so the attacker can read, modify, or delete the entire `oas` database, including applicant personal data, stored credentials, marks, and administrator accounts. A single unauthenticated web request therefore leads to total compromise of the application and its data.
