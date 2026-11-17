@@ -91,4 +91,4 @@ All findings share a common root cause theme: user input is trusted and acted up
 
 The full reconnaissance and enumeration phase, including the host and service scans, the three-tier application map, the endpoint inventory, content discovery, and the candidate vulnerability list that drove the exploitation phase, is documented here: [recon/Site_Enum.md](./recon/site_enum.md)
 
-In addition, evidence and scan output can be found here: [scans](./scans) [evidence](./evidence)
+In addition, evidence and scan output can be found here: [scans](./recon/scans) and [evidence](./recon/evidence)
