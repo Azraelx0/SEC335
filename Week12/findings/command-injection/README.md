@@ -166,8 +166,6 @@ mysql -u root oas -e "select * from t_admin;"
 
 The passwords are stored in plaintext in the `ad_pswd` column, so every administrator credential, including the super-admin `AD00000001`, was recovered directly with no cracking required. This plaintext storage is itself a separate finding (cleartext storage of credentials, CWE-256).
 
-> Redact the `ad_pswd` values in this screenshot before committing, since the repository is public.
-
 <img width="742" height="184" alt="image" src="https://github.com/user-attachments/assets/55336c34-a550-4446-9603-ecc047fe15c3" />
 
 ## Impact
